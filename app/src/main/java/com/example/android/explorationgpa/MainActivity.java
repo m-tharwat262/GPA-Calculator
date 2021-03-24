@@ -1,8 +1,12 @@
 package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -24,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // TODO(1): Setup the preference to contain the student name and ID.
-                // TODO(2): Setup an intent to open the next activity.
+
+                // destroy the current Activity and start the GpaActivity
+                Intent intent = new Intent(MainActivity.this , GpaActivity.class);
+                finish();
+                startActivity(intent);
 
             }
         });
