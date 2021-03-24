@@ -2,6 +2,7 @@ package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,8 @@ public class GpaActivity extends AppCompatActivity {
 
             case R.id.action_settings:
                 // TODO: start setting activity.
+                Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

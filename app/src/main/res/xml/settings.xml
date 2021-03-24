@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+   <PreferenceCategory
+       android:title="@string/settings_category_student_info">
+
+
+    <EditTextPreference
+        android:title="@string/settings_student_name_label"
+        android:defaultValue="@string/settings_student_name_default"
+        android:key="@string/settings_student_name_key"
+        android:inputType="textCapWords"
+        android:selectAllOnFocus="true" />
+
+    <EditTextPreference
+        android:title="@string/settings_student_id_label"
+        android:defaultValue="@string/settings_student_id_default"
+        android:key="@string/settings_student_id_key"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true" />
+
+</PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_category_sync">
+    <ListPreference
+        android:title="@string/settings_subject_language_label"
+        android:defaultValue="@string/settings_subject_language_english_value"
+        android:key="@string/settings_subject_language_key"
+        android:entries="@array/settings_subject_language_labels"
+        android:entryValues="@array/settings_subject_language_values" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

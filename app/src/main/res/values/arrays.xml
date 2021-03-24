@@ -1,0 +1,12 @@
+<resources>
+    <!-- for SettingsActivity -->
+    <string-array name="settings_subject_language_labels">
+        <item>@string/settings_subject_language_english_label</item> // English
+        <item>@string/settings_subject_language_arabic_label</item> // Arabic
+    </string-array>
+
+    <string-array name="settings_subject_language_values">
+        <item>@string/settings_subject_language_english_value</item> // magnitude
+        <item>@string/settings_subject_language_arabic_value</item> // time
+    </string-array>
+</resources>
