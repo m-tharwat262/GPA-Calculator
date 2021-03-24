@@ -13,9 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static final String LOG_TAG = LoginActivity.class.getSimpleName();
     private SharedPreferences mSharedPrefs;
 
     @Override
@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 setPreference();
 
                 // destroy the current Activity and start the GpaActivity
-                Intent intent = new Intent(MainActivity.this , GpaActivity.class);
-                finish();
+                Intent intent = new Intent(LoginActivity.this , GpaActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
