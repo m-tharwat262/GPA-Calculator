@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.activity_main_full_layout);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.activity_main_progress_bar);
 
         TextView mNextButton = (TextView) findViewById(R.id.activity_main_next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // TODO(1): Setup the preference to contain the student name and ID.
+
+                // make only the progress bar visible
+                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
 
                 // destroy the current Activity and start the GpaActivity
                 Intent intent = new Intent(MainActivity.this , GpaActivity.class);
