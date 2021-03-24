@@ -3,6 +3,11 @@
 
 
 
-    // For mainActivity.xml
+    // For activity_main.xml
     <string name="next_button">Next</string>
+
+
+
+    // For menu_gpa.xml
+    <string name="action_settings">Settings</string>
 </resources>
