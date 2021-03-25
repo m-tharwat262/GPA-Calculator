@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.explorationgpa.settings.SettingsActivity;
+
 public class GpaActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPrefs;

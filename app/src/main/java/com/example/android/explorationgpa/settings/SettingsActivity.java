@@ -1,4 +1,4 @@
-package com.example.android.explorationgpa;
+package com.example.android.explorationgpa.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.android.explorationgpa.R;
 
 
 public class SettingsActivity extends AppCompatActivity {
