@@ -11,10 +11,20 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings">
+            android:name=".settings.SuccessActivity"
+            android:label="@string/title_activity_settings_subject_success" />
 
-        </activity>
+        <activity
+            android:name=".settings.HoursActivity"
+            android:label="@string/title_activity_settings_subject_hours" />
+
+        <activity
+            android:name=".settings.CalculationActivity"
+            android:label="@string/title_activity_settings_calculat_gpa"/>
+
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings" />
 
         <activity
             android:name=".GpaActivity">
@@ -24,11 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_log_in">
-        </activity>
+            android:label="@string/title_activity_log_in" />
     </application>
 
 </manifest>
