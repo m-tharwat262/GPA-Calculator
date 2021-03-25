@@ -22,20 +22,21 @@
     // for category label
     <string name="settings_category_student_info">Student Info</string>
     <string name="settings_category_sync">Sync</string>
+    <string name="settings_category_notes">Notes</string>
 
 
-    // for student name
+    // for info category => student name
     <string name="settings_student_name_label">Your Name</string>
     <string name="settings_student_name_key" translatable="false">student_name</string>
     <string name="settings_student_name_default" translatable="false">Anon</string>
 
-    //for student id
+    // for info category =>  student id
     <string name="settings_student_id_label">Your ID</string>
     <string name="settings_student_id_key" translatable="false">student_id</string>
     <string name="settings_student_id_default" translatable="false">00000</string>
 
 
-    // for subject language
+    // for sync category =>  subject language
     <string name="settings_subject_language_label">Subjects Language</string>
     <string name="settings_subject_language_key" translatable="false">subject_language</string>
     <string name="settings_subject_language_default" translatable="false">@string/settings_subject_language_english_value</string>
@@ -45,4 +46,19 @@
 
     <string name="settings_subject_language_arabic_label">Arabic</string>
     <string name="settings_subject_language_arabic_value" translatable="false">time</string>
+
+
+    // for notes category => calculate gpa
+    <string name="settings_calculation_name_label">Calculate GPA</string>
+    <string name="settings_calculation_name_key" translatable="false">calculation</string>
+
+    // for notes category => subject hours
+    <string name="settings_subject_hours_name_label">Subject Hours</string>
+    <string name="settings_subject_hours_name_key" translatable="false">subject_hours</string>
+
+    // for notes category => subject success
+    <string name="settings_subject_success_label">Subject Success</string>
+    <string name="settings_subject_success_key" translatable="false">subject_success</string>
+
+
 </resources>
