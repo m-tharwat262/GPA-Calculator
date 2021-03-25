@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.activity_main_full_layout);
