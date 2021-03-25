@@ -41,7 +41,7 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.TODO"
+                android:targetClass="com.example.android.explorationgpa.settings.CalculationActivity"
                 android:targetPackage="com.example.android.explorationgpa" />
         </Preference>
 
@@ -52,7 +52,7 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.TODO"
+                android:targetClass="com.example.android.explorationgpa.settings.HoursActivity"
                 android:targetPackage="com.example.android.explorationgpa" />
         </Preference>
 
@@ -63,7 +63,7 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.TODO"
+                android:targetClass="com.example.android.explorationgpa.settings.SuccessActivity"
                 android:targetPackage="com.example.android.explorationgpa" />
         </Preference>
 
