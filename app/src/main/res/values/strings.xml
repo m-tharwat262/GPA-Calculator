@@ -2,7 +2,7 @@
     <string name="app_name">Exploration GPA</string>
 
 
-    // For activity_main.xml
+    // For Buttons
     <string name="next_button">Next</string>
 
 
@@ -68,6 +68,22 @@
     // for notes category => subject success
     <string name="settings_subjects_order_label">Subjects Order</string>
     <string name="settings_subjects_order_key" translatable="false">subjects_order</string>
+
+
+
+
+    /////// For activities xml files ///////
+
+
+    // For activity_info
+    <string name="name">Name</string>
+    <string name="id">ID</string>
+    <string name="term">Term</string>
+    <string name="year">Year</string>
+    <string name="semester_first_radio">First</string>
+    <string name="semester_second_radio">Second</string>
+    <string name="hint_for_name">Your Name (English)</string>
+    <string name="hint_for_id">00000</string>
 
 
 </resources>
