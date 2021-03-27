@@ -16,11 +16,7 @@
     <string name="title_activity_settings_calculate_gpa">Calculation</string>
     <string name="title_activity_settings_subject_hours">Hours</string>
     <string name="title_activity_settings_subject_success">Success</string>
-
-
-
-
-
+    <string name="title_activity_settings_subjects_order">Order</string>
 
 
     //////// for SettingsActivity //////////
@@ -67,6 +63,10 @@
     // for notes category => subject success
     <string name="settings_subject_success_label">Subject Success</string>
     <string name="settings_subject_success_key" translatable="false">subject_success</string>
+
+    // for notes category => subject success
+    <string name="settings_subjects_order_label">Subjects Order</string>
+    <string name="settings_subjects_order_key" translatable="false">subjects_order</string>
 
 
 </resources>
