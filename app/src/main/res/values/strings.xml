@@ -19,9 +19,7 @@
     <string name="title_activity_settings_subject_hours">Hours</string>
     <string name="title_activity_settings_subject_success">Success</string>
     <string name="title_activity_settings_subjects_order">Order</string>
-
-
-
+    <string name="title_activity_add_semester">Add Semester</string>
 
 
     ///////////////////////////////// For SettingsActivity /////////////////////////////////
@@ -74,10 +72,6 @@
     <string name="settings_subjects_order_key" translatable="false">subjects_order</string>
 
 
-
-
-
-
     ///////////////////////////////// For SettingsActivity /////////////////////////////////
 
 
@@ -87,11 +81,6 @@
     <string name="spinner_year_two">Second year</string>
     <string name="spinner_year_three">Third year</string>
     <string name="spinner_year_four">Senior year</string>
-
-
-
-
-
 
 
     ///////////////////////////////// For activities xml files /////////////////////////////////

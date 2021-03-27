@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddSemesterActivity"
+            android:label="@string/title_activity_add_semester"
+            />
+        <activity
             android:name=".InfoActivity"
-            android:label="@string/title_activity_gpa"/>
+            android:label="@string/title_activity_gpa" />
         <activity
             android:name=".settings.OrderActivity"
             android:label="@string/title_activity_settings_subjects_order" />
