@@ -34,6 +34,8 @@ public class GpaActivity extends AppCompatActivity {
             public void onClick(View view) {
 
             // TODO: intent to open the next activity.
+                Intent intent = new Intent(GpaActivity.this, InfoActivity.class);
+                startActivity(intent);
 
             }
         });
