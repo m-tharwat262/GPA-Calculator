@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".InfoActivity"
+            android:label="@string/title_activity_gpa"/>
+        <activity
             android:name=".settings.OrderActivity"
-            android:label="@string/title_activity_settings_subjects_order"/>
+            android:label="@string/title_activity_settings_subjects_order" />
         <activity
             android:name=".settings.SuccessActivity"
             android:label="@string/title_activity_settings_subject_success" />
@@ -24,16 +27,18 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".GpaActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_log_in" />
+        <activity
+            android:name=".GpaActivity"
+            android:label="@string/title_activity_gpa">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_log_in" />
     </application>
 
 </manifest>
