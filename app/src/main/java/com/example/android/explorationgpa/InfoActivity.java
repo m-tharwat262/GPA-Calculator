@@ -40,7 +40,7 @@ public class InfoActivity extends AppCompatActivity {
 
         setupYearSpinner();
         setupSemesterRadio();
-
+        checkPreferences();
 
 
     }
@@ -50,10 +50,8 @@ public class InfoActivity extends AppCompatActivity {
      */
     private void setupYearSpinner() {
 
-
         levelSpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_level_options, android.R.layout.simple_spinner_item);
-
 
         // Specify dropdown layout style - simple list view with 1 item per line
         levelSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -68,15 +66,15 @@ public class InfoActivity extends AppCompatActivity {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.spinner_year_zero))) {
-                        mYear = 0;
+                        mYear = 0; // primary year
                     } else if (selection.equals(getString(R.string.spinner_year_one))) {
-                        mYear = 1;
+                        mYear = 1; // firs year
                     } else if (selection.equals(getString(R.string.spinner_year_two))) {
-                        mYear = 2;
+                        mYear = 2; // second year
                     } else if (selection.equals(getString(R.string.spinner_year_three))) {
-                        mYear = 3;
+                        mYear = 3; // third year
                     } else {
-                        mYear = 4;
+                        mYear = 4; // four year
                     }
                 }
             }
@@ -115,6 +113,26 @@ public class InfoActivity extends AppCompatActivity {
 
 
 
+    /**
+     * setup the EditText field to automatically write the user data (name and id) from the preference settings
+     */
+    private void checkPreferences () {
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // get the student name from the preference settings
+        String studentNamePreference = sharedPrefs.getString(
+                getString(R.string.settings_student_name_key),
+                getString(R.string.settings_student_name_default));
+
+        // get the student id from the preference settings
+        String studentIdPreference = sharedPrefs.getString(
+                getString(R.string.settings_student_id_key),
+                getString(R.string.settings_student_id_default));
+
+        // make the EditTexts write the student name & id that saved in the prefernce
+        mNameEditText.setText(studentNamePreference);
+        mCodeEditText.setText(studentIdPreference);
+    }
 
 }
