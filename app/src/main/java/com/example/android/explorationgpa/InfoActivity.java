@@ -2,6 +2,7 @@ package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,7 +44,18 @@ public class InfoActivity extends AppCompatActivity {
         setupSemesterRadio();
         checkPreferences();
 
+        // click on the next button send intent to open the AddSemesterActivity
+        Button nextButton = (Button) findViewById(R.id.activity_info_next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                // open the AddSemesterActivity
+                Intent intent = new Intent(InfoActivity.this, AddSemesterActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     /**

@@ -2,13 +2,13 @@
 
     <!-- for SettingsActivity -->
     <string-array name="settings_subject_language_labels">
-        <item>@string/settings_subject_language_english_label</item> // English
-        <item>@string/settings_subject_language_arabic_label</item> // Arabic
+        <item>@string/settings_subject_language_english_label</item>
+        <item>@string/settings_subject_language_arabic_label</item>
     </string-array>
 
     <string-array name="settings_subject_language_values">
-        <item>@string/settings_subject_language_english_value</item> // magnitude
-        <item>@string/settings_subject_language_arabic_value</item> // time
+        <item>@string/settings_subject_language_english_value</item>
+        <item>@string/settings_subject_language_arabic_value</item>
     </string-array>
 
 
