@@ -10,7 +10,8 @@
     <string name="action_settings">Settings</string>
 
 
-    // For AndroidManifests file
+    ///////////////////////////////// For AndroidManifests file /////////////////////////////////
+
     <string name="title_activity_gpa">GPA</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_log_in">Log in</string>
@@ -20,28 +21,31 @@
     <string name="title_activity_settings_subjects_order">Order</string>
 
 
-    //////// for SettingsActivity //////////
+
+
+
+    ///////////////////////////////// For SettingsActivity /////////////////////////////////
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">Gpa Settings</string>
 
-    // for category label
+    <!-- for category label -->
     <string name="settings_category_student_info">Student Info</string>
     <string name="settings_category_sync">Sync</string>
     <string name="settings_category_notes">Notes</string>
 
 
-    // for info category => student name
+    <!-- for info category => student name -->
     <string name="settings_student_name_label">Your Name</string>
     <string name="settings_student_name_key" translatable="false">student_name</string>
     <string name="settings_student_name_default" translatable="false">Anon</string>
 
-    // for info category => student id
+    <!-- for info category => student id -->
     <string name="settings_student_id_label">Your ID</string>
     <string name="settings_student_id_key" translatable="false">student_id</string>
     <string name="settings_student_id_default" translatable="false">00000</string>
 
 
-    // for sync category => subject language
+    <!-- for sync category => subject language -->
     <string name="settings_subject_language_label">Subjects Language</string>
     <string name="settings_subject_language_key" translatable="false">subject_language</string>
     <string name="settings_subject_language_default" translatable="false">@string/settings_subject_language_english_value</string>
@@ -53,29 +57,46 @@
     <string name="settings_subject_language_arabic_value" translatable="false">time</string>
 
 
-    // for notes category => calculate gpa
+    <!-- for notes category => calculate gpa -->
     <string name="settings_calculation_name_label">Calculate GPA</string>
     <string name="settings_calculation_name_key" translatable="false">calculation</string>
 
-    // for notes category => subject hours
+    <!-- for notes category => subject hours -->
     <string name="settings_subject_hours_name_label">Subject Hours</string>
     <string name="settings_subject_hours_name_key" translatable="false">subject_hours</string>
 
-    // for notes category => subject success
+    <!-- for notes category => subject success -->
     <string name="settings_subject_success_label">Subject Success</string>
     <string name="settings_subject_success_key" translatable="false">subject_success</string>
 
-    // for notes category => subject success
+    <!-- for notes category => subject success -->
     <string name="settings_subjects_order_label">Subjects Order</string>
     <string name="settings_subjects_order_key" translatable="false">subjects_order</string>
 
 
 
 
-    /////// For activities xml files ///////
 
 
-    // For activity_info
+    ///////////////////////////////// For SettingsActivity /////////////////////////////////
+
+
+    <!-- fot Spinner -->
+    <string name="spinner_year_zero">Primary year</string>
+    <string name="spinner_year_one">First year</string>
+    <string name="spinner_year_two">Second year</string>
+    <string name="spinner_year_three">Third year</string>
+    <string name="spinner_year_four">Senior year</string>
+
+
+
+
+
+
+
+    ///////////////////////////////// For activities xml files /////////////////////////////////
+
+    <!-- for activity_info.xml  -->
     <string name="name">Name</string>
     <string name="id">ID</string>
     <string name="term">Term</string>

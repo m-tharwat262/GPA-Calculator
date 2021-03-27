@@ -1,4 +1,5 @@
 <resources>
+
     <!-- for SettingsActivity -->
     <string-array name="settings_subject_language_labels">
         <item>@string/settings_subject_language_english_label</item> // English
@@ -8,5 +9,16 @@
     <string-array name="settings_subject_language_values">
         <item>@string/settings_subject_language_english_value</item> // magnitude
         <item>@string/settings_subject_language_arabic_value</item> // time
+    </string-array>
+
+
+
+    <!-- These are the options displayed in the level drop-down Spinner -->
+    <string-array name="array_level_options">
+        <item>@string/spinner_year_zero</item>
+        <item>@string/spinner_year_one</item>
+        <item>@string/spinner_year_two</item>
+        <item>@string/spinner_year_three</item>
+        <item>@string/spinner_year_four</item>
     </string-array>
 </resources>
