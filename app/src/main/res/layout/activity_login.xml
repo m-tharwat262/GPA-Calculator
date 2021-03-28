@@ -87,7 +87,7 @@
         android:layout_gravity="center"
         android:layout_margin="16sp"
         android:padding="16dp"
-        android:text="@string/next_button"
+        android:text="@string/button_next"
         android:textColor="#F0514B"
         android:textSize="20dp"
         android:enabled="true"

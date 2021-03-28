@@ -3,7 +3,9 @@
 
 
     // For Buttons
-    <string name="next_button">Next</string>
+    <string name="button_next">Next</string>
+    <string name="button_done">Done</string>
+    <string name="button_back_to_edit">Edit</string>
 
 
     // For menu_gpa.xml
@@ -88,8 +90,9 @@
     <!-- for activity_info.xml  -->
     <string name="name">Name</string>
     <string name="id">ID</string>
-    <string name="term">Term</string>
     <string name="year">Year</string>
+    <string name="term">Term</string>
+    <string name="semester">Semester</string>
     <string name="semester_first_radio">First</string>
     <string name="semester_second_radio">Second</string>
     <string name="hint_for_name">Your Name (English)</string>
