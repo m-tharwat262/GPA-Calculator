@@ -18,7 +18,10 @@ import android.widget.Spinner;
 
 public class InfoActivity extends AppCompatActivity {
 
-    private EditText mNameEditText, mCodeEditText;
+
+    private static final String LOG_TAG = InfoActivity.class.getSimpleName();
+
+    private EditText mNameEditText, mIdEditText;
     private Spinner mLevelSpinner;
     private ArrayAdapter levelSpinnerAdapter;
     private RadioGroup mRadioGroup;
@@ -33,7 +36,7 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         mNameEditText = (EditText) findViewById(R.id.activity_info_student_name);
-        mCodeEditText = (EditText) findViewById(R.id.activity_info_student_id);
+        mIdEditText = (EditText) findViewById(R.id.activity_info_student_id);
         mLevelSpinner = (Spinner) findViewById(R.id.activity_info_spinner_year);
         mRadioGroup = (RadioGroup) findViewById(R.id.activity_info_radio_buttons);
         mFirstSemester = (RadioButton) findViewById(R.id.activity_info_radio_first);
@@ -52,6 +55,7 @@ public class InfoActivity extends AppCompatActivity {
 
                 // open the AddSemesterActivity
                 Intent intent = new Intent(InfoActivity.this, AddSemesterActivity.class);
+                intent = makeContentOfIntent(intent); // get the intent contain the info which will be send
                 startActivity(intent);
 
             }
@@ -145,7 +149,31 @@ public class InfoActivity extends AppCompatActivity {
 
         // make the EditTexts write the student name & id that saved in the prefernce
         mNameEditText.setText(studentNamePreference);
-        mCodeEditText.setText(studentIdPreference);
+        mIdEditText.setText(studentIdPreference);
+    }
+
+
+    /**
+     * put the information that should be send from that activity to the next one
+     * like (student name & id - number of the year & term).
+     *
+     * @param intent for the intent which will be send
+     *
+     * @return intent include information
+     */
+    private Intent makeContentOfIntent(Intent intent) {
+
+        String studentName = mNameEditText.getText().toString(); // get student name from EditText.
+        String studentIdString = mIdEditText.getText().toString(); // get student id from EditText.
+        int studentId = Integer.parseInt(studentIdString); // convert the id form string to integer
+
+        // put the information which will be send inside the intent
+        intent.putExtra("student_name", studentName); // for student name
+        intent.putExtra("student_id", studentId); // for student id
+        intent.putExtra("year_number", mYear); // for number of the year
+        intent.putExtra("term_number",mTerm); // for number of the term
+
+        return intent;
     }
 
 }
