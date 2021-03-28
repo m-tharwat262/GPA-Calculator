@@ -99,4 +99,95 @@
     <string name="hint_for_id">00000</string>
 
 
+
+
+
+
+    <!-- subjects name for semester 1 -->
+    <string name="semester_1_subject_1">Mathematics I</string>
+    <string name="semester_1_subject_2">Mechanics I</string>
+    <string name="semester_1_subject_3">Physics I</string>
+    <string name="semester_1_subject_4">General Chemistry</string>
+    <string name="semester_1_subject_5">Introduction to Geology</string>
+    <string name="semester_1_subject_6">Introduction to Computer</string>
+    <string name="semester_1_subject_7">Engineering Drawing &amp; Projection</string>
+
+    <!-- subjects name for semester 2 -->
+    <string name="semester_2_subject_1">Mathematics II</string>
+    <string name="semester_2_subject_2">Mechanics II</string>
+    <string name="semester_2_subject_3">Physics II</string>
+    <string name="semester_2_subject_4">Production Engineering</string>
+    <string name="semester_2_subject_5">History of Engineering</string>
+    <string name="semester_2_subject_6">Technical English I</string>
+
+    <!-- subjects name for semester 3 -->
+    <string name="semester_3_subject_1">Mathematics III</string>
+    <string name="semester_3_subject_2">Physics III</string>
+    <string name="semester_3_subject_3">Physical Chemistry</string>
+    <string name="semester_3_subject_4">Strength of Materials</string>
+    <string name="semester_3_subject_5">Sedimentology &amp; Stratigraphy</string>
+    <string name="semester_3_subject_6">Computer Programming</string>
+    <string name="semester_3_subject_7">Technical English II</string>
+
+    <!-- subjects name for semester 4 -->
+    <string name="semester_4_subject_1">Organic Chemistry</string>
+    <string name="semester_4_subject_2">Structure Geology</string>
+    <string name="semester_4_subject_3">Plan Surveying &amp; Topography</string>
+    <string name="semester_4_subject_4">Introduction to Material</string>
+    <string name="semester_4_subject_5">Introduction to Production Engineering</string>
+    <string name="semester_4_subject_6">Engineering Drawing &amp; AutoCAD</string>
+    <string name="semester_4_subject_7">Human Rights</string>
+
+    <!-- subjects name for semester 5 -->
+    <string name="semester_5_subject_1">Analytical Chemistry</string>
+    <string name="semester_5_subject_2">Fluid Mechanics</string>
+    <string name="semester_5_subject_3">Reservoir Rock Properties</string>
+    <string name="semester_5_subject_4">Fundamental of Electrical Engineering</string>
+    <string name="semester_5_subject_5">Automatic Control</string>
+    <string name="semester_5_subject_6">Gas Treatment</string>
+    <string name="semester_5_subject_7">Technical III</string>
+
+    <!-- subjects name for semester 6 -->
+    <string name="semester_6_subject_1">Drilling Engineering I</string>
+    <string name="semester_6_subject_2">Rock Mechanics</string>
+    <string name="semester_6_subject_3">Thermodynamics</string>
+    <string name="semester_6_subject_4">Reservoir Fluids</string>
+    <string name="semester_6_subject_5">Crude Oil Evaluation</string>
+    <string name="semester_6_subject_6">Economics &amp; Management</string>
+
+    <!-- subjects name for semester 7 -->
+    <string name="semester_7_subject_1">Exploration Geophysics I</string>
+    <string name="semester_7_subject_2">Horizontal Drilling Technology</string>
+    <string name="semester_7_subject_3">Petroleum Geology</string>
+    <string name="semester_7_subject_4">Well Logging</string>
+    <string name="semester_7_subject_5">Natural Gas Engineering</string>
+    <string name="semester_7_subject_6">Safety &amp; Labors Law</string>
+
+    <!-- subjects name for semester 8 -->
+    <string name="semester_8_subject_1">Exploration Geophysics II</string>
+    <string name="semester_8_subject_2">Petroleum Production Engineering I</string>
+    <string name="semester_8_subject_3">Drilling &amp; Production Equipments</string>
+    <string name="semester_8_subject_4">Applied Reservoir Engineering</string>
+    <string name="semester_8_subject_5">Well Completion Engineering</string>
+    <string name="semester_8_subject_6">Environmental Risk Assessment in Petroleum Industry</string>
+
+    <!-- subjects name for semester 9 -->
+    <string name="semester_9_subject_1">Petroleum Production Engineering II</string>
+    <string name="semester_9_subject_2">Drilling Engineering II</string>
+    <string name="semester_9_subject_3">Well Testing</string>
+    <string name="semester_9_subject_4">Computer Application in Petroleum Engineering</string>
+    <string name="semester_9_subject_5">Enhanced Oil Recovery</string>
+    <string name="semester_9_subject_6">Engineering Esthetes</string>
+    <string name="semester_9_subject_7">Senior Project</string>
+
+    <!-- subjects name for semester 10 -->
+    <string name="semester_10_subject_1">Well Design &amp; Construction Engineering</string>
+    <string name="semester_10_subject_2">Formation Evaluation</string>
+    <string name="semester_10_subject_3">Transporting &amp; Storage of Oil/Gas</string>
+    <string name="semester_10_subject_4">Reservoir Simulation</string>
+    <string name="semester_10_subject_5">Formation Stimulation</string>
+    <string name="semester_10_subject_6">Management Science &amp; Determination Decision Models</string>
+    <string name="semester_10_subject_7">Senior Project</string>
+
+
 </resources>
