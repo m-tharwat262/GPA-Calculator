@@ -12,3 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/app/src/main/res/layout/subject_item_for_arabic_language.xml

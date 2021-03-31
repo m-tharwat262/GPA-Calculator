@@ -73,10 +73,6 @@
     <string name="settings_subjects_order_label">Subjects Order</string>
     <string name="settings_subjects_order_key" translatable="false">subjects_order</string>
 
-
-    ///////////////////////////////// For SettingsActivity /////////////////////////////////
-
-
     <!-- fot Spinner -->
     <string name="spinner_year_zero">Primary year</string>
     <string name="spinner_year_one">First year</string>
@@ -85,18 +81,35 @@
     <string name="spinner_year_four">Senior year</string>
 
 
+
+
+
+
+
     ///////////////////////////////// For activities xml files /////////////////////////////////
 
+
+    <string name="name">Name</string> // activity_info.xml - activity_add_semester.xml
+    <string name="id">ID</string> // activity_info.xml - activity_add_semester.xml
+    <string name="subject_hint_degree">000</string> // activity_add_semester.xml - subject_item_for_arabic_language.xml
+
     <!-- for activity_info.xml  -->
-    <string name="name">Name</string>
-    <string name="id">ID</string>
     <string name="year">Year</string>
     <string name="term">Term</string>
-    <string name="semester">Semester</string>
-    <string name="semester_first_radio">First</string>
-    <string name="semester_second_radio">Second</string>
     <string name="hint_for_name">Your Name (English)</string>
     <string name="hint_for_id">00000</string>
+    <string name="semester_first_radio">First</string>
+    <string name="semester_second_radio">Second</string>
+
+
+    <!-- for activity_add_semester.xml  -->
+    <string name="semester">Semester</string>
+
+
+    <!-- for subject_item.xml  -->
+    <string name="subject_hundred_degree">/100</string>
+
+
 
 
 
