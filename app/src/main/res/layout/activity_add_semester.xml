@@ -1,71 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".AddSemesterActivity" >
+    android:orientation="vertical"
+    tools:context=".AddSemesterActivity">
 
+    <!-- for the top part that include the basic info -->
     <LinearLayout
+        android:id="@+id/activity_add_semester_student_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <View
-            android:id="@+id/activity_add_semester_top_shadow"
-            android:layout_width="match_parent"
-            android:layout_height="96dp" />
+        <!-- for the left side to basic info Name & ID & Semester -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
 
-        <View style="@style/Divider_vertical" />
+            <!-- for name word -->
+            <TextView
+                style="@style/GpaStudentInfo"
+                android:text="@string/name" />
+
+            <!-- for id word -->
+            <TextView
+                style="@style/GpaStudentInfo"
+                android:text="@string/id" />
+
+            <!-- for semester word -->
+            <TextView
+                style="@style/GpaStudentInfo"
+                android:text="@string/semester" />
+
+        </LinearLayout>
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+        <!-- for the right side to basic info Name & ID & Semester -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <!-- for student name -->
+            <TextView
+                android:id="@+id/activity_add_semester_name"
+                style="@style/GpaStudentInfo"
+                tools:text="Mahmoud Tharwat Mohamed" />
+
+            <!-- for student id -->
+            <TextView
+                android:id="@+id/activity_add_semester_id"
+                style="@style/GpaStudentInfo"
+                tools:text="17136" />
+
+            <!-- linear contain the number of the semester and edit button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="horizontal">
 
+                <!-- for semester number -->
+                <TextView
+                    android:id="@+id/activity_add_semester_number_of_semester"
+                    style="@style/GpaStudentInfo"
+                    tools:text="3" />
+
+                <!-- for edit button -->
+                <TextView
+                    android:id="@+id/activity_add_semester_button_edit"
+                    style="@style/GpaStudentInfo"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="end"
+                    android:text="@string/button_back_to_edit"
+                    android:textColor="#3700B3" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- linear include all the semester info, shadows and lines -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!-- shadow for the top part which contain the basic info -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="85dp" />
+
+        <!-- to make thick (2dp) line across the layout after the basic info -->
+        <View style="@style/Divider_vertical_2dp" />
+
+        <!-- to make the layout able to scroll -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- linear include all the semester info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <!-- for the year name and term name -->
                 <LinearLayout
-                    android:id="@+id/activity_add_semester_top_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <View style="@style/Divider_vertical" />
-
-
-                    <LinearLayout
-                        android:id="@+id/activity_add_semester_outer_view"
+                    <!-- for year name -->
+                    <TextView
+                        android:id="@+id/activity_add_semester_year_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16sp"
-                        android:layout_marginRight="16sp"
-                        android:orientation="vertical" />
+                        android:textColor="#F0514B"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="Primary" />
 
-
-                    <com.example.android.explorationgpa.ListViewNoScroll
-                        android:id="@+id/activity_add_semester_level_list"
-                        android:layout_width="match_parent"
+                    <!-- for term name -->
+                    <TextView
+                        android:id="@+id/activity_add_semester_term_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="vertical" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text=" (First semester)" />
 
                 </LinearLayout>
 
+
+                <!-- listView (no scroll) will contain the subjects name for the semester -->
+                <com.example.android.explorationgpa.ListViewNoScroll
+                    android:id="@+id/activity_add_semester_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" />
+
+
+                <!-- linear for the statement which display the total gpa -->
+                <LinearLayout
+                    android:id="@+id/activity_add_semester_linear_for_total_gpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- for semester total gpa statement -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/semester_total_gpa"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- for the gpa as a number -->
+                    <TextView
+                        android:id="@+id/activity_add_semester_total_gpa_as_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="4.00" />
+
+                    <!-- for the gpa as a letter -->
+                    <TextView
+                        android:id="@+id/activity_add_semester_total_gpa_as_letter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="(A+)" />
+
+                </LinearLayout>
+
+
+                <!-- shadow for the Done button -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="48dp" />
+
             </LinearLayout>
 
         </ScrollView>
 
     </LinearLayout>
 
+
+    <!-- click on it will calculate gpa -->
     <Button
         android:id="@+id/activity_add_semester_button_done"
         android:layout_width="match_parent"
@@ -76,75 +231,5 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         tools:text="DONE" />
-
-    <LinearLayout
-        android:id="@+id/activity_add_semester_student_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/GpaStudentInfo"
-                android:text="@string/name" />
-
-            <TextView
-                style="@style/GpaStudentInfo"
-                android:text="@string/id" />
-
-            <TextView
-                style="@style/GpaStudentInfo"
-                android:text="@string/semester" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/activity_add_semester_name"
-                style="@style/GpaStudentInfo"
-                tools:text="Mahmoud Tharwat Mohamed" />
-
-            <TextView
-                android:id="@+id/activity_add_semester_id"
-                style="@style/GpaStudentInfo"
-                tools:text="17136" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/activity_add_semester_number_of_semester"
-                    style="@style/GpaStudentInfo"
-                    tools:text="3" />
-
-                <TextView
-                    android:id="@+id/activity_add_semester_button_edit"
-                    style="@style/GpaStudentInfo"
-                    android:layout_width="match_parent"
-                    android:gravity="end"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/button_back_to_edit"
-                    android:textColor="#3700B3" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

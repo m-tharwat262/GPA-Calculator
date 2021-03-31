@@ -111,8 +111,8 @@
     <string name="subject_hundred_degree">/100</string>
 
 
-
-
+    <!-- for activity_add_semester.xml  -->
+    <string name="semester_total_gpa">Semester Total Gpa =</string>
 
 
 
