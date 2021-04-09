@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:isScrollContainer="true"
     android:orientation="horizontal">
 
+
+    <!-- for the subject name -->
     <TextView
         android:id="@+id/subject_item_subject_name"
         android:layout_width="0dp"
@@ -17,32 +18,40 @@
         tools:text="SubjectName" />
 
 
+    <!-- for the gpa as letter -->
     <TextView
         android:id="@+id/subject_item_gpa_letter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
         android:textColor="#F0514B"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="(A+)" />
+        android:visibility="gone"
+        tools:text="(A+)"
+        tools:visibility="visible" />
 
 
+    <!-- for degree that the user will insert -->
     <EditText
         android:id="@+id/subject_item_change_degree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:drawable/edit_text"
         android:gravity="center"
         android:hint="@string/subject_hint_degree"
         android:inputType="number"
         android:maxLength="3"
+        android:selectAllOnFocus="true"
         android:textColor="#F0514B"
         android:textSize="16sp"
         android:textStyle="bold" />
 
 
+    <!-- for total degree for the subject which always equal 100 -->
     <TextView
         android:id="@+id/subject_item_hundred_degree"
         android:layout_width="wrap_content"
