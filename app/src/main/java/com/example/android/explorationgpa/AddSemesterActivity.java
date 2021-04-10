@@ -24,16 +24,18 @@ public class AddSemesterActivity extends AppCompatActivity {
     private TextView idTextView; // for the basic info part in the layout.
     private TextView semesterTextView; // for the basic info part in the layout.
 
+    private LinearLayout linearForTotalGpa; // the linear that display the (the total gap) statement.
+    private Button doneButton; // fot the button which calculate gpa.
 
-    private LinearLayout linearForTotalGpa;
-    private Button doneButton;
+    int yearNumber; // (0-1-2-3-4-5)
+    int termNumber; // (1-2)
 
-    private Intent intent;
+    private SemesterAdapter semesterAdapter; // the adapter which display the semester subjects in the listView.
 
-    int yearNumber;
-    int termNumber;
+    private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
+    private static final int MODE_DISPLAY_TOTAL_GPA = 1; // mode that display the total gpa and prevent the user to edit anything.
+    private int mode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
 
-    private SemesterAdapter semesterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,12 @@ public class AddSemesterActivity extends AppCompatActivity {
         // fix the overlap between the views in the layout.
         setupTheLayoutShadows();
 
-
+        // start the first mode for the activity.
         startMode0();
+
+        // control the clicks on the done buttons.
+        setupDoneButtonFunctions();
+
 
     }
 
@@ -246,6 +252,44 @@ public class AddSemesterActivity extends AppCompatActivity {
         return subjectObjects;
     }
 
+
+    /**
+     * Control all functions that the done button must execute and calculate the
+     * Switch between modes like (add - edit)
+     */
+    private void setupDoneButtonFunctions() {
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // switch between mods.
+                if (mode == MODE_FIRST_OPEN) {
+
+                    // change mode from (0) to (1) across all the activity functions.
+                    mode = MODE_DISPLAY_TOTAL_GPA;
+
+                    // to execute the functions at the mode 1.
+                    startMode1();
+                } else if (mode == MODE_DISPLAY_TOTAL_GPA) {
+
+                    // TODO: setup the next click on the button.
+
+                }
+
+            }
+        });
+
+    }
+
+
+    private void startMode1() {
+
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   1");
+
+        // TODO: setup the mode functions.
+
+    }
 
 
 }
