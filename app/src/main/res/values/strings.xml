@@ -24,7 +24,7 @@
     <string name="title_activity_add_semester">Add Semester</string>
 
 
-    ///////////////////////////////// For SettingsActivity /////////////////////////////////
+    ///////////////////////////////// For SettingsActivity.java /////////////////////////////////
 
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">Gpa Settings</string>
@@ -81,6 +81,26 @@
     <string name="spinner_year_three">Third year</string>
     <string name="spinner_year_four">Senior year</string>
 
+
+
+
+
+
+
+
+
+    ///////////////////////////////// For AddSemesterActivity.java /////////////////////////////////
+
+    <!-- fot terms name -->
+    <string name="term_first">first term</string>
+    <string name="term_second">second term</string>
+
+    <!-- fot years name -->
+    <string name="year_zero">Primary year</string>
+    <string name="year_one">First year</string>
+    <string name="year_two">Second year</string>
+    <string name="year_three">Third year</string>
+    <string name="year_four">Senior year</string>
 
 
 

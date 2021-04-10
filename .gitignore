@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 /app/src/main/res/layout/subject_item_for_arabic_language.xml
+/app/src/main/java/com/example/android/explorationgpa/SaveCode.java
