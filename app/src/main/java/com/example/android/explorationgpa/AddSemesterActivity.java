@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -41,6 +46,11 @@ public class AddSemesterActivity extends AppCompatActivity {
 
         // show the year and term name in the layout.
         setupTheYearAndTerm(yearNumber, termNumber);
+
+        // fix the overlap between the views in the layout.
+        setupTheLayoutShadows();
+
+
 
     }
 
@@ -116,6 +126,55 @@ public class AddSemesterActivity extends AppCompatActivity {
         String termNameInBracts = " (" + termName + ")";
         TextView termNameTextView = (TextView) findViewById(R.id.activity_add_semester_term_name);
         termNameTextView.setText(termNameInBracts);
+
+    }
+
+
+    /**
+     * Fix the overlap between the views (the basic info part & done button) and other views in the
+     * layout by know the height of the views and make shadows behind it.
+     */
+    private void setupTheLayoutShadows() {
+
+        // determine linear that contain the basic info part.
+        final LinearLayout basicInfoLayout = findViewById(R.id.activity_add_semester_linear_for_student_info);
+
+        // to get the height after the activity layout inflated.
+        ViewTreeObserver observerForBasicInfoLayout = basicInfoLayout.getViewTreeObserver();
+        observerForBasicInfoLayout.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                // setup the height of the shadow to be equal the height of the basic info part.
+                int heightOfBasicInfoLayout = basicInfoLayout.getHeight();
+                View shadowViewOfBasicInfo = findViewById(R.id.activity_add_semester_shadow_for_linear_basic_info);
+                ViewGroup.LayoutParams paramsForBasicInfoLayout =  shadowViewOfBasicInfo.getLayoutParams();
+                paramsForBasicInfoLayout.height = heightOfBasicInfoLayout;
+                shadowViewOfBasicInfo.setLayoutParams(paramsForBasicInfoLayout);
+
+            }
+        });
+
+
+        // determine done button in the activity layout.
+        final Button doneButton = (Button) findViewById(R.id.activity_add_semester_button_done);
+
+        // to get the height after the activity layout inflated.
+        ViewTreeObserver observerForButton = doneButton.getViewTreeObserver();
+        observerForButton.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                // setup the height of the shadow to be equal the height of the done button.
+                int heightOfDoneButtonHeight = doneButton.getHeight();
+                View shadowViewOfDoneButton = findViewById(R.id.activity_add_semester_shadow_for_done_button);
+                ViewGroup.LayoutParams paramsForDoneButton =  shadowViewOfDoneButton.getLayoutParams();
+                paramsForDoneButton.height = heightOfDoneButtonHeight;
+                shadowViewOfDoneButton.setLayoutParams(paramsForDoneButton);
+
+            }
+        });
+
 
     }
 
