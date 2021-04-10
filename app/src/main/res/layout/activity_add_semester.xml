@@ -9,7 +9,7 @@
 
     <!-- for the top part that include the basic info -->
     <LinearLayout
-        android:id="@+id/activity_add_semester_student_info"
+        android:id="@+id/activity_add_semester_linear_for_student_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -100,8 +100,10 @@
 
         <!-- shadow for the top part which contain the basic info -->
         <View
+            android:id="@+id/activity_add_semester_shadow_for_linear_basic_info"
             android:layout_width="match_parent"
-            android:layout_height="85dp" />
+            android:layout_height="wrap_content"
+            tools:layout_height="85dp"/>
 
         <!-- to make thick (2dp) line across the layout after the basic info -->
         <View style="@style/Divider_vertical_2dp" />
@@ -166,6 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
@@ -190,7 +193,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
                         android:gravity="center"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="#F0514B"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="4.00" />
@@ -200,7 +203,7 @@
                         android:id="@+id/activity_add_semester_total_gpa_as_letter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="#F0514B"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="(A+)" />
@@ -210,12 +213,14 @@
 
                 <!-- shadow for the Done button -->
                 <View
+                    android:id="@+id/activity_add_semester_shadow_for_done_button"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
         </ScrollView>
+
 
     </LinearLayout>
 
@@ -224,7 +229,7 @@
     <Button
         android:id="@+id/activity_add_semester_button_done"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#F0514B"
         android:gravity="center"
