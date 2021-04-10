@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class AddSemesterActivity extends AppCompatActivity {
@@ -20,6 +23,17 @@ public class AddSemesterActivity extends AppCompatActivity {
     private TextView nameTextView; // for the basic info part in the layout.
     private TextView idTextView; // for the basic info part in the layout.
     private TextView semesterTextView; // for the basic info part in the layout.
+
+
+    private LinearLayout linearForTotalGpa;
+    private Button doneButton;
+
+    private Intent intent;
+
+    int yearNumber;
+    int termNumber;
+
+    private SemesterAdapter semesterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +45,15 @@ public class AddSemesterActivity extends AppCompatActivity {
         idTextView = (TextView) findViewById(R.id.activity_add_semester_id);
         semesterTextView = (TextView) findViewById(R.id.activity_add_semester_number_of_semester);
 
+        linearForTotalGpa = (LinearLayout) findViewById(R.id.activity_add_semester_linear_for_total_gpa);
+        doneButton = (Button) findViewById(R.id.activity_add_semester_button_done);
+
         // get the information which the intent (from infoActivity) that open that activity.
         Intent intent = getIntent();
         String studentName = intent.getStringExtra("student_name"); // for student name.
         int studentId = intent.getIntExtra("student_id",0); // for student id.
-        int yearNumber = intent.getIntExtra("year_number", 0); // for number of the year.
-        int termNumber = intent.getIntExtra("term_number", 0); // for number of the term.
+        yearNumber = intent.getIntExtra("year_number", 0); // for number of the year.
+        termNumber = intent.getIntExtra("term_number", 0); // for number of the term.
         Log.i(LOG_TAG, "intent come from InfoActivity contain : " + studentName + "  " + studentId + " " + yearNumber + " " + termNumber);
 
 
@@ -51,6 +68,7 @@ public class AddSemesterActivity extends AppCompatActivity {
         setupTheLayoutShadows();
 
 
+        startMode0();
 
     }
 
@@ -177,6 +195,57 @@ public class AddSemesterActivity extends AppCompatActivity {
 
 
     }
+
+
+    /**
+     * (for add mode).
+     * for the first time the user open the activity to add a new semester.
+     */
+    private void startMode0() {
+
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   0");
+
+        // get ArrayList of the SubjectObjects that contain the info about the semester subject.
+        ArrayList<SubjectObject> subjectObjects = getArrayListOfSubjectsObjects(yearNumber, termNumber);
+
+        // setup the ListView that display the semester subject info.
+        semesterAdapter = new SemesterAdapter(this, subjectObjects);
+        ListView listView = (ListView) findViewById(R.id.activity_add_semester_list_view);
+        listView.setAdapter(semesterAdapter);
+
+        // no need to show the total gpa statement at that mode.
+        linearForTotalGpa.setVisibility(View.GONE);
+        // to display word DONE on the done button.
+        doneButton.setText(R.string.button_done);
+
+    }
+
+
+    /**
+     * get an ArrayList of SubjectObjects that include subject info of any semester by know the
+     * year and term number.
+     *
+     * @param year number of the year that the user choose.
+     * @param term number of the term that the user choose.
+     *
+     * @return ArrayList of SubjectObjects for the semester.
+     */
+    private ArrayList<SubjectObject> getArrayListOfSubjectsObjects(int year, int term) {
+
+        // to get the resources ids for the subjects name.
+        int[] ids = SemesterInfo.getSubjectsOfSemester(year, term);
+
+        // initialise the ArrayList of the SubjectObjects.
+        ArrayList<SubjectObject> subjectObjects = new ArrayList<>();
+
+        // add the resources ids to the subjects name to the ArrayList.
+        for (int i = 0 ; i < ids.length ; i++) {
+            subjectObjects.add(new SubjectObject(ids[i]));
+        }
+
+        return subjectObjects;
+    }
+
 
 
 }
