@@ -20,12 +20,14 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
     public static final String LOG_TAG = SemesterAdapter.class.getSimpleName();
     private Context mContext;
     private int mMode = 0;
+    private int mSize;
 
 
     public SemesterAdapter(Context context, ArrayList<SubjectObject> subjectObject) {
         super(context, 0, subjectObject);
 
         mContext = context; // to determine the specific place that the adapter works in.
+        mSize = subjectObject.size();
 
     }
 
@@ -150,6 +152,27 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
         mMode = mode;
 
+    }
+
+
+    /**
+     * collect all the semester subjects info (degrees specially) and put it inside ArrayList which will be
+     * used outside the class in calculation like total gpa for the semester.
+     *
+     * @return Array with all semester subjects info (name & degrees)
+     */
+    public ArrayList<SubjectObject> getSemesterSubjects() {
+
+        // initialize the ArrayList
+        ArrayList<SubjectObject> semesterSubjects = new ArrayList<>();
+
+        // collect all the final SubjectObjects in ArrayList after the user finish of insert his degrees.
+        for (int i = 0 ; i < mSize ; i++) {
+            SubjectObject subjectObject = getItem(i);
+            semesterSubjects.add(subjectObject);
+        }
+
+        return semesterSubjects;
     }
 
 }
