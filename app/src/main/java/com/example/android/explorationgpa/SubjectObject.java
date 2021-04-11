@@ -3,7 +3,7 @@ package com.example.android.explorationgpa;
 public class SubjectObject {
 
     private int mResourceIdForSubjectName; // for the resource id fot the string of the subject name
-    private int mSubjectDegree; // fot the degree of the subject which the student give
+    private double mSubjectDegree; // fot the degree of the subject which the student give
 
 
     /**
@@ -12,7 +12,7 @@ public class SubjectObject {
      * @param resourceIdForSubjectName subject resource id for subject name.
      * @param subjectDegree subject degree which the user give.
      */
-    public SubjectObject(int resourceIdForSubjectName, int subjectDegree) {
+    public SubjectObject(int resourceIdForSubjectName, double subjectDegree) {
 
         mResourceIdForSubjectName = resourceIdForSubjectName;
         mSubjectDegree = subjectDegree;
@@ -45,7 +45,7 @@ public class SubjectObject {
      *
      * @return student degree in the subject.
      */
-    public int getSubjectDegree() {
+    public double getSubjectDegree() {
         return mSubjectDegree;
     }
 
@@ -55,7 +55,7 @@ public class SubjectObject {
      *
      * @param subjectDegree student degree in the subject
      */
-    public void setSubjectDegree(int subjectDegree) {
+    public void setSubjectDegree(double subjectDegree) {
         mSubjectDegree = subjectDegree;
     }
 
@@ -67,25 +67,25 @@ public class SubjectObject {
      */
     public String getGpaLetterOfSubject() {
 
-        if (100 >= mSubjectDegree && mSubjectDegree >= 93) {
+        if (100.0 >= mSubjectDegree && mSubjectDegree >= 93.0) {
             return "(A)";
-        } else if (93 > mSubjectDegree && mSubjectDegree >= 88) {
+        } else if (93.0 > mSubjectDegree && mSubjectDegree >= 88.0) {
             return "(A-)";
-        } else if (88 > mSubjectDegree && mSubjectDegree >= 82) {
+        } else if (88.0 > mSubjectDegree && mSubjectDegree >= 82.0) {
             return "(B+)";
-        } else if (82 > mSubjectDegree && mSubjectDegree >= 78) {
+        } else if (82.0 > mSubjectDegree && mSubjectDegree >= 78.0) {
             return "(B)";
-        } else if (78 > mSubjectDegree && mSubjectDegree >= 74) {
+        } else if (78.0 > mSubjectDegree && mSubjectDegree >= 74.0) {
             return "(B-)";
-        } else if (74 > mSubjectDegree && mSubjectDegree >= 70) {
+        } else if (74.0 > mSubjectDegree && mSubjectDegree >= 70.0) {
             return "(C+)";
-        } else if (70 > mSubjectDegree && mSubjectDegree >= 65) {
+        } else if (70.0 > mSubjectDegree && mSubjectDegree >= 65.0) {
             return "(C)";
-        } else if (65 > mSubjectDegree && mSubjectDegree >= 60) {
+        } else if (65.0 > mSubjectDegree && mSubjectDegree >= 60.0) {
             return "(C-)";
-        } else if (60 > mSubjectDegree && mSubjectDegree >= 55) {
+        } else if (60.0 > mSubjectDegree && mSubjectDegree >= 55.0) {
             return "(D+)";
-        } else if (55 > mSubjectDegree && mSubjectDegree >= 50) {
+        } else if (55.0 > mSubjectDegree && mSubjectDegree >= 50.0) {
             return "(D)";
         } else {
             return "(F!)";
