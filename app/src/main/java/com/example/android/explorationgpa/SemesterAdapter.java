@@ -116,18 +116,18 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
                     // the view that will work on it below.
                     EditText answerBody = (EditText) view;
                     // get the degree that inserted by the user (may be there is no degree).
-                    String s = answerBody.getText().toString();
+                    String degreeAsString = answerBody.getText().toString();
 
-                    if (!TextUtils.isEmpty(s)) {
+                    if (!TextUtils.isEmpty(degreeAsString)) {
                         // when there is degree inserted.
-                        int degree = Integer.parseInt(s);
+                        double degree = Double.parseDouble(degreeAsString);
                         // get the exact SubjectObject that in the item view we work on it.
                         SubjectObject subjectObject = getItem(i);
                         // save the degree in the SubjectObject.
                         subjectObject.setSubjectDegree(degree);
-                    } else if (TextUtils.isEmpty(s)) {
+                    } else if (TextUtils.isEmpty(degreeAsString)) {
                         //  when there is no degree inserted we make it equal 0.
-                        int degree = 0;
+                        double degree = 0.0;
                         // get the exact SubjectObject that in the item view we work on it.
                         SubjectObject subjectObject = getItem(i);
                         // save the degree in the SubjectObject.
