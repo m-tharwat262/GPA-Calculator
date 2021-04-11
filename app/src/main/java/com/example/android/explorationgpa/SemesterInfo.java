@@ -109,11 +109,11 @@ public class SemesterInfo {
      * @param term the term which the user select (1-2).
      * @return array with hours for the subjects in the semester
      */
-    public static int[] getHoursForSemester(int year, int term) {
+    public static double[] getHoursForSemester(int year, int term) {
 
         int numOfSemester = getNumberOfSemester(year, term); // determine the semester (1:10)
 
-        int[] hours = null;
+        double[] hours = null;
 
         switch (numOfSemester) {
             case 1:
@@ -358,16 +358,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_1() {
+    private static double[] getHoursForSemester_1() {
 
-        int[] hours = new int[7];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 2;
-        hours[4] = 2;
-        hours[5] = 3;
-        hours[6] = 3;
+        double[] hours = new double[7];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 2.0;
+        hours[4] = 2.0;
+        hours[5] = 3.0;
+        hours[6] = 3.0;
 
         return hours;
     }
@@ -378,15 +378,15 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_2() {
+    private static double[] getHoursForSemester_2() {
 
-        int[] hours = new int[6];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 3;
-        hours[4] = 2;
-        hours[5] = 2;
+        double[] hours = new double[6];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 3.0;
+        hours[4] = 2.0;
+        hours[5] = 2.0;
 
         return hours;
     }
@@ -397,16 +397,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_3() {
+    private static double[] getHoursForSemester_3() {
 
-        int[] hours = new int[7];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 2;
-        hours[3] = 3;
-        hours[4] = 2;
-        hours[5] = 3;
-        hours[6] = 2;
+        double[] hours = new double[7];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 2.0;
+        hours[3] = 3.0;
+        hours[4] = 2.0;
+        hours[5] = 3.0;
+        hours[6] = 2.0;
 
         return hours;
     }
@@ -417,16 +417,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_4() {
+    private static double[] getHoursForSemester_4() {
 
-        int[] hours = new int[7];
-        hours[0] = 2;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 3;
-        hours[4] = 3;
-        hours[5] = 3;
-        hours[6] = 2;
+        double[] hours = new double[7];
+        hours[0] = 2.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 3.0;
+        hours[4] = 3.0;
+        hours[5] = 3.0;
+        hours[6] = 2.0;
 
         return hours;
     }
@@ -437,16 +437,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_5() {
+    private static double[] getHoursForSemester_5() {
 
-        int[] hours = new int[7];
-        hours[0] = 2;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 3;
-        hours[4] = 3;
-        hours[5] = 3;
-        hours[6] = 2;
+        double[] hours = new double[7];
+        hours[0] = 2.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 3.0;
+        hours[4] = 3.0;
+        hours[5] = 3.0;
+        hours[6] = 2.0;
 
         return hours;
     }
@@ -457,15 +457,15 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_6() {
+    private static double[] getHoursForSemester_6() {
 
-        int[] hours = new int[6];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 2;
-        hours[4] = 3;
-        hours[5] = 2;
+        double[] hours = new double[6];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 2.0;
+        hours[4] = 3.0;
+        hours[5] = 2.0;
 
         return hours;
     }
@@ -476,15 +476,15 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_7() {
+    private static double[] getHoursForSemester_7() {
 
-        int[] hours = new int[6];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 2;
-        hours[4] = 3;
-        hours[5] = 2;
+        double[] hours = new double[6];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 2.0;
+        hours[4] = 3.0;
+        hours[5] = 2.0;
 
         return hours;
     }
@@ -495,15 +495,15 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_8() {
+    private static double[] getHoursForSemester_8() {
 
-        int[] hours = new int[6];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 2;
-        hours[4] = 3;
-        hours[5] = 2;
+        double[] hours = new double[6];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 2.0;
+        hours[4] = 3.0;
+        hours[5] = 2.0;
 
         return hours;
     }
@@ -514,16 +514,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_9() {
+    private static double[] getHoursForSemester_9() {
 
-        int[] hours = new int[7];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 3;
-        hours[4] = 3;
-        hours[5] = 2;
-        hours[6] = 2;
+        double[] hours = new double[7];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 3.0;
+        hours[4] = 3.0;
+        hours[5] = 2.0;
+        hours[6] = 2.0;
 
         return hours;
     }
@@ -534,16 +534,16 @@ public class SemesterInfo {
      *
      * @return array with hours for subjects
      */
-    private static int[] getHoursForSemester_10() {
+    private static double[] getHoursForSemester_10() {
 
-        int[] hours = new int[7];
-        hours[0] = 3;
-        hours[1] = 3;
-        hours[2] = 3;
-        hours[3] = 3;
-        hours[4] = 3;
-        hours[5] = 2;
-        hours[6] = 2;
+        double[] hours = new double[7];
+        hours[0] = 3.0;
+        hours[1] = 3.0;
+        hours[2] = 3.0;
+        hours[3] = 3.0;
+        hours[4] = 3.0;
+        hours[5] = 2.0;
+        hours[6] = 2.0;
 
         return hours;
     }
