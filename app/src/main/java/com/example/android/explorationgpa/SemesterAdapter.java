@@ -17,18 +17,19 @@ import java.util.ArrayList;
 public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
-    public static final String LOG_TAG = SemesterAdapter.class.getSimpleName();
-    private Context mContext;
-    private int mMode = 0;
-    private int mSize;
+    public static final String LOG_TAG = SemesterAdapter.class.getSimpleName(); // class name.
+    private Context mContext; // for the activity context that the Adapter work at.
+    private ArrayList<SubjectObject> mSubjectObject; // to store the ArrayList for the SubjectObjects.
+    private int mArraySize; // to store the ArrayList size.
+    private int mMode = 0; // the basic mode that use across the all activity functions.
 
 
     public SemesterAdapter(Context context, ArrayList<SubjectObject> subjectObject) {
         super(context, 0, subjectObject);
 
         mContext = context; // to determine the specific place that the adapter works in.
-        mSize = subjectObject.size();
-
+        mSubjectObject = subjectObject; // the ArrayList for the SubjectObjects.
+        mArraySize = subjectObject.size(); // the ArrayList size.
     }
 
 
@@ -156,23 +157,21 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
     /**
-     * collect all the semester subjects info (degrees specially) and put it inside ArrayList which will be
-     * used outside the class in calculation like total gpa for the semester.
+     * get all degrees that the user insert inside the EditText views.
      *
-     * @return Array with all semester subjects info (name & degrees)
+     * @return Array with all subject degrees.
      */
-    public ArrayList<SubjectObject> getSemesterSubjects() {
+    public double[] getSubjectDegrees() {
 
-        // initialize the ArrayList
-        ArrayList<SubjectObject> semesterSubjects = new ArrayList<>();
+        // initialize Array that will store the degrees inside it.
+        double[] degrees = new double[mArraySize];
 
-        // collect all the final SubjectObjects in ArrayList after the user finish of insert his degrees.
-        for (int i = 0 ; i < mSize ; i++) {
-            SubjectObject subjectObject = getItem(i);
-            semesterSubjects.add(subjectObject);
+        // to get each subject degree and put it inside the Array.
+        for (int i = 0 ; i < mArraySize ; i++) {
+            degrees[i] = mSubjectObject.get(i).getSubjectDegree();
         }
 
-        return semesterSubjects;
+        return degrees;
     }
 
 }
