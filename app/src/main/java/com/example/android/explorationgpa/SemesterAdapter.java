@@ -21,7 +21,12 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
     private Context mContext; // for the activity context that the Adapter work at.
     private ArrayList<SubjectObject> mSubjectObject; // to store the ArrayList for the SubjectObjects.
     private int mArraySize; // to store the ArrayList size.
-    private int mMode = 0; // the basic mode that use across the all activity functions.
+
+
+    private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
+    private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
+    private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
+    private int mMode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
 
 
     public SemesterAdapter(Context context, ArrayList<SubjectObject> subjectObject) {
@@ -61,7 +66,7 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
         // setup the item view by know the mode that the user at.
-        if (mMode == 1) {
+        if (mMode == MODE_DISPLAY_TOTAL_GPA) {
             // (important) make EditText lost focus to execute the the code that in the listener below.
             changeDegreeEditText.clearFocus();
             // display the gpa letter.
@@ -81,7 +86,7 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
             String string = String.valueOf(subjectObject.getSubjectDegree());
             changeDegreeEditText.setText(string);
 
-        } else if ( mMode == 2) {
+        } else if ( mMode == MODE_EDIT_DEGREES_AGAIN) {
 
             // display the gpa letter.
             gpaLetterTextView.setVisibility(View.VISIBLE);
@@ -127,14 +132,14 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
                         // save the degree in the SubjectObject.
                         subjectObject.setSubjectDegree(degree);
                     } else if (TextUtils.isEmpty(degreeAsString)) {
-                        //  when there is no degree inserted we make it equal 0.
+                        // when there is no degree inserted we make it equal 0.
                         double degree = 0.0;
                         // get the exact SubjectObject that in the item view we work on it.
                         SubjectObject subjectObject = getItem(i);
                         // save the degree in the SubjectObject.
                         subjectObject.setSubjectDegree(degree);
                     }
-
+                    view.clearFocus();
                 }
 
             }
@@ -145,14 +150,18 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
     /**
-     * Determine the mode that the user at to change the state of the items view.
+     * Determine the mode that the user at (edit-calculate) to change the state of the items view.
+     * Notify the Adapter that there is changes in the dada to reset the Adapter.
      *
      * @param mode the mode (edit-calculate).
      */
     public void setAdapterMode(int mode) {
 
+        // set the layout mode.
         mMode = mode;
 
+        // to notify the adapter that the mode changed after call this method.
+        notifyDataSetChanged();
     }
 
 
