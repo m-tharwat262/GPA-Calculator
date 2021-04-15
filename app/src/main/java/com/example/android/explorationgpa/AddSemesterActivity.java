@@ -182,6 +182,11 @@ public class AddSemesterActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
 
+                // (important) to clear the listener from the view.
+                // without it the listener will work without stopping when the activity start.
+                // we can note that by using logs.
+                basicInfoLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
                 // setup the height of the shadow to be equal the height of the basic info part.
                 int heightOfBasicInfoLayout = basicInfoLayout.getHeight();
                 View shadowViewOfBasicInfo = findViewById(R.id.activity_add_semester_shadow_for_linear_basic_info);
@@ -201,6 +206,11 @@ public class AddSemesterActivity extends AppCompatActivity {
         observerForButton.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+
+                // (important) to clear the listener from the view.
+                // without it the listener will work without stopping when the activity start.
+                // we can note that by using logs.
+                doneButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 // setup the height of the shadow to be equal the height of the done button.
                 int heightOfDoneButtonHeight = doneButton.getHeight();
