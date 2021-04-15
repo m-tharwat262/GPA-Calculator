@@ -44,7 +44,7 @@
         android:gravity="center"
         android:hint="@string/subject_hint_degree"
         android:inputType="numberDecimal"
-        android:maxLength="4"
+        android:maxLength="5"
         android:selectAllOnFocus="true"
         android:textColor="#F0514B"
         android:textSize="16sp"
