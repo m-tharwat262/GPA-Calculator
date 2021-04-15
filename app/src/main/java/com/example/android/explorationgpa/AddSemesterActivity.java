@@ -227,7 +227,7 @@ public class AddSemesterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // switch between modes.
-                if (mMode == MODE_FIRST_OPEN) {
+                if (mMode == MODE_FIRST_OPEN || mMode == MODE_EDIT_DEGREES_AGAIN) {
 
                     // (important) to clear the focus from the EditText inside the item views.
                     // that make the last EditText save the data inserted inside it.
