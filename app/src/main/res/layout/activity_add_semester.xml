@@ -208,6 +208,17 @@
                         android:textStyle="bold"
                         tools:text="(A+)" />
 
+                    <TextView
+                        android:id="@+id/activity_add_semester_total_gpa_as_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#F0514B"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="(89%)" />
+
                 </LinearLayout>
 
 
