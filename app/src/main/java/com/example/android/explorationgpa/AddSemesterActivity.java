@@ -31,6 +31,8 @@ public class AddSemesterActivity extends AppCompatActivity {
     private LinearLayout linearForTotalGpa; // the linear that display the (the total gap) statement.
     private Button doneButton; // fot the button which calculate gpa.
 
+    private ListView listView; // that display the semester subjects info as items in the layout.
+
     int yearNumber; // (0-1-2-3-4-5)
     int termNumber; // (1-2)
 
@@ -38,8 +40,8 @@ public class AddSemesterActivity extends AppCompatActivity {
 
     private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
     private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
-    private int mode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
-
+    private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
+    private int mMode; // the basic mode that use across the all activity functions.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class AddSemesterActivity extends AppCompatActivity {
         totalGpaAsLetter = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
         totalGpaAsPercentage = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
 
-
+        listView = (ListView) findViewById(R.id.activity_add_semester_list_view);
 
 
         // get the information which the intent (from infoActivity) that open that activity.
@@ -215,19 +217,53 @@ public class AddSemesterActivity extends AppCompatActivity {
 
 
     /**
+     * Control all functions that the done button must execute and calculate the
+     * Switch between modes like (add - edit)
+     */
+    private void setupDoneButtonFunctions() {
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // switch between modes.
+                if (mMode == MODE_FIRST_OPEN) {
+
+                    // (important)to clear the focus from the EditText inside the item views.
+                    // that make the last EditText save the data inserted inside it.
+                    listView.clearFocus();
+
+                    // start and execute the functions at the mode (1).
+                    startMode1();
+
+                } else if (mMode == MODE_DISPLAY_TOTAL_GPA) {
+
+                    // start and execute the functions at the mode (2).
+                    startMode2();
+
+                }
+
+            }
+        });
+
+    }
+
+
+    /**
      * (user can insert degrees).
      * for the first time the user open the activity to add a new semester.
      */
     private void startMode0() {
 
-        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   0");
+        // make the mode equal 0.
+        mMode = MODE_FIRST_OPEN;
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
 
         // get ArrayList of the SubjectObjects that contain the info about the semester subject.
         ArrayList<SubjectObject> subjectObjects = getArrayListOfSubjectsObjects(yearNumber, termNumber);
 
         // setup the ListView that display the semester subject info.
         semesterAdapter = new SemesterAdapter(this, subjectObjects);
-        ListView listView = (ListView) findViewById(R.id.activity_add_semester_list_view);
         listView.setAdapter(semesterAdapter);
 
         // no need to show the total gpa statement at that mode.
@@ -246,7 +282,9 @@ public class AddSemesterActivity extends AppCompatActivity {
      */
     private void startMode1() {
 
-        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   1");
+        // change the mode to be equal (1).
+        mMode = MODE_DISPLAY_TOTAL_GPA;
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
 
         // notify the adapter that we are start the mode (1) to change its content.
         semesterAdapter.setAdapterMode(MODE_DISPLAY_TOTAL_GPA);
@@ -271,6 +309,18 @@ public class AddSemesterActivity extends AppCompatActivity {
         // show the total gpa by percentage scale in the layout.
         String totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
         totalGpaAsPercentage.setText(totalGpaPercentageScale);
+
+    }
+
+
+
+    private void startMode2() {
+
+        // change the mode to be equal (2).
+        mMode = MODE_EDIT_DEGREES_AGAIN;
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
+
+        // TODO: setup the mode functions.
 
     }
 
