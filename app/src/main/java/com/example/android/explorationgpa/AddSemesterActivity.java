@@ -229,7 +229,7 @@ public class AddSemesterActivity extends AppCompatActivity {
                 // switch between modes.
                 if (mMode == MODE_FIRST_OPEN) {
 
-                    // (important)to clear the focus from the EditText inside the item views.
+                    // (important) to clear the focus from the EditText inside the item views.
                     // that make the last EditText save the data inserted inside it.
                     listView.clearFocus();
 
@@ -313,14 +313,22 @@ public class AddSemesterActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * (user can insert or edit his degrees).
+     * enable the EditText again to make it able to write inside it and receive degrees that the
+     * user inserted or edited.
+     */
     private void startMode2() {
 
         // change the mode to be equal (2).
         mMode = MODE_EDIT_DEGREES_AGAIN;
         Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
 
-        // TODO: setup the mode functions.
+        // notify the adapter that we are start the mode (2) to change its content.
+        semesterAdapter.setAdapterMode(2);
+
+        // to display word DONE on the done button.
+        doneButton.setText(R.string.button_done);
 
     }
 
@@ -351,43 +359,7 @@ public class AddSemesterActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Control all functions that the done button must execute and calculate the
-     * Switch between modes like (add - edit)
-     */
-    private void setupDoneButtonFunctions() {
 
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // switch between mods.
-                if (mode == MODE_FIRST_OPEN) {
-
-                    // change mode from (0) to (1) across all the activity functions.
-                    mode = MODE_DISPLAY_TOTAL_GPA;
-
-                    // to execute the functions at the mode 1.
-                    startMode1();
-                } else if (mode == MODE_DISPLAY_TOTAL_GPA) {
-
-                    // TODO: setup the next click on the button.
-
-                }
-
-            }
-        });
-
-    }
-
-
-    private void startMode1() {
-
-        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   1");
-
-        // TODO: setup the mode functions.
-
-    }
 
 
 }
