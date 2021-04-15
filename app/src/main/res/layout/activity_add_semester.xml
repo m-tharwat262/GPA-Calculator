@@ -151,16 +151,23 @@
 
                 </LinearLayout>
 
-
-                <!-- listView (no scroll) will contain the subjects name for the semester -->
-                <com.example.android.explorationgpa.ListViewNoScroll
-                    android:id="@+id/activity_add_semester_list_view"
+                <!-- (important) to be a container for the ListView to avoid the clicks issue that
+                appear in the mode (2) when the user click on EditText in some items add find that
+                the view not clickable and handle the ListView height -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical" />
+                    android:orientation="vertical">
 
+                    <!-- listView (no scroll) will contain the subjects name for the semester -->
+                    <com.example.android.explorationgpa.ListViewNoScroll
+                        android:id="@+id/activity_add_semester_list_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical" />
+                </LinearLayout>
 
                 <!-- linear for the statement which display the total gpa -->
                 <LinearLayout
@@ -184,7 +191,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <!-- for the gpa as a number -->
+                    <!-- for the gpa as a number in 4 Scale -->
                     <TextView
                         android:id="@+id/activity_add_semester_total_gpa_as_number"
                         android:layout_width="wrap_content"
@@ -208,6 +215,7 @@
                         android:textStyle="bold"
                         tools:text="(A+)" />
 
+                    <!-- for the gpa as a number in % Scale -->
                     <TextView
                         android:id="@+id/activity_add_semester_total_gpa_as_percentage"
                         android:layout_width="wrap_content"
