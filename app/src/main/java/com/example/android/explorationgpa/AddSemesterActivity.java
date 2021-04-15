@@ -24,6 +24,10 @@ public class AddSemesterActivity extends AppCompatActivity {
     private TextView idTextView; // for the basic info part in the layout.
     private TextView semesterTextView; // for the basic info part in the layout.
 
+    private TextView totalGpaAsNumber; // for display the gpa as a number.
+    private TextView totalGpaAsLetter; // for display the gpa as a letter.
+    private TextView totalGpaAsPercentage; // for display the gpa as a percentage.
+
     private LinearLayout linearForTotalGpa; // the linear that display the (the total gap) statement.
     private Button doneButton; // fot the button which calculate gpa.
 
@@ -33,7 +37,7 @@ public class AddSemesterActivity extends AppCompatActivity {
     private SemesterAdapter semesterAdapter; // the adapter which display the semester subjects in the listView.
 
     private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
-    private static final int MODE_DISPLAY_TOTAL_GPA = 1; // mode that display the total gpa and prevent the user to edit anything.
+    private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
     private int mode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
 
 
@@ -49,6 +53,13 @@ public class AddSemesterActivity extends AppCompatActivity {
 
         linearForTotalGpa = (LinearLayout) findViewById(R.id.activity_add_semester_linear_for_total_gpa);
         doneButton = (Button) findViewById(R.id.activity_add_semester_button_done);
+
+        totalGpaAsNumber = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_number);
+        totalGpaAsLetter = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
+        totalGpaAsPercentage = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
+
+
+
 
         // get the information which the intent (from infoActivity) that open that activity.
         Intent intent = getIntent();
@@ -204,7 +215,7 @@ public class AddSemesterActivity extends AppCompatActivity {
 
 
     /**
-     * (for add mode).
+     * (user can insert degrees).
      * for the first time the user open the activity to add a new semester.
      */
     private void startMode0() {
@@ -221,8 +232,45 @@ public class AddSemesterActivity extends AppCompatActivity {
 
         // no need to show the total gpa statement at that mode.
         linearForTotalGpa.setVisibility(View.GONE);
+
         // to display word DONE on the done button.
         doneButton.setText(R.string.button_done);
+
+    }
+
+
+    /**
+     * (user can not insert or edit).
+     * show the total gpa to the user by (4 Scale - % Scale - Letter) without ability to edit his
+     * degrees.
+     */
+    private void startMode1() {
+
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   1");
+
+        // notify the adapter that we are start the mode (1) to change its content.
+        semesterAdapter.setAdapterMode(MODE_DISPLAY_TOTAL_GPA);
+
+        // to show the total gpa statement at that mode.
+        linearForTotalGpa.setVisibility(View.VISIBLE);
+
+        // to display word EDIT on the done button.
+        doneButton.setText(R.string.button_edit);
+
+        // get all degrees that the user insert in the mode (0).
+        double[] degrees = semesterAdapter.getSubjectDegrees();
+
+        // show the total gpa by four scale in the layout.
+        String totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
+        totalGpaAsNumber.setText(totalGpaForFourScale);
+
+        // show the total gpa as a letter in the layout.
+        String totalGpaFourScaleAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
+        totalGpaAsLetter.setText(totalGpaFourScaleAsLetter);
+
+        // show the total gpa by percentage scale in the layout.
+        String totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
+        totalGpaAsPercentage.setText(totalGpaPercentageScale);
 
     }
 

@@ -5,7 +5,7 @@
     // For Buttons
     <string name="button_next">Next</string>
     <string name="button_done">Done</string>
-    <string name="button_back_to_edit">Edit</string>
+    <string name="button_edit">Edit</string>
 
 
     // For menu_gpa.xml
