@@ -224,4 +224,18 @@
     <string name="semester_10_subject_7">Senior Project</string>
 
 
+
+
+
+
+
+
+    ///////////////////////////////// For menu xml files /////////////////////////////////
+
+
+    <!-- for save icon in the menu_add_semester -->
+    <string name="action_save">Save</string>
+
+
+
 </resources>
