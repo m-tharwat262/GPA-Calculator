@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -369,6 +371,46 @@ public class AddSemesterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Override method to inflate our custom menu.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // inflate our custom menu.
+        getMenuInflater().inflate(R.menu.menu_add_semester, menu);
+        return true;
+    }
+
+
+    /**
+     * Override method to handle the clicks on the menu icons.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // handle clicks on any menu icons.
+        switch (item.getItemId()) {
+
+            // for save icon.
+            case R.id.menu_add_semester_action_save:
+
+                // save the semester inside database.
+                saveSemester();
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void saveSemester() {
+
+        // TODO: handle the semester save functions to store the semester inside database.
+
+    }
 
 
 
