@@ -194,12 +194,114 @@ public class ExplorationProvider extends ContentProvider {
 
 
 
+    /**
+     * Write inside the database to update data inserted before.
+     *
+     * @param uri uri for the database path.
+     * @param contentValues contain the columns keys and its values.
+     * @param selection specific row in the database.
+     * @param selectionArgs the value for the selection parameter above.
+     *
+     * @return uri refer to the row place inside the database.
+     */
     @Override
     public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
 
-        // TODO : handle it.
-        return 0;
+        // get the pattern that the uri equal.
+        final int match = sUriMatcher.match(uri);
+
+        // setup functions for every uri pattern.
+        switch (match) {
+
+            // semester_gpa database with no id.
+            case SEMESTER_GPA:
+
+                // execute helper method to update the data inside the database.
+                // return number of the rows that updated.
+                return updateSemesterGpa(uri, contentValues, selection, selectionArgs);
+
+            // semester_gpa database with id.
+            case SEMESTER_GPA_ID:
+
+                // setup the input inside the update function (after the WHERE word).
+                selection = SemesterGpaEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+
+                // execute helper method to update the data inside the database.
+                // return number of the rows that updated.
+                return updateSemesterGpa(uri, contentValues, selection, selectionArgs);
+
+            // to handle if the is no match for the uri inserted with the uri patterns.
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
     }
+
+
+    /**
+     * (Helper Method to Update Data Inside semester Database).
+     * Insert data inside the semester gpa database.
+     * Check the validation for the data inserted from the user.
+     *
+     * @param uri uri for the database path.
+     * @param contentValues contain the columns keys and its values.
+     * @param selection specific row in the database.
+     * @param selectionArgs the value for the selection parameter above.
+     *
+     * @return uri refer to the row place inside the database.
+     */
+    private int updateSemesterGpa(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+
+        // sanity chick for the student name before update it inside the database.
+        // check if the student name will update ot not.
+        if (contentValues.containsKey(SemesterGpaEntry.COLUMN_STUDENT_NAME)) {
+
+            String studentName = contentValues.getAsString(SemesterGpaEntry.COLUMN_STUDENT_NAME);
+            if (studentName == null) {
+                throw new IllegalArgumentException("gpa item requires a name");
+            }
+        }
+
+        // sanity chick for the student ID before update it inside the database.
+        // check if the student ID will update ot not.
+        if (contentValues.containsKey(SemesterGpaEntry.COLUMN_STUDENT_ID)) {
+
+            Integer studentCode = contentValues.getAsInteger(SemesterGpaEntry.COLUMN_STUDENT_ID);
+            if (studentCode == null || studentCode < 0) {
+                throw new IllegalArgumentException("gpa item requires valid id");
+
+            }
+        }
+
+        // sanity chick for the semester number before update it inside the database.
+        // check if the semester number will update ot not.
+        if (contentValues.containsKey(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER)) {
+
+            Integer studentLevel = contentValues.getAsInteger(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
+            if (studentLevel == null || !SemesterGpaEntry.isValidSemester(studentLevel)) {
+                throw new IllegalArgumentException("gpa item requires valid semester number");
+            }
+        }
+
+        // if there is not keys inside the ContentValues return from the functions early.
+        // the number of the rows that updated in this case will equal zero.
+        if (contentValues.size() == 0) {
+            return 0;
+        }
+
+        // access to the database to write inside it.
+        SQLiteDatabase semesterDatabase = mSemesterDbHelper.getWritableDatabase();
+
+        // update the data inside the database and get the number of the rows that updated.
+        int rowsUpdated = semesterDatabase.update(SemesterGpaEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        // Notify that there is changing happened in the database to sync changes to the network or activities.
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // return the number of the rows that updated.
+        return rowsUpdated;
+    }
+
 
 
     @Override
