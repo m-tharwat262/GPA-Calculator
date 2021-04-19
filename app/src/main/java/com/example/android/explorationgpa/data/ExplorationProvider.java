@@ -304,12 +304,65 @@ public class ExplorationProvider extends ContentProvider {
 
 
 
+    /**
+     * delete data from the database (all the database or a single row).
+     *
+     * @param uri uri for the database path.
+     * @param selection specific row in the database.
+     * @param selectionArgs the value for the selection parameter above.
+     *
+     * @return number of the rows that deleted from the database.
+     */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
-        // TODO : handle it.
-        return 0;
+        // access to the database to write inside it.
+        SQLiteDatabase semesterDatabase = mSemesterDbHelper.getWritableDatabase();
+
+        // get the pattern that the uri equal.
+        final int match = sUriMatcher.match(uri);
+
+        // number of the rows that will be deleted
+        int rowsDeleted;
+
+        // setup functions for every uri pattern.
+        switch (match) {
+
+            // semester_gpa database with no id.
+            case SEMESTER_GPA:
+
+                // delete the data from the database.
+                // return number of the rows that deleted from the database.
+                rowsDeleted = semesterDatabase.delete(SemesterGpaEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+
+            // semester_gpa database with id.
+            case SEMESTER_GPA_ID:
+
+                // setup the input inside the update function (after the WHERE word).
+                selection = SemesterGpaEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+
+                // delete the data from the database.
+                // return number of the rows that deleted from the database.
+                rowsDeleted = semesterDatabase.delete(SemesterGpaEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+
+            // to handle if the is no match for the uri inserted with the uri patterns.
+            default:
+
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+
+        // notify the network or the activity when there is changing happened inside the database.
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // return number of the rows that deleted from the database.
+        return rowsDeleted;
     }
+
 
 
     @Override
