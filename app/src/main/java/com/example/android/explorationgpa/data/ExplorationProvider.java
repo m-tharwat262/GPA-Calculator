@@ -13,7 +13,7 @@ public class ExplorationProvider extends ContentProvider {
     public static final String LOG_TAG = ExplorationProvider.class.getSimpleName(); // class name.
 
 
-    private SemesterGpaDbHelper mSemesterDbHelper; // get instance of the semester total gpa database.
+    private SemesterGpaDbHelper mSemesterDbHelper; // get instance of the semester database.
     private static final int SEMESTER_GPA = 100; // URI pattern to all the semester_gap table.
     private static final int SEMESTER_GPA_ID = 101; // URI pattern to single column in the semester_gap table.
 
@@ -28,11 +28,15 @@ public class ExplorationProvider extends ContentProvider {
     }
 
 
-
+    /**
+     * initialize databases here.
+     */
     @Override
     public boolean onCreate() {
 
-        // TODO : handle it.
+        // initialize semester database.
+        mSemesterDbHelper = new SemesterGpaDbHelper(getContext());
+
         return false;
     }
 
