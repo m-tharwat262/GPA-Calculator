@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 
 
@@ -42,6 +43,7 @@ public class ExplorationProvider extends ContentProvider {
 
         return false;
     }
+
 
 
     /**
@@ -105,12 +107,91 @@ public class ExplorationProvider extends ContentProvider {
     }
 
 
+
+    /**
+     * Write inside the database to add a new data.
+     *
+     * @param uri uri for the database path.
+     * @param values contain the columns keys and its values.
+     *
+     * @return uri refer to the row place inside the database.
+     */
     @Override
     public Uri insert( Uri uri, ContentValues values) {
 
-        // TODO : handle it.
-        return null;
+        // get the pattern that the uri equal.
+        final int match = sUriMatcher.match(uri);
+
+        // setup functions for every uri pattern (no single uris by id).
+        switch (match) {
+
+            // semester_gpa database.
+            case SEMESTER_GPA:
+
+                // execute helper method to insert the data inside the database.
+                // return the uri that refer to the row place inside the database.
+                return insertSemesterGpa(uri, values);
+
+            // to handle if the is no match for the uri inserted with the uri patterns.
+            default:
+                throw new IllegalArgumentException("Insertion is not supported for " + uri);
+        }
     }
+
+
+    /**
+     * (Helper Method to Insert Data Inside semester Database).
+     * Insert data inside the semester gpa database.
+     * Check the validation for the data inserted from the user.
+     *
+     * @param uri uri for the database path.
+     * @param values contain the columns keys and its values.
+     *
+     * @return uri refer to the row place inside the database.
+     */
+    private Uri insertSemesterGpa(Uri uri, ContentValues values) {
+
+        // sanity chick for the student name before enter it inside the database.
+        String studentName = values.getAsString(SemesterGpaEntry.COLUMN_STUDENT_NAME);
+        if (studentName == null) {
+            throw new IllegalArgumentException("gpa item requires a name");
+        }
+
+        // sanity chick for the student ID before enter it inside the database.
+        Integer studentCode = values.getAsInteger(SemesterGpaEntry.COLUMN_STUDENT_ID);
+        if (studentCode == null || studentCode < 0) {
+            throw new IllegalArgumentException("gpa item requires valid id");
+        }
+
+        // sanity chick for the semester number before enter it inside the database.
+        Integer studentSemester = values.getAsInteger(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
+        if (studentSemester == null || !SemesterGpaEntry.isValidSemester(studentSemester)) {
+            throw new IllegalArgumentException("gpa item requires valid semester number");
+        }
+
+
+        // access to the database to write inside it.
+        SQLiteDatabase semesterDatabase = mSemesterDbHelper.getWritableDatabase();
+
+        // insert the data inside the database and get the row number that the data inserted at.
+        long id = semesterDatabase.insert(SemesterGpaEntry.TABLE_NAME, null, values);
+
+        // if the insertion failed show a Log(e) for that.
+        // make the uri return value equal null in case the insertion failed.
+        if (id == -1) {
+
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+
+            return null;
+        }
+
+        // Notify that there is changing happened in the database to sync changes to the network or activities.
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // return the uri for the place that the data inserted inside database.
+        return ContentUris.withAppendedId(uri, id);
+    }
+
 
 
     @Override
