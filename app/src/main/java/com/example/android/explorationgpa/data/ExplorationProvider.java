@@ -368,8 +368,20 @@ public class ExplorationProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
 
-        // TODO : handle it.
-        return null;
+        final int match = sUriMatcher.match(uri);
+
+        switch (match) {
+
+            case SEMESTER_GPA:
+                return SemesterGpaEntry.CONTENT_LIST_TYPE;
+
+            case SEMESTER_GPA_ID:
+                return SemesterGpaEntry.CONTENT_ITEM_TYPE;
+
+            default:
+                throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
+        }
     }
+
 
 }
