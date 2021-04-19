@@ -43,6 +43,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <provider
+            android:name=".data.ExplorationProvider"
+            android:authorities="com.example.android.explorationgpa"
+            android:exported="false" />
+
     </application>
 
 </manifest>
