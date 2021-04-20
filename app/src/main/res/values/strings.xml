@@ -102,6 +102,10 @@
     <string name="year_three">Third year</string>
     <string name="year_four">Senior year</string>
 
+    <!-- for insert a new semester inside database -->
+    <string name="insert_semester_inside_database_successful">Semester saved</string>
+    <string name="insert_semester_inside_database_failed">Error with saving semester</string>
+
 
 
 

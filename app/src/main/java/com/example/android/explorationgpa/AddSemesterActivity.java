@@ -2,7 +2,9 @@ package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +16,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -377,8 +382,9 @@ public class AddSemesterActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // inflate our custom menu.
+        // inflate our custom menu we made for AddSemesterActivity.
         getMenuInflater().inflate(R.menu.menu_add_semester, menu);
+
         return true;
     }
 
@@ -395,8 +401,9 @@ public class AddSemesterActivity extends AppCompatActivity {
             // for save icon.
             case R.id.menu_add_semester_action_save:
 
-                // save the semester inside database.
-                saveSemester();
+                saveSemester(); // save the semester inside database.
+
+                finish(); // close the activity and return the user to GpaActivity.
 
                 return true;
         }
@@ -405,10 +412,55 @@ public class AddSemesterActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * save the total gpa for the semester.
+     */
     private void saveSemester() {
 
-        // TODO: handle the semester save functions to store the semester inside database.
+        // get current date and time.
+        long time = System.currentTimeMillis();
+
+        // get student name.
+        String studentName = nameTextView.getText().toString();
+
+        // get student ID.
+        String studentIdAsString = idTextView.getText().toString();
+        int studentId = Integer.valueOf(studentIdAsString);
+
+        // get semester number.
+        String semesterNumberAsString = semesterTextView.getText().toString();
+        int semesterNumber = Integer.valueOf(semesterNumberAsString);
+
+        // get semester subject degrees.
+        double[] degrees = semesterAdapter.getSubjectDegrees();
+
+        // convert degrees array to a byte array.
+        Gson gson = new Gson();
+        byte[] degreesAsByte = gson.toJson(degrees).getBytes();
+
+
+        // initialize and setup the ContentValues to contain the data that will be insert inside the database.
+        ContentValues values = new ContentValues();
+        values.put(SemesterGpaEntry.COLUMN_STUDENT_NAME, studentName);
+        values.put(SemesterGpaEntry.COLUMN_STUDENT_ID, studentId);
+        values.put(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER, semesterNumber);
+        values.put(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER, degreesAsByte);
+        values.put(SemesterGpaEntry.COLUMN_UNIX, time);
+
+
+        // insert the new semester to the database.
+        Uri uri = getContentResolver().insert(SemesterGpaEntry.CONTENT_URI, values);
+
+        // check if the semester inserted successfully or failed.
+        if (uri == null) {
+
+            // show a Toast message say that the semester saving failed.
+            Toast.makeText(this, R.string.insert_semester_inside_database_failed, Toast.LENGTH_SHORT).show();
+        } else {
+
+            // show a Toast message say that the semester saved.
+            Toast.makeText(this, R.string.insert_semester_inside_database_successful, Toast.LENGTH_SHORT).show();
+        }
 
     }
 
