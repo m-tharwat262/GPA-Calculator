@@ -22,8 +22,10 @@ public class InfoActivity extends AppCompatActivity {
     private static final String LOG_TAG = InfoActivity.class.getSimpleName();
 
     private EditText mNameEditText, mIdEditText;
+
     private Spinner mLevelSpinner;
     private ArrayAdapter levelSpinnerAdapter;
+
     private RadioGroup mRadioGroup;
     private RadioButton mFirstSemester, mSecondSemester;
 
@@ -57,6 +59,7 @@ public class InfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(InfoActivity.this, AddSemesterActivity.class);
                 intent = makeContentOfIntent(intent); // get the intent contain the info which will be send
                 startActivity(intent);
+                finish();
 
             }
         });
