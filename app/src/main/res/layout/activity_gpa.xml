@@ -8,6 +8,15 @@
     tools:context=".GpaActivity">
 
 
+    <!-- that list contains the semesters -->
+    <ListView
+        android:id="@+id/activity_gpa_list_for_semesters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+
+    <!-- Linear contain the floating action button with circle shape -->
     <LinearLayout
         android:id="@+id/activity_gpa_linear_for_floating_action_button"
         android:layout_width="wrap_content"
