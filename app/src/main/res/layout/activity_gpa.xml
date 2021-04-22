@@ -9,15 +9,16 @@
 
 
     <LinearLayout
-        android:id="@+id/fab_layout"
+        android:id="@+id/activity_gpa_linear_for_floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
 
+        <!-- floating action button that start the activity to add a new semester -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/activity_gpa_fab"
+            android:id="@+id/activity_gpa_floating_action_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
@@ -25,5 +26,6 @@
             app:maxImageSize="40dp" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

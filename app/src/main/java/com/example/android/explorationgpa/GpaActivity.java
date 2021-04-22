@@ -30,7 +30,7 @@ public class GpaActivity extends AppCompatActivity {
 
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_fab);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_floating_action_button);
 
 
         // check if the user log in before or not.
