@@ -15,8 +15,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GpaActivity extends AppCompatActivity {
 
-    private SharedPreferences mSharedPrefs;
-    private FloatingActionButton mFab;
+
+    private static final String LOG_TAG = GpaActivity.class.getSimpleName(); // activity name.
+
+    private SharedPreferences mSharedPrefs; // to access to the preference settings.
+
+    private FloatingActionButton mFloatingActionButton; // icon that start to add a new semester.
 
 
     @Override
@@ -24,16 +28,91 @@ public class GpaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpa);
 
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mFab = (FloatingActionButton) findViewById(R.id.activity_gpa_fab);
 
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_fab);
+
+
+        // check if the user log in before or not.
         checkPreference();
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        // handle clicks on the floating action button.
+        setupFloatingActionButton();
+
+
+    }
+
+
+
+    /**
+     * Override method to inflate our custom menu.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // for inflate the menu that we made for GpaActivity.
+        getMenuInflater().inflate(R.menu.menu_gpa, menu);
+
+        return true;
+    }
+
+
+    /**
+     * Override method to handle the clicks on the menu icons.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // handle clicks on any menu icons.
+        switch (item.getItemId()) {
+
+            // for settings icon.
+            case R.id.action_settings:
+
+                // start SettingActivity.
+                Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
+                startActivity(intent);
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * Check if the user logged in or not when the app open.
+     * Make the user log in when he open the app for the first time.
+     */
+    private void checkPreference () {
+
+        // get the user name from preference settings.
+        String studentNamePreference = mSharedPrefs.getString(
+                getString(R.string.settings_student_name_key),
+                getString(R.string.settings_student_name_default));
+
+        // check if the user did not log in and in this case send him to the log in layout.
+        if (studentNamePreference.equals(getString(R.string.settings_student_name_default))) {
+
+            // start LoginActivity to make the user login.
+            Intent numbersIntent = new Intent(GpaActivity.this, LoginActivity.class);
+            startActivity(numbersIntent);
+            finish();
+        }
+
+    }
+
+
+    /**
+     * Handle clicks on the floating action button.
+     */
+    private void setupFloatingActionButton() {
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-            // TODO: intent to open the next activity.
+                // start the InfoActivity.
                 Intent intent = new Intent(GpaActivity.this, InfoActivity.class);
                 startActivity(intent);
 
@@ -42,52 +121,6 @@ public class GpaActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        // for inflate the menu that we made
-        getMenuInflater().inflate(R.menu.menu_gpa, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_settings:
-                // start setting activity.
-                Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        // in case you want make change in the menu bar.
-
-        return true;
-    }
-
-
-    private void checkPreference () {
-
-
-        String studentNamePreference = mSharedPrefs.getString(
-                getString(R.string.settings_student_name_key),
-                getString(R.string.settings_student_name_default));
-
-        if (studentNamePreference.equals(getString(R.string.settings_student_name_default))) {
-            Intent numbersIntent = new Intent(GpaActivity.this, LoginActivity.class);
-            startActivity(numbersIntent);
-            finish();
-        }
-
-    }
 
 }
