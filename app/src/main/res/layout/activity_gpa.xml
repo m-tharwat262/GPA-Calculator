@@ -16,6 +16,50 @@
         android:orientation="vertical" />
 
 
+    <!-- contain the views that appear when there is no semester inserted yet -->
+    <RelativeLayout
+        android:id="@+id/activity_gpa_linear_for_empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+
+        <!-- TODO: replace the placeholder image -->
+        <!-- image show that the database empty -->
+        <ImageView
+            android:id="@+id/activity_gpa_empty_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/empty_view_for_semester"/>
+
+        <!-- title related to the image above -->
+        <TextView
+            android:id="@+id/activity_gpa_empty_title_describe_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_gpa_empty_image"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="16dp"
+            android:text="@string/empty_view_title_text_for_image"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <!-- statement to the user to tell him start to add a semester -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_gpa_empty_title_describe_image"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:paddingTop="8dp"
+            android:text="@string/empty_view_title_text_for_add_semester"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="#A2AAB0" />
+
+    </RelativeLayout>
+
+
     <!-- Linear contain the floating action button with circle shape -->
     <LinearLayout
         android:id="@+id/activity_gpa_linear_for_floating_action_button"

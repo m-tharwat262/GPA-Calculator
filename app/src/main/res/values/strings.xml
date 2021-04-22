@@ -139,6 +139,22 @@
     <string name="semester_total_gpa">Semester Total Gpa =</string>
 
 
+    <!-- Title text for the empty view, which describes the empty semesters image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text_for_image">It\'s a bit lonely here…</string>
+
+    <!-- Title text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text_for_add_semester">Get started by adding a semester</string>
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- subjects name for semester 1 -->
