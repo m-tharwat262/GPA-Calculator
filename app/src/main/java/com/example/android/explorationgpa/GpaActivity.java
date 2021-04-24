@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,6 +43,41 @@ public class GpaActivity extends AppCompatActivity {
         // handle clicks on the floating action button.
         setupFloatingActionButton();
 
+
+        // display the semesters as items inside the listView.
+        ListView listView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
+        SemesterCursorAdapter adapter = new SemesterCursorAdapter(this, getCursor());
+        listView.setAdapter(adapter);
+
+        // to hide the empty view from the layout when there is a semester showed.
+        RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_linear_for_empty_view);
+        listView.setEmptyView(relativeLayout);
+
+
+
+    }
+
+
+
+    private Cursor getCursor() {
+
+        String [] projection = {
+                SemesterGpaEntry._ID,
+                SemesterGpaEntry.COLUMN_STUDENT_NAME,
+                SemesterGpaEntry.COLUMN_STUDENT_ID,
+                SemesterGpaEntry.COLUMN_SEMESTER_NUMBER,
+                SemesterGpaEntry.COLUMN_OBJECT_SEMESTER,
+                SemesterGpaEntry.COLUMN_UNIX
+        };
+
+        Cursor cursor = getContentResolver().query(
+                SemesterGpaEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+
+        return cursor;
 
     }
 
