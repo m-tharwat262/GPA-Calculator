@@ -55,6 +55,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         TextView studentIdTextView = (TextView) view.findViewById(R.id.semester_item_student_id);
         TextView semesterNumberTextView = (TextView) view.findViewById(R.id.semester_item_semester_number);
         TextView dateTextView = (TextView) view.findViewById(R.id.semester_item_date);
+        TextView timeTextView = (TextView) view.findViewById(R.id.semester_item_time);
 
 
         // get the column position inside the table in semester database.
@@ -90,6 +91,9 @@ public class SemesterCursorAdapter extends CursorAdapter {
         String dateFormat = formatDate(dateObject);
         dateTextView.setText(dateFormat);
 
+        // display the time in the screen.
+        String timeFormat = formatTime(dateObject);
+        timeTextView.setText(timeFormat);
 
 
     }
@@ -110,6 +114,24 @@ public class SemesterCursorAdapter extends CursorAdapter {
 
         // transfer the unix to the format above.
         return dateFormat.format(dateObject);
+    }
+
+
+    /**
+     * Transfer the unix number to a time look like this format (9:48 PM).
+     *
+     * @param dateObject contain the unix number.
+     *
+     * @return the time.
+     */
+    private String formatTime(Date dateObject) {
+
+        // setup the format shape of the tiem that should display in the item.
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+
+        // transfer the unix to the format above.
+        return timeFormat.format(dateObject);
+
     }
 
 
