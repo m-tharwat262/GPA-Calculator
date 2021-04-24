@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class SemesterCursorAdapter extends CursorAdapter {
 
@@ -51,12 +54,14 @@ public class SemesterCursorAdapter extends CursorAdapter {
         TextView studentNameTextView = (TextView) view.findViewById(R.id.semester_item_student_name);
         TextView studentIdTextView = (TextView) view.findViewById(R.id.semester_item_student_id);
         TextView semesterNumberTextView = (TextView) view.findViewById(R.id.semester_item_semester_number);
+        TextView dateTextView = (TextView) view.findViewById(R.id.semester_item_date);
 
 
         // get the column position inside the table in semester database.
         int studentNameColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_NAME);
         int studentIdColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_ID);
         int semesterNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
+        int unixNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_UNIX);
 
 
         // get the student name from the database and display it in the screen.
@@ -76,6 +81,35 @@ public class SemesterCursorAdapter extends CursorAdapter {
         String semester = String.format(resources.getString(R.string.semester_with_placeholder), semesterNumber);
         semesterNumberTextView.setText(semester);
 
+
+        // get the unix number from the database and store it inside Date object to format it.
+        long unixNumber = cursor.getLong(unixNumberColumnIndex);
+        Date dateObject = new Date(unixNumber);
+
+        // display the date in the screen.
+        String dateFormat = formatDate(dateObject);
+        dateTextView.setText(dateFormat);
+
+
+
+    }
+
+
+
+    /**
+     * Transfer the unix number to a date look like this format (Apr 21, 2015).
+     *
+     * @param dateObject contain the unix number.
+     *
+     * @return the date.
+     */
+    private String formatDate(Date dateObject) {
+
+        // setup the format shape of the date that should display in the item.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+
+        // transfer the unix to the format above.
+        return dateFormat.format(dateObject);
     }
 
 
