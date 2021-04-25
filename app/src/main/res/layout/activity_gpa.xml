@@ -10,7 +10,7 @@
 
     <!-- that list contains the semesters -->
     <ListView
-        android:id="@+id/activity_gpa_list_for_semesters"
+        android:id="@+id/activity_gpa_listView_for_semesters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" />
