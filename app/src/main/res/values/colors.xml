@@ -11,7 +11,12 @@
     <color name="hint_color">#9E9E9E</color>
 
 
-
+    <!-- for SemesterCursorAdapter.java -->
+    <color name="gpa_a">#008b00</color>
+    <color name="gpa_b">#4A7BA7</color>
+    <color name="gpa_c">#F5A623</color>
+    <color name="gpa_d">#FF7D50</color>
+    <color name="gpa_f">#D93218</color>
 
 
     <!-- for the semester item -->
