@@ -5,18 +5,56 @@ package com.example.android.explorationgpa;
 public class SemesterInfo {
 
 
-    public SemesterInfo() {
+
+    /**
+     * Take the number of the semester to specify the exact year that the semester at.
+     *
+     * @param semester number of the semester (1-2-3-4-5-6-7-8-9-10).
+     *
+     * @return number of the year (0-1-2-3-4).
+     */
+    public static int getNumberOfYear(int semester) {
+
+        if (semester == 3 || semester == 4) {
+            return 1;
+        } else if (semester == 5 || semester == 6) {
+            return 2;
+        } else if (semester == 7 || semester == 8) {
+            return 3;
+        } else if (semester == 9 || semester == 10) {
+            return 4;
+        } else {
+            return 0;
+    }
+
     }
 
 
+    /**
+     * Take the number of the semester to specify the exact term that the semester at.
+     *
+     * @param semester number of the semester (1-2-3-4-5-6-7-8-9-10).
+     *
+     * @return number of the year (0-1-2-3-4).
+     */
+    public static int getNumberOfTerm(int semester) {
+
+        if (semester == 2 || semester == 4 || semester == 6 || semester == 8 || semester == 10) {
+            return 2;
+        } else {
+            return 1;
+        }
+
+    }
+
 
     /**
-     * take the number of the year and term and specify the exact semester the user want
+     * Take the number of the year and term to specify the exact semester the user want.
      *
      * @param year the year which the user choose (o-1-2-3-4).
      * @param term the term which the user choose (1-2).
      *
-     * @return the semester that the user want (1-2-3-4-5-6-7-8-9-10)
+     * @return the semester that the user want (1-2-3-4-5-6-7-8-9-10).
      */
     public static int getNumberOfSemester(int year, int term) {
 
@@ -48,14 +86,14 @@ public class SemesterInfo {
     }
 
 
-
     /**
-     * determine the semester by the year & term and get the resources id for subjects string for
+     * Determine the semester by the year & term and get the resources id for subjects string for
      * that semester in an array.
      *
      * @param year the year which the user select (0-1-2-3-4-5).
      * @param term the term which the user select (1-2).
-     * @return array with resources id for subjects string for the semester
+     *
+     * @return array with resources id for subjects string for the semester.
      */
     public static int[] getSubjectsOfSemester(int year, int term) {
 
@@ -100,14 +138,14 @@ public class SemesterInfo {
     }
 
 
-
     /**
-     * determine the semester by the year & term and get the hours for the subjects in that semester
+     * Determine the semester by the year & term and get the hours for the subjects in that semester
      * in an array.
      *
      * @param year the year which the user select (0-1-2-3-4-5).
      * @param term the term which the user select (1-2).
-     * @return array with hours for the subjects in the semester
+     *
+     * @return array with hours for the subjects in the semester.
      */
     public static double[] getHoursForSemester(int year, int term) {
 
@@ -155,10 +193,10 @@ public class SemesterInfo {
 
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (1)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (1).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_1() {
 
@@ -176,9 +214,9 @@ public class SemesterInfo {
 
     /**
      * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (2)
+     * string for semester (2).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_2() {
 
@@ -194,10 +232,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (3)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (3).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_3() {
 
@@ -214,10 +252,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (4)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (4).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_4() {
 
@@ -234,10 +272,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (5)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (5).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_5() {
 
@@ -254,10 +292,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (6)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (6).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_6() {
 
@@ -273,10 +311,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (7)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (7).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_7() {
 
@@ -292,10 +330,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (8)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (8).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_8() {
 
@@ -311,10 +349,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (9)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (9).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_9() {
 
@@ -331,10 +369,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (10)
+     * Helper method in the class to setup the array to contain resources id for the subjects
+     * string for semester (10).
      *
-     * @return array with resources id for the subjects string
+     * @return array with resources id for the subjects string.
      */
     private static int[] getSubjectsForSemester_10() {
 
@@ -353,10 +391,10 @@ public class SemesterInfo {
 
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (1)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (1).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_1() {
 
@@ -373,10 +411,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (2)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (2).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_2() {
 
@@ -392,10 +430,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (3)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (3).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_3() {
 
@@ -412,10 +450,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (4)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (4).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_4() {
 
@@ -432,10 +470,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (5)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (5).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_5() {
 
@@ -452,10 +490,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (6)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (6).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_6() {
 
@@ -471,10 +509,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (7)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (7).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_7() {
 
@@ -490,10 +528,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (8)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (8).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_8() {
 
@@ -509,10 +547,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (9)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (9).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_9() {
 
@@ -529,10 +567,10 @@ public class SemesterInfo {
     }
 
     /**
-     * helper method in the class to setup the array to contain hours for the subjects in the
-     * semester (10)
+     * Helper method in the class to setup the array to contain hours for the subjects in the
+     * semester (10).
      *
-     * @return array with hours for subjects
+     * @return array with hours for subjects.
      */
     private static double[] getHoursForSemester_10() {
 
