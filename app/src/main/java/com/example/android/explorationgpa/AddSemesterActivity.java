@@ -434,11 +434,13 @@ public class AddSemesterActivity extends AppCompatActivity {
         // get current date and time.
         long time = System.currentTimeMillis();
 
-        // get student name.
-        String studentName = nameTextView.getText().toString();
+        // get student name from the TextView.
+        // trim the text inside the TextView (the statement without white spaces right or left it).
+        String studentName = nameTextView.getText().toString().trim();
 
-        // get student ID.
-        String studentIdAsString = idTextView.getText().toString();
+        // get student ID from the TextView.
+        // trim the text inside the TextView (the statement without white spaces right or left it).
+        String studentIdAsString = idTextView.getText().toString().trim();
         int studentId = Integer.valueOf(studentIdAsString);
 
         // get semester number.
