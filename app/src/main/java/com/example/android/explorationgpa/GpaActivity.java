@@ -6,20 +6,24 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class GpaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -43,7 +47,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_floating_action_button);
-        ListView listView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
+
 
         // check if the user log in before or not.
         checkPreference();
@@ -52,14 +56,12 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setupFloatingActionButton();
 
 
-        // to hide the empty views from the layout when there is a semester item in the listView.
-        RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_linear_for_empty_view);
-        listView.setEmptyView(relativeLayout);
-
-
         // display the semesters as items inside the listView.
         mSemesterCursorAdapter = new SemesterCursorAdapter(this, null);
-        listView.setAdapter(mSemesterCursorAdapter);
+
+
+        // handle everything related to the semester ListView(adapting, empty views, item clicks).
+        setupSemesterListView();
 
 
         // start the semester loader.
@@ -68,6 +70,39 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     }
 
+
+
+    /**
+     * Handle clicks on the items in the semester ListView.
+     * Control showing or hiding the empty views in the layout depending on if there is items or not
+     * inside the ListView.
+     */
+    private void setupSemesterListView() {
+
+        ListView semesterListView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
+        semesterListView.setAdapter(mSemesterCursorAdapter);
+
+        // to hide the empty views from the layout when there is a semester item in the listView.
+        RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_linear_for_empty_view);
+        semesterListView.setEmptyView(relativeLayout);
+
+        // handle clicks on the items in the semester ListView.
+        semesterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // open AddSemesterActivity by intent contain uri refer to the location for that
+                // semester inside the database.
+                Intent intent = new Intent(GpaActivity.this, AddSemesterActivity.class);
+                Uri currentSemesterUri = new ContentUris().withAppendedId(SemesterGpaEntry.CONTENT_URI, id);
+                intent.setData(currentSemesterUri);
+                startActivity(intent);
+
+            }
+        });
+
+
+    }
 
 
     /**
@@ -150,6 +185,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     /**
      * Setup all loader functions in the activity.
+     * Specify what exactly we want to get from the database.
      */
     @Override
     public Loader<Cursor> onCreateLoader(int loaderID, Bundle args) {
@@ -183,7 +219,8 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * don not know exactly.
+     * Add the Cursor that get from the database to the adapter to display the items with the
+     * semester info stored inside that cursor.
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {

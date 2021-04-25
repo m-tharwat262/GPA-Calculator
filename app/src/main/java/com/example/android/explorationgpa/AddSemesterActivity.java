@@ -1,5 +1,6 @@
 package com.example.android.explorationgpa;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -50,6 +51,9 @@ public class AddSemesterActivity extends AppCompatActivity {
     private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
     private int mMode; // the basic mode that use across the all activity functions.
 
+    private Uri semesterUri;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +93,17 @@ public class AddSemesterActivity extends AppCompatActivity {
         // fix the overlap between the views in the layout.
         setupTheLayoutShadows();
 
-        // start the first mode for the activity.
-        startMode0();
-
         // control the clicks on the done buttons.
         setupDoneButtonFunctions();
+
+
+        semesterUri = intent.getData();
+        if (semesterUri == null) {
+            // start the first mode for the activity to add a new semester.
+            startMode0();
+        } else {
+            // TODO: setup the activity to handle when there is a valid Uri.
+        }
 
 
     }
