@@ -3,6 +3,7 @@ package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import android.content.ContentValues;
@@ -53,9 +54,14 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
     private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
     private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
+    private static final int MODE_OPEN_WITH_URI = 3; // display the semester info when the user open the activity by intent contain uri.
+
     private int mMode; // the basic mode that use across the all activity functions.
 
     private Uri semesterUri;
+
+    private static final int SEMESTER_LOADER = 0; // number of the semester loader.
+
 
 
     @Override
@@ -108,7 +114,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
             // start the first mode for the activity to add a new semester.
             startMode0();
         } else {
-            // TODO: setup the activity to handle when there is a valid Uri.
+            // start the semester loader.
+            LoaderManager.getInstance(this).initLoader(SEMESTER_LOADER, null, this);
         }
 
 
@@ -380,6 +387,17 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     }
 
 
+    private void startMode3(Cursor cursor) {
+
+        // change the mode to be equal (3).
+        mMode = MODE_OPEN_WITH_URI;
+        Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
+
+        // TODO: setup the mode functions.
+
+    }
+
+
     /**
      * get an ArrayList of SubjectObjects that include subject info of any semester by know the
      * year and term number.
@@ -498,18 +516,51 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
 
+    /**
+     * Setup the loader functions in the activity.
+     * Specify what exactly (single row) we want to get from the database.
+     */
     @Override
-    public Loader<Cursor> onCreateLoader(int id,Bundle args) {
-        return null;
+    public Loader<Cursor> onCreateLoader(int loaderID,Bundle args) {
+
+        // no need to get the unix number.
+        String[] projection = {
+                SemesterGpaEntry._ID,
+                SemesterGpaEntry.COLUMN_STUDENT_NAME,
+                SemesterGpaEntry.COLUMN_SEMESTER_NUMBER,
+                SemesterGpaEntry.COLUMN_STUDENT_ID,
+                SemesterGpaEntry.COLUMN_OBJECT_SEMESTER };
+
+
+        return new CursorLoader(
+                this,
+                semesterUri, // refer to the single semester that we want to get from the database.
+                projection,
+                null,
+                null,
+                null);
+
     }
 
 
+    /**
+     * Start the mode(3) after get the semester data form the database.
+     */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        // the cursor start to -1 row position so we make it go to the next valid row before start
+        // the mode (3).
+        if (cursor.moveToFirst()) {
+            startMode3(cursor);
+        }
 
     }
 
 
+    /**
+     * don not know exactly.
+     */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
