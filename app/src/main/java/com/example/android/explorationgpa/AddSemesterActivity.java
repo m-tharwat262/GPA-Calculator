@@ -31,9 +31,9 @@ public class AddSemesterActivity extends AppCompatActivity {
     private TextView idTextView; // for the basic info part in the layout.
     private TextView semesterTextView; // for the basic info part in the layout.
 
-    private TextView totalGpaAsNumber; // for display the gpa as a number.
-    private TextView totalGpaAsLetter; // for display the gpa as a letter.
-    private TextView totalGpaAsPercentage; // for display the gpa as a percentage.
+    private TextView totalGpaAsNumberTextView; // for display the gpa as a number.
+    private TextView totalGpaAsLetterTextView; // for display the gpa as a letter.
+    private TextView totalGpaAsPercentageTextView; // for display the gpa as a percentage.
 
     private LinearLayout linearForTotalGpa; // the linear that display the (the total gap) statement.
     private Button doneButton; // fot the button which calculate gpa.
@@ -63,9 +63,9 @@ public class AddSemesterActivity extends AppCompatActivity {
         linearForTotalGpa = (LinearLayout) findViewById(R.id.activity_add_semester_linear_for_total_gpa);
         doneButton = (Button) findViewById(R.id.activity_add_semester_button_done);
 
-        totalGpaAsNumber = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_number);
-        totalGpaAsLetter = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
-        totalGpaAsPercentage = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
+        totalGpaAsNumberTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_number);
+        totalGpaAsLetterTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
+        totalGpaAsPercentageTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
 
         listView = (ListView) findViewById(R.id.activity_add_semester_list_view);
 
@@ -315,17 +315,31 @@ public class AddSemesterActivity extends AppCompatActivity {
         // get all degrees that the user insert in the mode (0).
         double[] degrees = semesterAdapter.getSubjectDegrees();
 
-        // show the total gpa by four scale in the layout.
-        String totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
-        totalGpaAsNumber.setText(totalGpaForFourScale);
 
-        // show the total gpa as a letter in the layout.
-        String totalGpaFourScaleAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
-        totalGpaAsLetter.setText(totalGpaFourScaleAsLetter);
+        // calculate the total gpa number (4 Scale type).
+        double totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
+        // to make there is just two number after the dot like that (4.75).
+        String totalGpaAfterFormat = String.format("%.2f", totalGpaForFourScale);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsNumberTextView.setText(totalGpaAfterFormat);
 
-        // show the total gpa by percentage scale in the layout.
-        String totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
-        totalGpaAsPercentage.setText(totalGpaPercentageScale);
+
+        // calculate the total gpa letter.
+        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
+        // make the total gpa letter between brackets.
+        String totalGpaAsLetterBetweenBrackets = String.format(getResources().getString(R.string.text_between_brackets), totalGpaAsLetter);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsLetterTextView.setText(totalGpaAsLetterBetweenBrackets);
+
+
+        // calculate the total gpa number (% Scale type).
+        double totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
+        // make there is just two number after the dot like that (88.75) .
+        String totalGpaPercentageAfterFormat = String.format("%.2f", totalGpaPercentageScale);
+        // add the % sign after the total gpa.
+        String totalGpaWithPercentageSign = String.format(getResources().getString(R.string.number_with_hundred_percentage_sign), totalGpaPercentageAfterFormat);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsPercentageTextView.setText(totalGpaWithPercentageSign);
 
     }
 

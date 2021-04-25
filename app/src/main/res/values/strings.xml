@@ -2,14 +2,24 @@
     <string name="app_name">Exploration GPA</string>
 
 
-    // For Buttons
+    <!-- For Buttons -->
     <string name="button_next">Next</string>
     <string name="button_done">Done</string>
     <string name="button_edit">Edit</string>
 
 
-    // For menu_gpa.xml
+    <!-- For menu_gpa.xml -->
     <string name="action_settings">Settings</string>
+
+
+    <!-- For add something between brackets -->
+    <string name="text_between_brackets">(%1$s)</string>
+    <string name="number_between_brackets">(%1$d)</string>
+    <string name="decimal_between_brackets">(%1$f)</string>
+
+
+    <!-- For add number (String type) with hundred percentage sign (%) -->
+    <string name="number_with_hundred_percentage_sign">%1$s%%</string>
 
 
     ///////////////////////////////// For AndroidManifests file /////////////////////////////////
