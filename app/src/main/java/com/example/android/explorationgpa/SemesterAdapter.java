@@ -18,14 +18,15 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
     public static final String LOG_TAG = SemesterAdapter.class.getSimpleName(); // class name.
-    private Context mContext; // for the activity context that the Adapter work at.
-    private ArrayList<SubjectObject> mSubjectObject; // to store the ArrayList for the SubjectObjects.
-    private int mArraySize; // to store the ArrayList size.
+    private final Context mContext; // for the activity context that the Adapter work at.
+    private final ArrayList<SubjectObject> mSubjectObject; // to store the ArrayList for the SubjectObjects.
+    private final int mArraySize; // to store the ArrayList size.
 
 
     private static final int MODE_FIRST_OPEN = 0; // first time the user open the activity to add a new semester.
     private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
     private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
+    private static final int MODE_OPEN_WITH_URI = 3; // display the semester info when the user open the activity by intent contain uri.
     private int mMode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
 
 
@@ -66,7 +67,7 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
         // setup the item view by know the mode that the user at.
-        if (mMode == MODE_DISPLAY_TOTAL_GPA) {
+        if (mMode == MODE_DISPLAY_TOTAL_GPA || mMode == MODE_OPEN_WITH_URI) {
             // (important) make EditText lost focus to execute the the code that in the listener below.
             changeDegreeEditText.clearFocus();
             // display the gpa letter.
