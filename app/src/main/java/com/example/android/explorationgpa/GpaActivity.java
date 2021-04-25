@@ -3,6 +3,7 @@ package com.example.android.explorationgpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import android.content.Intent;
@@ -20,7 +21,6 @@ import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEn
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
 public class GpaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -29,6 +29,10 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     private SharedPreferences mSharedPrefs; // to access to the preference settings.
 
     private FloatingActionButton mFloatingActionButton; // icon that start to add a new semester.
+
+    private SemesterCursorAdapter mSemesterCursorAdapter; // adapter for the semester items.
+
+    private static final int SEMESTER_LOADER = 0; // number of the semester loader.
 
 
     @Override
@@ -39,7 +43,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_floating_action_button);
-
+        ListView listView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
 
         // check if the user log in before or not.
         checkPreference();
@@ -48,40 +52,19 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setupFloatingActionButton();
 
 
-        // display the semesters as items inside the listView.
-        ListView listView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
-        SemesterCursorAdapter adapter = new SemesterCursorAdapter(this, getCursor());
-        listView.setAdapter(adapter);
-
-        // to hide the empty view from the layout when there is a semester showed.
+        // to hide the empty views from the layout when there is a semester item in the listView.
         RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_linear_for_empty_view);
         listView.setEmptyView(relativeLayout);
 
 
+        // display the semesters as items inside the listView.
+        mSemesterCursorAdapter = new SemesterCursorAdapter(this, null);
+        listView.setAdapter(mSemesterCursorAdapter);
 
-    }
 
+        // start the semester loader.
+        LoaderManager.getInstance(this).initLoader(SEMESTER_LOADER, null, this);
 
-
-    private Cursor getCursor() {
-
-        String [] projection = {
-                SemesterGpaEntry._ID,
-                SemesterGpaEntry.COLUMN_STUDENT_NAME,
-                SemesterGpaEntry.COLUMN_STUDENT_ID,
-                SemesterGpaEntry.COLUMN_SEMESTER_NUMBER,
-                SemesterGpaEntry.COLUMN_OBJECT_SEMESTER,
-                SemesterGpaEntry.COLUMN_UNIX
-        };
-
-        Cursor cursor = getContentResolver().query(
-                SemesterGpaEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                null);
-
-        return cursor;
 
     }
 
@@ -166,11 +149,36 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * Setup all loaders functions in the activity.
+     * Setup all loader functions in the activity.
      */
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+    public Loader<Cursor> onCreateLoader(int loaderID, Bundle args) {
+
+        // to get data from the database by specific order :
+        // first by student name ASCENDING => (a : z).
+        // second by student ID ASCENDING => (1 : 10).
+        // third by the semester ASCENDING => (1 : 10).
+        String sortOrder = SemesterGpaEntry.COLUMN_STUDENT_NAME + " ASC, "
+                + SemesterGpaEntry.COLUMN_STUDENT_ID + " ASC, "
+                + SemesterGpaEntry.COLUMN_SEMESTER_NUMBER + " ASC";
+
+
+        // handle what each loader do.
+        switch (loaderID) {
+
+            // for semester loader.
+            case SEMESTER_LOADER:
+                return new CursorLoader(this,
+                        SemesterGpaEntry.CONTENT_URI,
+                        null, // null because all the table columns will be used.
+                        null,
+                        null,
+                        sortOrder);
+
+            default:
+                return null;
+        }
+
     }
 
 
@@ -178,7 +186,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
      * don not know exactly.
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        mSemesterCursorAdapter.swapCursor(cursor);
 
     }
 
@@ -188,6 +198,8 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
+        mSemesterCursorAdapter.swapCursor(null);
 
     }
 
