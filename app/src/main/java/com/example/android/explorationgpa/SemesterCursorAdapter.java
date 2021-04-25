@@ -11,6 +11,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,6 +58,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         TextView semesterNumberTextView = (TextView) view.findViewById(R.id.semester_item_semester_number);
         TextView dateTextView = (TextView) view.findViewById(R.id.semester_item_date);
         TextView timeTextView = (TextView) view.findViewById(R.id.semester_item_time);
+        TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.semester_item_total_gpa);
 
 
         // get the column position inside the table in semester database.
@@ -63,6 +66,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         int studentIdColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_ID);
         int semesterNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
         int unixNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_UNIX);
+        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER);
 
 
         // get the student name from the database and display it in the screen.
@@ -94,6 +98,25 @@ public class SemesterCursorAdapter extends CursorAdapter {
         // display the time in the screen.
         String timeFormat = formatTime(dateObject);
         timeTextView.setText(timeFormat);
+
+
+        // get degrees from database.
+        byte[] blob = cursor.getBlob(subjectDegreesColumnIndex); // degrees as BLOB.
+        String json = new String(blob); // convert BLOB above to json object.
+        Gson gson = new Gson(); // initialize the Gson Object.
+        double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
+
+        // get the year & term number for the semester.
+        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
+
+        // get total gpa for the semester as number (4 Scale type).
+        double totalGpaAsNumber = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
+
+        // display the total gpa as number in the screen.
+        String numberAfterFormat = String.format("%.2f", totalGpaAsNumber);
+        String gpaStatement = String.format(resources.getString(R.string.gpa_equal_with_placeholder), numberAfterFormat);
+        gpaAsNumberTextView.setText(gpaStatement);
 
 
     }

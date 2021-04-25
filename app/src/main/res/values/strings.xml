@@ -124,7 +124,7 @@
     //////////////////////////////// For SemesterCursorAdapter.java ////////////////////////////////
 
     <string name="semester_with_placeholder">Semester(%1$d)</string>
-
+    <string name="gpa_equal_with_placeholder">&#160;/ GPA = %1$s</string>
 
 
 
