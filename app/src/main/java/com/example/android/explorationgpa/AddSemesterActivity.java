@@ -2,9 +2,12 @@ package com.example.android.explorationgpa;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +27,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 
-public class AddSemesterActivity extends AppCompatActivity {
+public class AddSemesterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
 
     private static final String LOG_TAG = AddSemesterActivity.class.getSimpleName(); // activity name.
 
@@ -97,6 +101,8 @@ public class AddSemesterActivity extends AppCompatActivity {
         setupDoneButtonFunctions();
 
 
+        // check if there is uri inside the intent that open this activity.
+        // handle both cases(with Uri - without Uri).
         semesterUri = intent.getData();
         if (semesterUri == null) {
             // start the first mode for the activity to add a new semester.
@@ -487,6 +493,25 @@ public class AddSemesterActivity extends AppCompatActivity {
             // show a Toast message say that the semester saved.
             Toast.makeText(this, R.string.insert_semester_inside_database_successful, Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id,Bundle args) {
+        return null;
+    }
+
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 
