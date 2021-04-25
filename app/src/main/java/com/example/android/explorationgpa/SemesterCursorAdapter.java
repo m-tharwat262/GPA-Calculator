@@ -59,6 +59,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         TextView dateTextView = (TextView) view.findViewById(R.id.semester_item_date);
         TextView timeTextView = (TextView) view.findViewById(R.id.semester_item_time);
         TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.semester_item_total_gpa);
+        TextView gpaAsLetterTextView = (TextView) view.findViewById(R.id.semester_item_circle_gpa);
 
 
         // get the column position inside the table in semester database.
@@ -118,6 +119,12 @@ public class SemesterCursorAdapter extends CursorAdapter {
         String gpaStatement = String.format(resources.getString(R.string.gpa_equal_with_placeholder), numberAfterFormat);
         gpaAsNumberTextView.setText(gpaStatement);
 
+
+        // get total gpa for the semester as letter.
+        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
+
+        // display the total gpa as letter in the screen.
+        gpaAsLetterTextView.setText(totalGpaAsLetter);
 
     }
 
