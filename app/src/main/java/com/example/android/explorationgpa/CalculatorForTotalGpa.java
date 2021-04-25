@@ -340,15 +340,11 @@ public class CalculatorForTotalGpa {
      *
      * @return total gpa.
      */
-    public static String getTotalGpaOfSemesterForPercentageScale(int year, int term, double[] degrees) {
+    public static double getTotalGpaOfSemesterForPercentageScale(int year, int term, double[] degrees) {
 
         double totalGpa = executeMethodsForPercentageScale(year, term, degrees);
 
-        String numberAfterFormat = String.format("%.2f", totalGpa);
-
-        String totalGpaWithPercentageSign = numberAfterFormat + "%";
-
-        return totalGpaWithPercentageSign;
+        return totalGpa;
     }
 
 
@@ -452,9 +448,9 @@ public class CalculatorForTotalGpa {
         Log.i(LOG_TAG, "end of executeMethodsForPercentageScale method (same above) inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
-        String totalGpaForPercentageScaleAsString = getTotalGpaOfSemesterForPercentageScale(year, term, degrees);
+        double totalGpaForPercentageScale = getTotalGpaOfSemesterForPercentageScale(year, term, degrees);
         Log.i(LOG_TAG, "end of getTotalGpaOfSemesterForPercentageScale method inside CalculatorForTotalGpa class : "
-                + totalGpaForPercentageScaleAsString);
+                + totalGpaForPercentageScale);
     }
 
 
