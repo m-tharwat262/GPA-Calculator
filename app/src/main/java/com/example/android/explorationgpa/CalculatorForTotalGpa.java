@@ -11,34 +11,34 @@ public class CalculatorForTotalGpa {
     private static final String LOG_TAG = CalculatorForTotalGpa.class.getSimpleName();
 
     //    - The calculation process for % scale :
-    //    1. get subject degrees from 100 (ex : 90 - 80 - 77)
-    //    2. get subject hours (ex : 3 - 2 - 3)
-    //    3. multiple each degree with the hours (ex: 90 * 3)
-    //    4. sum the total multiple in step 3 (ex :   (90*3)+(80*2)+(77*3)  )
-    //    5. sum all hours (ex :   (3+2+3)  )
-    //    6. divide step 4 / step 5  (ex :   [(90*3)+(80*2)+(77*3)] / [(3+2+3)]    )
-    //    7. finish
+    //      1. get subject degrees from 100 (ex : 90 - 80 - 77)
+    //      2. get subject hours (ex : 3 - 2 - 3)
+    //      3. multiple each degree with the hours (ex: 90 * 3)
+    //      4. sum the total multiple in step 3 (ex :   (90*3)+(80*2)+(77*3)  )
+    //      5. sum all hours (ex :   (3+2+3)  )
+    //      6. divide step 4 / step 5  (ex :   [(90*3)+(80*2)+(77*3)] / [(3+2+3)]    )
+    //      7. finish
 
     //    - The calculation process for 4 scale :
-    //    1. get subject degrees from 100 (ex : 90 - 80 - 77)
-    //    2. get the point for each degree (ex :  3.7 - 3 - 2.7)
-    //    3. get subject hours (ex : 3 - 2 - 3)
-    //    4. multiple each point with the hours (ex: 3.7 * 3)
-    //    5. sum the total multiple in step 3 (ex :   (3.7*3)+(3*2)+(2.7*3)  )
-    //    6. sum all hours (ex :   (3+2+3)  )
-    //    7. divide step 5 / step 6  (ex :   [(3.7*3)+(3*2)+(2.7*3)] / [(3+2+3)]    )
-    //    8. finish
+    //      1. get subject degrees from 100 (ex : 90 - 80 - 77)
+    //      2. get the point for each degree (ex :  3.7 - 3 - 2.7)
+    //      3. get subject hours (ex : 3 - 2 - 3)
+    //      4. multiple each point with the hours (ex: 3.7 * 3)
+    //      5. sum the total multiple in step 3 (ex :   (3.7*3)+(3*2)+(2.7*3)  )
+    //      6. sum all hours (ex :   (3+2+3)  )
+    //      7. divide step 5 / step 6  (ex :   [(3.7*3)+(3*2)+(2.7*3)] / [(3+2+3)]    )
+    //      8. finish
 
-    //    (100 >= x >= 93)  return "(A)"   -    "4"
-    //    (93 > x >= 88)    return "(A-)"  -   "3.7"
-    //    (88 > x >= 82)    return "(B+)"  -   "3.3"
-    //    (82 > x >= 78)    return "(B)"   -    "3"
-    //    (78 > x >= 74)    return "(B-)"  -   "2.7"
-    //    (74 > x >= 70)    return "(C+)"  -   "2.3"
-    //    (70 > x >= 65)    return "(C)"   -    "2"
-    //    (65 > x >= 60)    return "(C-)"  -   "1.7"
-    //    (60 > x >= 55)    return "(D+)"  -   "1.3"
-    //    (55 > x >= 50)    return "(D)"   -    "1"
+    //      (100 >= x >= 93)  return   "(A)"   -    "4"
+    //      (93 > x >= 88)    return   "(A-)"  -   "3.7"
+    //      (88 > x >= 82)    return   "(B+)"  -   "3.3"
+    //      (82 > x >= 78)    return   "(B)"   -    "3"
+    //      (78 > x >= 74)    return   "(B-)"  -   "2.7"
+    //      (74 > x >= 70)    return   "(C+)"  -   "2.3"
+    //      (70 > x >= 65)    return   "(C)"   -    "2"
+    //      (65 > x >= 60)    return   "(C-)"  -   "1.7"
+    //      (60 > x >= 55)    return   "(D+)"  -   "1.3"
+    //      (55 > x >= 50)    return   "(D)"   -    "1"
 
 
     /**
@@ -171,7 +171,7 @@ public class CalculatorForTotalGpa {
 
 
     /**
-     * Sum numbers inside the given array (hours):
+     * Sum numbers inside the given array (hours).
      *
      * @param hours the subject hours.
      *
@@ -262,7 +262,7 @@ public class CalculatorForTotalGpa {
      * @param term number of the term (1-2).
      * @param degrees array contain the subjects degrees.
      *
-     * @return number refers to the total gpa in (4 scale type)
+     * @return number refers to the total gpa in (4 scale type).
      */
     private static double executeMethodsForFourScale(int year, int term, double[] degrees) {
 
@@ -292,7 +292,7 @@ public class CalculatorForTotalGpa {
      * @param term number of the term (1-2).
      * @param degrees array contain the subjects degrees.
      *
-     * @return number refers to the total gpa in (% scale type)
+     * @return number refers to the total gpa in (% scale type).
      */
     private static double executeMethodsForPercentageScale(int year, int term, double[] degrees) {
 
@@ -315,32 +315,30 @@ public class CalculatorForTotalGpa {
 
 
     /**
-     * get the total gpa for (4 scale type) and make it ready as a String to display on the screen.
+     * Get the total gpa for (4 scale type) as double number.
      *
      * @param year number of the year (0-5).
      * @param term number of the term (1-2).
      * @param degrees array contain the subjects degrees.
      *
-     * @return total gpa (4 scale type).
+     * @return total gpa.
      */
-    public static String getTotalGpaOfSemesterForFourScale(int year, int term, double[] degrees) {
+    public static double getTotalGpaOfSemesterForFourScale(int year, int term, double[] degrees) {
 
         double totalGpa = executeMethodsForFourScale(year, term, degrees);
 
-        String numberAfterFormat = String.format("%.2f", totalGpa);
-
-        return numberAfterFormat;
+        return totalGpa;
     }
 
 
     /**
-     * get the total gpa for (% scale type) and make it ready as a String to display on the screen.
+     * Get the total gpa for (% scale type) as double number.
      *
      * @param year number of the year (0-5).
      * @param term number of the term (1-2).
      * @param degrees array contain the subjects degrees.
      *
-     * @return total gpa (& scale type).
+     * @return total gpa.
      */
     public static String getTotalGpaOfSemesterForPercentageScale(int year, int term, double[] degrees) {
 
@@ -355,7 +353,7 @@ public class CalculatorForTotalGpa {
 
 
     /**
-     * get the total gpa letter and make it ready as a String to display on the screen.
+     * Get the total gpa letter and make it ready as a String to display on the screen.
      *
      * @param year number of the year (0-5).
      * @param term number of the term (1-2).
@@ -415,9 +413,9 @@ public class CalculatorForTotalGpa {
         Log.i(LOG_TAG, "end of executeMethodsForFourScale method (same above) inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
-        String totalGpaForFourScaleAsString = getTotalGpaOfSemesterForFourScale(year, term, degrees);
+        double totalGpaForFourScale = getTotalGpaOfSemesterForFourScale(year, term, degrees);
         Log.i(LOG_TAG, "end of getTotalGpaOfSemesterForFourScale method inside CalculatorForTotalGpa class : "
-                + totalGpaForFourScaleAsString);
+                + totalGpaForFourScale);
     }
 
 
@@ -482,4 +480,6 @@ public class CalculatorForTotalGpa {
                 + totalGpaAsLetter);
 
     }
+
+
 }
