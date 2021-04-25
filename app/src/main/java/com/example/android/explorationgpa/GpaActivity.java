@@ -1,6 +1,9 @@
 package com.example.android.explorationgpa;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +20,8 @@ import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEn
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class GpaActivity extends AppCompatActivity {
+
+public class GpaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
     private static final String LOG_TAG = GpaActivity.class.getSimpleName(); // activity name.
@@ -157,6 +161,33 @@ public class GpaActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+
+    /**
+     * Setup all loaders functions in the activity.
+     */
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+
+    /**
+     * don not know exactly.
+     */
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+
+    /**
+     * don not know exactly.
+     */
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 
