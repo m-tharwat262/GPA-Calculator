@@ -226,27 +226,27 @@ public class CalculatorForTotalGpa {
         String letter;
 
         if (100.0 >= gpa && gpa >= 93.0) {
-            letter = "(A)";
+            letter = "A";
         } else if (93.0 > gpa && gpa >= 88.0) {
-            letter = "(A-)";
+            letter = "A-";
         } else if (88.0 > gpa && gpa >= 82.0) {
-            letter = "(B+)";
+            letter = "B+";
         } else if (82.0 > gpa && gpa >= 78.0) {
-            letter = "(B)";
+            letter = "B";
         } else if (78.0 > gpa && gpa >= 74.0) {
-            letter = "(B-)";
+            letter = "B-";
         } else if (74.0 > gpa && gpa >= 70.0) {
-            letter = "(C+)";
+            letter = "C+";
         } else if (70.0 > gpa && gpa >= 65.0) {
-            letter = "(C)";
+            letter = "C";
         } else if (65.0 > gpa && gpa >= 60.0) {
-            letter = "(C-)";
+            letter = "C-";
         } else if (60.0 > gpa && gpa >= 55.0) {
-            letter = "(D+)";
+            letter = "D+";
         } else if (55.0 > gpa && gpa >= 50.0) {
-            letter = "(D)";
+            letter = "D";
         } else {
-            letter = "(-)";
+            letter = "F";
         }
 
         Log.i(LOG_TAG, "end of getGpaLetter method inside CalculatorForTotalGpa class : "
