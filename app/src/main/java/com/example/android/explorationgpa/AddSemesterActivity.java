@@ -541,6 +541,13 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                 finish(); // close the activity and return the user to GpaActivity.
 
                 return true;
+            case R.id.menu_add_semester_action_delete:
+
+                deleteSemester(); // delete the semester from the database.
+
+                finish(); // close the activity and return the user to GpaActivity.
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -615,6 +622,25 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
             // show a Toast message say that the semester saved.
             Toast.makeText(this, R.string.insert_semester_inside_database_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * Delete the semester from the database.
+     */
+    private void deleteSemester() {
+
+        // delete the semester frm the database.
+        // thar process return number of the rows thar deleter from the database.
+        int rows = getContentResolver().delete(semesterUri, null,null);
+
+        // check if the delete process has done successfully or failed.
+        if (rows == 0) {
+            Toast.makeText(this, R.string.delete_semester_from_database_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.delete_semester_from_database_successful, Toast.LENGTH_SHORT).show();
         }
 
     }

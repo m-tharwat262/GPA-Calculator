@@ -116,6 +116,10 @@
     <string name="insert_semester_inside_database_successful">Semester saved</string>
     <string name="insert_semester_inside_database_failed">Error with saving semester</string>
 
+    <!-- for delete a semester from the database -->
+    <string name="delete_semester_from_database_successful">Semester deleted</string>
+    <string name="delete_semester_from_database_failed">Error with deleting semester</string>
+
 
 
 
