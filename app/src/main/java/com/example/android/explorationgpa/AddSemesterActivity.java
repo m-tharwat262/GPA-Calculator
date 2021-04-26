@@ -556,6 +556,9 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                 // start and execute the functions at the mode (2).
                 startMode2();
 
+                // recreate the menu again to show save icon and hide both edit and delete icons.
+                invalidateOptionsMenu();
+
                 return true;
         }
 
@@ -570,11 +573,21 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mMode == MODE_OPEN_WITH_URI) {
+        // initialize all icons in the menu.
+        MenuItem saveIcon = menu.findItem(R.id.menu_add_semester_action_save);
+        MenuItem editIcon = menu.findItem(R.id.menu_add_semester_action_edit);
+        MenuItem deleteIcon = menu.findItem(R.id.menu_add_semester_action_delete);
 
-            // hide the save icon from the menu
-            MenuItem save = menu.findItem(R.id.menu_add_semester_action_save);
-            save.setVisible(false);
+        if (mMode == MODE_OPEN_WITH_URI) {
+            // hide the save icon from the menu.
+            saveIcon.setVisible(false);
+        } else {
+            // show the save icon in the menu.
+            saveIcon.setVisible(true);
+
+            // hide the edit & delete icon from the menu.
+            editIcon.setVisible(false);
+            deleteIcon.setVisible(false);
         }
 
         return true;
