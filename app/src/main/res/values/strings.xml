@@ -274,6 +274,9 @@
     <!-- for save icon in the menu_add_semester -->
     <string name="action_save">Save</string>
 
+    <!-- for delete icon in the menu_add_semester -->
+    <string name="action_delete">Delete</string>
+
 
 
 </resources>

@@ -5,6 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".AddSemesterActivity">
 
+    <!-- delete icon -->
+    <item
+        android:id="@+id/menu_add_semester_action_delete"
+        android:title="@string/action_delete"
+        android:icon="@drawable/delete_icon"
+        app:showAsAction="always" />
+
     <!-- save icon -->
     <item
         android:id="@+id/menu_add_semester_action_save"
