@@ -38,10 +38,6 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private TextView idTextView; // for the basic info part in the layout.
     private TextView semesterTextView; // for the basic info part in the layout.
 
-    private TextView totalGpaAsNumberTextView; // for display the gpa as a number.
-    private TextView totalGpaAsLetterTextView; // for display the gpa as a letter.
-    private TextView totalGpaAsPercentageTextView; // for display the gpa as a percentage.
-
     private LinearLayout linearForTotalGpa; // the linear that display the (the total gap) statement.
     private Button doneButton; // fot the button which calculate gpa.
 
@@ -77,10 +73,6 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
         linearForTotalGpa = (LinearLayout) findViewById(R.id.activity_add_semester_linear_for_total_gpa);
         doneButton = (Button) findViewById(R.id.activity_add_semester_button_done);
-
-        totalGpaAsNumberTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_number);
-        totalGpaAsLetterTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
-        totalGpaAsPercentageTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
 
         listView = (ListView) findViewById(R.id.activity_add_semester_list_view);
 
@@ -289,8 +281,50 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
+     * Display the the total gpa by (4 Scale - % Scale - letter) in the layout.
+     *
+     * @param yearNumber number of the year that the semester in.
+     * @param termNumber number of the term that the semester in.
+     * @param degrees subjects degrees in the semester.
+     */
+    private void displayTotalGpa(int yearNumber, int termNumber, double[] degrees) {
+
+        TextView totalGpaAsNumberTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_number);
+        TextView totalGpaAsLetterTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_letter);
+        TextView totalGpaAsPercentageTextView = (TextView) findViewById(R.id.activity_add_semester_total_gpa_as_percentage);
+
+
+        // calculate the total gpa number (4 Scale type).
+        double totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
+        // to make there is just two number after the dot like that (3.75).
+        String totalGpaAfterFormat = String.format("%.2f", totalGpaForFourScale);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsNumberTextView.setText(totalGpaAfterFormat);
+
+
+        // calculate the total gpa letter.
+        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
+        // make the total gpa letter between brackets.
+        String totalGpaAsLetterBetweenBrackets = String.format(getResources().getString(R.string.text_between_brackets), totalGpaAsLetter);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsLetterTextView.setText(totalGpaAsLetterBetweenBrackets);
+
+
+        // calculate the total gpa number (% Scale type).
+        double totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
+        // make there is just two number after the dot like that (88.75) .
+        String totalGpaPercentageAfterFormat = String.format("%.2f", totalGpaPercentageScale);
+        // add the % sign after the total gpa.
+        String totalGpaWithPercentageSign = String.format(getResources().getString(R.string.number_with_hundred_percentage_sign), totalGpaPercentageAfterFormat);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsPercentageTextView.setText(totalGpaWithPercentageSign);
+
+    }
+
+
+    /**
      * (user can insert degrees).
-     * for the first time the user open the activity to add a new semester.
+     * For the first time the user open the activity to add a new semester.
      */
     private void startMode0() {
 
@@ -338,30 +372,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         double[] degrees = semesterAdapter.getSubjectDegrees();
 
 
-        // calculate the total gpa number (4 Scale type).
-        double totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
-        // to make there is just two number after the dot like that (4.75).
-        String totalGpaAfterFormat = String.format("%.2f", totalGpaForFourScale);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsNumberTextView.setText(totalGpaAfterFormat);
-
-
-        // calculate the total gpa letter.
-        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
-        // make the total gpa letter between brackets.
-        String totalGpaAsLetterBetweenBrackets = String.format(getResources().getString(R.string.text_between_brackets), totalGpaAsLetter);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsLetterTextView.setText(totalGpaAsLetterBetweenBrackets);
-
-
-        // calculate the total gpa number (% Scale type).
-        double totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
-        // make there is just two number after the dot like that (88.75) .
-        String totalGpaPercentageAfterFormat = String.format("%.2f", totalGpaPercentageScale);
-        // add the % sign after the total gpa.
-        String totalGpaWithPercentageSign = String.format(getResources().getString(R.string.number_with_hundred_percentage_sign), totalGpaPercentageAfterFormat);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsPercentageTextView.setText(totalGpaWithPercentageSign);
+        // display the total gpa by (4 Scale - % Scale - letter) in the screen.
+        displayTotalGpa(yearNumber, termNumber, degrees);
 
     }
 
@@ -436,30 +448,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         listView.setAdapter(semesterAdapter);
 
 
-        // calculate the total gpa number (4 Scale type).
-        double totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
-        // to make there is just two number after the dot like that (4.75).
-        String totalGpaAfterFormat = String.format("%.2f", totalGpaForFourScale);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsNumberTextView.setText(totalGpaAfterFormat);
-
-
-        // calculate the total gpa letter.
-        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
-        // make the total gpa letter between brackets.
-        String totalGpaAsLetterBetweenBrackets = String.format(getResources().getString(R.string.text_between_brackets), totalGpaAsLetter);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsLetterTextView.setText(totalGpaAsLetterBetweenBrackets);
-
-
-        // calculate the total gpa number (% Scale type).
-        double totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
-        // make there is just two number after the dot like that (88.75) .
-        String totalGpaPercentageAfterFormat = String.format("%.2f", totalGpaPercentageScale);
-        // add the % sign after the total gpa.
-        String totalGpaWithPercentageSign = String.format(getResources().getString(R.string.number_with_hundred_percentage_sign), totalGpaPercentageAfterFormat);
-        // display the total gpa by four scale in the layout.
-        totalGpaAsPercentageTextView.setText(totalGpaWithPercentageSign);
+        // display the total gpa by (4 Scale - % Scale - letter) in the screen.
+        displayTotalGpa(yearNumber, termNumber, degrees);
 
 
         // no need to use the done button in this mode.
@@ -558,7 +548,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
-     * save the total gpa for the semester.
+     * Save the total gpa for the semester.
      */
     private void saveSemester() {
 
