@@ -54,7 +54,6 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
     private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
     private static final int MODE_OPEN_WITH_URI = 3; // display the semester info when the user open the activity by intent contain uri.
-
     private int mMode; // the basic mode that use across the all activity functions.
 
     private Uri semesterUri; // refer to the semester location inside the database.
@@ -373,7 +372,6 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         // get all degrees that the user insert in the mode (0).
         double[] degrees = semesterAdapter.getSubjectDegrees();
 
-
         // display the total gpa by (4 Scale - % Scale - letter) in the screen.
         displayTotalGpa(yearNumber, termNumber, degrees);
 
@@ -396,6 +394,10 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
         // to display word DONE on the done button.
         doneButton.setText(R.string.button_done);
+
+        if (!(semesterUri == null)) {
+            doneButton.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -427,8 +429,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         int semesterNumber = cursor.getInt(semesterNumberColumnIndex);
 
         // get both year number & term number by knowing the semester number.
-        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
-        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
+        yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
 
         // display the basic info (student name & Id - semester number) in the top part of the layout.
         setupTheBasicInfo(studentName, studentId, yearNumber, termNumber);
@@ -547,6 +549,12 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
                 // show a dialog message to alert the user that he up to delete the semester.
                 showDeleteConfirmationDialog();
+
+                return true;
+            case R.id.menu_add_semester_action_edit:
+
+                // start and execute the functions at the mode (2).
+                startMode2();
 
                 return true;
         }
