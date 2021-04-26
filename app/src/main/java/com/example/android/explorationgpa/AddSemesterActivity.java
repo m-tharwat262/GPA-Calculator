@@ -548,6 +548,24 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
+     * Control showing or hiding icons in the menu part.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        if (mMode == MODE_OPEN_WITH_URI) {
+
+            // hide the save icon from the menu
+            MenuItem save = menu.findItem(R.id.menu_add_semester_action_save);
+            save.setVisible(false);
+        }
+
+        return true;
+    }
+
+
+    /**
      * Save the total gpa for the semester.
      */
     private void saveSemester() {
