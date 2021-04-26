@@ -1,12 +1,14 @@
 package com.example.android.explorationgpa;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -543,9 +545,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                 return true;
             case R.id.menu_add_semester_action_delete:
 
-                deleteSemester(); // delete the semester from the database.
-
-                finish(); // close the activity and return the user to GpaActivity.
+                // show a dialog message to alert the user that he up to delete the semester.
+                showDeleteConfirmationDialog();
 
                 return true;
         }
@@ -642,6 +643,45 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         } else {
             Toast.makeText(this, R.string.delete_semester_from_database_successful, Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+    /**
+     * Show Dialog with alert message to the user that he up to delete the semester from the
+     * database, and take his confirm for that or dismiss the the dialog and close it.
+     */
+    private void showDeleteConfirmationDialog() {
+
+        // Create an AlertDialog.Builder.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set the dialog message text.
+        builder.setMessage(R.string.dialog_message_delete_semester);
+
+        // set the click listeners for the positive button on the dialog.
+        builder.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the semester.
+                deleteSemester();
+                // close the activity and return the user to GpaActivity.
+                finish();
+            }
+        });
+
+        // set the click listener for the negative button on the dialog.
+        builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so close the dialog.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 
