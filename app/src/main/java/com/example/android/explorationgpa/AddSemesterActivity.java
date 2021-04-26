@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -46,8 +47,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
     private ListView listView; // that display the semester subjects info as items in the layout.
 
-    int yearNumber; // (0-1-2-3-4-5)
-    int termNumber; // (1-2)
+    int yearNumber; // (0-1-2-3-4-5).
+    int termNumber; // (1-2).
 
     private SemesterAdapter semesterAdapter; // the adapter which display the semester subjects in the listView.
 
@@ -58,7 +59,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
     private int mMode; // the basic mode that use across the all activity functions.
 
-    private Uri semesterUri;
+    private Uri semesterUri; // refer to the semester location inside the database.
 
     private static final int SEMESTER_LOADER = 0; // number of the semester loader.
 
@@ -90,8 +91,6 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         int studentId = intent.getIntExtra("student_id",0); // for student id.
         yearNumber = intent.getIntExtra("year_number", 0); // for number of the year.
         termNumber = intent.getIntExtra("term_number", 0); // for number of the term.
-        Log.i(LOG_TAG, "intent come from InfoActivity contain : " + studentName + "  " + studentId + " " + yearNumber + " " + termNumber);
-
 
 
         // show the user basic data on the top of the layout.
@@ -379,7 +378,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
 
         // notify the adapter that we are start the mode (2) to change its content.
-        semesterAdapter.setAdapterMode(2);
+        semesterAdapter.setAdapterMode(MODE_EDIT_DEGREES_AGAIN);
 
         // to display word DONE on the done button.
         doneButton.setText(R.string.button_done);
@@ -387,19 +386,90 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     }
 
 
+    /**
+     * (user can not insert or edit).
+     * Show the semester info that stored inside the database (epically subject degrees) and
+     * the total gpa by (4 Scale - % Scale - Letter) without ability to edit anything.
+     */
     private void startMode3(Cursor cursor) {
 
         // change the mode to be equal (3).
         mMode = MODE_OPEN_WITH_URI;
         Log.i(LOG_TAG, "the AddSemesterActivity mode is   :   " + mMode);
 
-        // TODO: setup the mode functions.
+        // get the column position in the table inside the database.
+        int studentNameColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_NAME);
+        int studentIdColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_ID);
+        int semesterNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
+        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER);
+
+        // get student name from the database.
+        String studentName = cursor.getString(studentNameColumnIndex);
+
+        // get student ID from the database.
+        int studentId = cursor.getInt(studentIdColumnIndex);
+
+        // get the semester number from the database.
+        int semesterNumber = cursor.getInt(semesterNumberColumnIndex);
+
+        // get both year number & term number by knowing the semester number.
+        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
+
+        // display the basic info (student name & Id - semester number) in the top part of the layout.
+        setupTheBasicInfo(studentName, studentId, yearNumber, termNumber);
+
+
+        // get degrees from database.
+        byte[] blob = cursor.getBlob(subjectDegreesColumnIndex); // degrees as BLOB.
+        String json = new String(blob); // convert BLOB above to json object.
+        Gson gson = new Gson(); // initialize the Gson Object.
+        double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
+
+
+        // get ArrayList of the SubjectObjects that contain the info about the semester subject.
+        ArrayList<SubjectObject> subjectObjects = getArrayListOfSubjectsObjects(yearNumber, termNumber, degrees);
+
+        // setup the ListView that display the semester subject info.
+        semesterAdapter = new SemesterAdapter(this, subjectObjects);
+        semesterAdapter.setAdapterMode(MODE_OPEN_WITH_URI);// display the gpa and prevent the user from editing his degrees.
+        listView.setAdapter(semesterAdapter);
+
+
+        // calculate the total gpa number (4 Scale type).
+        double totalGpaForFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, degrees);
+        // to make there is just two number after the dot like that (4.75).
+        String totalGpaAfterFormat = String.format("%.2f", totalGpaForFourScale);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsNumberTextView.setText(totalGpaAfterFormat);
+
+
+        // calculate the total gpa letter.
+        String totalGpaAsLetter = CalculatorForTotalGpa.getTotalGpaOfSemesterAsLetter(yearNumber, termNumber, degrees);
+        // make the total gpa letter between brackets.
+        String totalGpaAsLetterBetweenBrackets = String.format(getResources().getString(R.string.text_between_brackets), totalGpaAsLetter);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsLetterTextView.setText(totalGpaAsLetterBetweenBrackets);
+
+
+        // calculate the total gpa number (% Scale type).
+        double totalGpaPercentageScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, degrees);
+        // make there is just two number after the dot like that (88.75) .
+        String totalGpaPercentageAfterFormat = String.format("%.2f", totalGpaPercentageScale);
+        // add the % sign after the total gpa.
+        String totalGpaWithPercentageSign = String.format(getResources().getString(R.string.number_with_hundred_percentage_sign), totalGpaPercentageAfterFormat);
+        // display the total gpa by four scale in the layout.
+        totalGpaAsPercentageTextView.setText(totalGpaWithPercentageSign);
+
+
+        // no need to use the done button in this mode.
+        doneButton.setVisibility(View.GONE);
 
     }
 
 
     /**
-     * get an ArrayList of SubjectObjects that include subject info of any semester by know the
+     * Get an ArrayList of SubjectObjects (without degrees) that include subject info of any semester by know the
      * year and term number.
      *
      * @param year number of the year that the user choose.
@@ -418,6 +488,33 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         // add the resources ids to the subjects name to the ArrayList.
         for (int i = 0 ; i < ids.length ; i++) {
             subjectObjects.add(new SubjectObject(ids[i]));
+        }
+
+        return subjectObjects;
+    }
+
+
+    /**
+     * Get an ArrayList of SubjectObjects (with degrees) that include subject info of any semester by know the
+     * year and term number.
+     *
+     * @param year number of the year that the user choose.
+     * @param term number of the term that the user choose.
+     * @param degrees array contain the subject degrees comes from the database.
+     *
+     * @return ArrayList of SubjectObjects for the semester.
+     */
+    private ArrayList<SubjectObject> getArrayListOfSubjectsObjects(int year, int term, double[] degrees) {
+
+        // to get the resources ids for the subjects name.
+        int[] ids = SemesterInfo.getSubjectsOfSemester(year, term);
+
+        // initialise the ArrayList of the SubjectObjects.
+        ArrayList<SubjectObject> subjectObjects = new ArrayList<>();
+
+        // add the resources ids to the subjects name to the ArrayList.
+        for (int i = 0 ; i < ids.length ; i++) {
+            subjectObjects.add(new SubjectObject(ids[i], degrees[i]));
         }
 
         return subjectObjects;
