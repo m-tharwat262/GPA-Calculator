@@ -286,6 +286,9 @@
     <!-- for delete icon in the menu_add_semester -->
     <string name="action_delete">Delete</string>
 
+    <!-- for edit icon in the menu_add_semester -->
+    <string name="action_edit">Delete</string>
+
 
 
 </resources>
