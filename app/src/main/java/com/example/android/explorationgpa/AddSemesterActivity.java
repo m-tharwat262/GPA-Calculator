@@ -632,18 +632,54 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         values.put(SemesterGpaEntry.COLUMN_UNIX, time);
 
 
-        // insert the new semester to the database.
+
+        // check if the semester that will be saved a new one or existed already.
+        if (semesterUri == null) {
+            // insert the new semester to the database.
+            insertSemester(values);
+        } else {
+            // update the semester.
+            updateSemester(values);
+        }
+
+    }
+
+
+    /**
+     * insert a new semester inside the database.
+     */
+    private void insertSemester(ContentValues values) {
+
+        // insert the new semester to the database and get the uri for that semester.
         Uri uri = getContentResolver().insert(SemesterGpaEntry.CONTENT_URI, values);
 
         // check if the semester inserted successfully or failed.
         if (uri == null) {
-
-            // show a Toast message say that the semester saving failed.
+            // show a toast message to the user says that "Error with saving semester".
             Toast.makeText(this, R.string.insert_semester_inside_database_failed, Toast.LENGTH_SHORT).show();
         } else {
-
-            // show a Toast message say that the semester saved.
+            // show a toast message to the user says that "Semester saved".
             Toast.makeText(this, R.string.insert_semester_inside_database_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * update a semester already exist inside the database.
+     */
+    private void updateSemester(ContentValues values) {
+
+        // update the semester and get number of the rows that updated.
+        int rows = getContentResolver().update(semesterUri, values, null, null);
+
+        // check if the semester updated successfully or failed.
+        if (rows == 0) {
+            // show a toast message to the user says that "Error with updating semester".
+            Toast.makeText(this, R.string.update_semester_inside_database_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            // show a toast message to the user says that "Semester updated".
+            Toast.makeText(this, R.string.update_semester_inside_database_successful, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -660,8 +696,10 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
         // check if the delete process has done successfully or failed.
         if (rows == 0) {
+            // show a toast message to the user says that "Error with deleting semester".
             Toast.makeText(this, R.string.delete_semester_from_database_failed, Toast.LENGTH_SHORT).show();
         } else {
+            // show a toast message to the user says that "Semester deleted".
             Toast.makeText(this, R.string.delete_semester_from_database_successful, Toast.LENGTH_SHORT).show();
         }
 
