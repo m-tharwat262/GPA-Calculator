@@ -470,8 +470,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
-     * Get an ArrayList of SubjectObjects (without degrees) that include subject info of any semester by know the
-     * year and term number.
+     * Get an ArrayList of SubjectObjects (without degrees) that include subject info of any
+     * semester by know the year and term number.
      *
      * @param year number of the year that the user choose.
      * @param term number of the term that the user choose.
@@ -496,8 +496,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
-     * Get an ArrayList of SubjectObjects (with degrees) that include subject info of any semester by know the
-     * year and term number.
+     * Get an ArrayList of SubjectObjects (with degrees) that include subject info of any semester
+     * by know the year and term number.
      *
      * @param year number of the year that the user choose.
      * @param term number of the term that the user choose.
@@ -547,9 +547,17 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
             // for save icon.
             case R.id.menu_add_semester_action_save:
 
-                saveSemester(); // save the semester inside database.
-
-                finish(); // close the activity and return the user to GpaActivity.
+                // make sure that the user in the mode (1) that responsible for display the semester
+                // total gpa after press DONE button before save the semester inside the database.
+                if (mMode == MODE_DISPLAY_TOTAL_GPA) {
+                    // save the semester inside database.
+                    saveSemester();
+                    // close the activity and return the user to GpaActivity.
+                    finish();
+                } else {
+                    // show toast message says "Press DONE first".
+                    Toast.makeText(this, R.string.press_on_done_button, Toast.LENGTH_SHORT).show();
+                }
 
                 return true;
             case R.id.menu_add_semester_action_delete:

@@ -132,6 +132,9 @@
     <!-- tell the user that he not allowed to calculate total gpa when he insert degree more than 100 -->
     <string name="degree_more_than_hundred">Check your degrees again</string>
 
+    <!-- tell the user press on the done button before save the semester inside the database -->
+    <string name="press_on_done_button">press DONE first</string>
+
 
 
 
