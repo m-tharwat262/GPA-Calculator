@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="56dp"
     android:orientation="horizontal">
 
 
@@ -22,8 +22,8 @@
     <TextView
         android:id="@+id/subject_item_gpa_letter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textColor="#F0514B"
@@ -39,8 +39,9 @@
         android:id="@+id/subject_item_change_degree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:background="@android:drawable/edit_text"
+        android:layout_gravity="center"
         android:gravity="center"
         android:hint="@string/subject_hint_degree"
         android:inputType="numberDecimal"
