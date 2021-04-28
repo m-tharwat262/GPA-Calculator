@@ -129,6 +129,24 @@
     <string name="delete_semester_from_database_successful">Semester deleted</string>
     <string name="delete_semester_from_database_failed">Error with deleting semester</string>
 
+    <!-- tell the user that he not allowed to calculate total gpa when he insert degree more than 100 -->
+    <string name="degree_more_than_hundred">Check your degrees again</string>
+
+
+
+
+
+
+
+
+    ///////////////////////////////// For SemesterAdapter.java /////////////////////////////////
+
+    <!-- the error message that appear in the EditText when degree more than 100 -->
+    <string name="error_message_on_editText_for_degree">can\'t be more than 100</string>
+
+
+
+
 
 
 
@@ -138,6 +156,8 @@
 
     <string name="semester_with_placeholder">Semester(%1$d)</string>
     <string name="gpa_equal_with_placeholder">&#160;/ GPA = %1$s</string>
+
+
 
 
 

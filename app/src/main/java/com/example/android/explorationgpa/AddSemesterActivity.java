@@ -126,10 +126,10 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
      */
     private void setupTheBasicInfo(String studentName, int studentId, int yearNumber, int termNumber) {
 
-        // get the exact number of the semester by the year and term which the user choose
+        // get the exact number of the semester by the year and term which the user choose.
         int semester = SemesterInfo.getNumberOfSemester(yearNumber, termNumber);
 
-        // write the user information in the top part of the layout (basic info part)
+        // write the user information in the top part of the layout (basic info part).
         nameTextView.setText(String.valueOf(studentName));
         idTextView.setText(String.valueOf(studentId));
         semesterTextView.setText(String.valueOf(semester));
@@ -265,8 +265,15 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                     // that make the last EditText save the data inserted inside it.
                     listView.clearFocus();
 
-                    // start and execute the functions at the mode (1).
-                    startMode1();
+                    // if the user insert degree more 100 we get error.
+                    boolean hasError = semesterAdapter.checkDegreesError();
+                    if (hasError) {
+                        // show toast message to the user says "Check your degrees again".
+                        Toast.makeText(AddSemesterActivity.this, R.string.degree_more_than_hundred, Toast.LENGTH_SHORT).show();
+                    } else {
+                        // start and execute the functions at the mode (1).
+                        startMode1();
+                    }
 
                 } else if (mMode == MODE_DISPLAY_TOTAL_GPA) {
 

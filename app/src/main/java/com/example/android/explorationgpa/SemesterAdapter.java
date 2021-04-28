@@ -132,6 +132,11 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
                         SubjectObject subjectObject = getItem(i);
                         // save the degree in the SubjectObject.
                         subjectObject.setSubjectDegree(degree);
+                        // when the degree more than 100, show an error message on the EditText.
+                        if (degree > 100) {
+                            // tell the user that "can't be more than 100".1
+                            answerBody.setError(mContext.getString(R.string.error_message_on_editText_for_degree));
+                        }
                     } else if (TextUtils.isEmpty(degreeAsString)) {
                         // when there is no degree inserted we make it equal 0.
                         double degree = 0.0;
@@ -182,6 +187,29 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
         }
 
         return degrees;
+    }
+
+
+    /**
+     * Check if there is a degree inserted more than hundred (100).
+     *
+     * @return true value means there is a degree more than 100.
+     */
+    public boolean checkDegreesError() {
+
+        // get all the degree inserted to the EditTexts.
+        double[] degrees = getSubjectDegrees();
+        // array size.
+        int arraySize = degrees.length;
+
+        // check all the degrees.
+        for (int i = 0 ; i < arraySize ; i++) {
+            if (degrees[i] > 100) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
 }
