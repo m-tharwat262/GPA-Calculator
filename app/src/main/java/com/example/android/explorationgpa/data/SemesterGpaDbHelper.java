@@ -40,7 +40,7 @@ public class SemesterGpaDbHelper extends SQLiteOpenHelper {
                 + SemesterGpaEntry.COLUMN_STUDENT_NAME          + " TEXT NOT NULL, "                     // for student name.
                 + SemesterGpaEntry.COLUMN_STUDENT_ID            + " INTEGER NOT NULL, "                  // for student id.
                 + SemesterGpaEntry.COLUMN_SEMESTER_NUMBER       + " INTEGER NOT NULL, "                  // for semester number.
-                + SemesterGpaEntry.COLUMN_OBJECT_SEMESTER       + " BLOB NOT NULL, "                     // degrees.
+                + SemesterGpaEntry.COLUMN_SEMESTER_DEGREES      + " BLOB NOT NULL, "                     // degrees.
                 + SemesterGpaEntry.COLUMN_UNIX                  + " INTEGER NOT NULL DEFAULT 0);";       // for the date and time.
 
 

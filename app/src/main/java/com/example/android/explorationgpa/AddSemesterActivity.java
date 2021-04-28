@@ -424,7 +424,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         int studentNameColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_NAME);
         int studentIdColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_ID);
         int semesterNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
-        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER);
+        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_DEGREES);
 
         // get student name from the database.
         String studentName = cursor.getString(studentNameColumnIndex);
@@ -643,7 +643,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         values.put(SemesterGpaEntry.COLUMN_STUDENT_NAME, studentName);
         values.put(SemesterGpaEntry.COLUMN_STUDENT_ID, studentId);
         values.put(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER, semesterNumber);
-        values.put(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER, degreesAsByte);
+        values.put(SemesterGpaEntry.COLUMN_SEMESTER_DEGREES, degreesAsByte);
         values.put(SemesterGpaEntry.COLUMN_UNIX, time);
 
 
@@ -774,7 +774,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                 SemesterGpaEntry.COLUMN_STUDENT_NAME,
                 SemesterGpaEntry.COLUMN_SEMESTER_NUMBER,
                 SemesterGpaEntry.COLUMN_STUDENT_ID,
-                SemesterGpaEntry.COLUMN_OBJECT_SEMESTER };
+                SemesterGpaEntry.COLUMN_SEMESTER_DEGREES };
 
 
         return new CursorLoader(

@@ -27,7 +27,7 @@ public final class ExplorationContract {
         public final static String COLUMN_STUDENT_NAME = "name"; // student name.
         public final static String COLUMN_STUDENT_ID = "id"; // student id.
         public final static String COLUMN_SEMESTER_NUMBER = "semester"; // semester number.
-        public final static String COLUMN_OBJECT_SEMESTER = "degrees"; // degrees.
+        public final static String COLUMN_SEMESTER_DEGREES = "degrees"; // degrees.
         public final static String COLUMN_UNIX = "unix"; // for the date and time.
 
 

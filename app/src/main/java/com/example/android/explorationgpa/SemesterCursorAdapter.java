@@ -70,7 +70,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         int studentIdColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_STUDENT_ID);
         int semesterNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
         int unixNumberColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_UNIX);
-        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_OBJECT_SEMESTER);
+        int subjectDegreesColumnIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_DEGREES);
 
 
         // get the student name from the database and display it in the screen.
