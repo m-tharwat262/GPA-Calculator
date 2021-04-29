@@ -143,6 +143,10 @@
     <string name="dialog_message_unsaved_changes">Discard your changes and quit editing?</string>
 
 
+    <!-- for the activity title name -->
+    <string name="activity_display_mode">Display Semester</string>
+    <string name="activity_edit_mode">Edit Semester</string>
+
 
 
     ///////////////////////////////// For SemesterAdapter.java /////////////////////////////////

@@ -108,6 +108,9 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
             // start the first mode for the activity to add a new semester.
             startMode0();
         } else {
+            // rename the activity title name to be "Display Semester".
+            setTitle(R.string.activity_display_mode);
+
             // start the semester loader.
             LoaderManager.getInstance(this).initLoader(SEMESTER_LOADER, null, this);
         }
@@ -569,6 +572,9 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
                 return true;
             case R.id.menu_add_semester_action_edit:
+
+                // rename the activity title name to be "Edit Semester".
+                setTitle(R.string.activity_edit_mode);
 
                 // start and execute the functions at the mode (2).
                 startMode2();
