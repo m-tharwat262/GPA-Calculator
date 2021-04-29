@@ -8,6 +8,8 @@
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_discard">Discard</string>
+    <string name="button_keep_editing">Keep Editing</string>
 
 
     <!-- For menu_gpa.xml -->
@@ -23,8 +25,6 @@
     <!-- For add number (String type) with hundred percentage sign (%) -->
     <string name="number_with_hundred_percentage_sign">%1$s%%</string>
 
-    <!-- For dialog messages -->
-    <string name="dialog_message_delete_semester">Delete this semester?</string>"
 
 
     ///////////////////////////////// For AndroidManifests file /////////////////////////////////
@@ -136,8 +136,11 @@
     <string name="press_on_done_button">press DONE first</string>
 
 
+    <!-- delete dialog messages -->
+    <string name="dialog_message_delete_semester">Delete this semester?</string>"
 
-
+    <!-- changing degrees in edit semester dialog message -->
+    <string name="dialog_message_unsaved_changes">Discard your changes and quit editing?</string>
 
 
 

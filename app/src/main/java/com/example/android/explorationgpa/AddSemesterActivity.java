@@ -45,8 +45,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
     private ListView listView; // that display the semester subjects info as items in the layout.
 
-    int yearNumber; // (0-1-2-3-4-5).
-    int termNumber; // (1-2).
+    private int yearNumber; // (0-1-2-3-4-5).
+    private int termNumber; // (1-2).
 
     private SemesterAdapter semesterAdapter; // the adapter which display the semester subjects in the listView.
 
@@ -59,6 +59,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private Uri semesterUri; // refer to the semester location inside the database.
 
     private static final int SEMESTER_LOADER = 0; // number of the semester loader.
+
+    private double[] degreesFromDataBase; // refer to semester degrees that comes from the database.
 
 
 
@@ -447,11 +449,11 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         byte[] blob = cursor.getBlob(subjectDegreesColumnIndex); // degrees as BLOB.
         String json = new String(blob); // convert BLOB above to json object.
         Gson gson = new Gson(); // initialize the Gson Object.
-        double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
+        degreesFromDataBase = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
 
 
         // get ArrayList of the SubjectObjects that contain the info about the semester subject.
-        ArrayList<SubjectObject> subjectObjects = getArrayListOfSubjectsObjects(yearNumber, termNumber, degrees);
+        ArrayList<SubjectObject> subjectObjects = getArrayListOfSubjectsObjects(yearNumber, termNumber, degreesFromDataBase);
 
         // setup the ListView that display the semester subject info.
         semesterAdapter = new SemesterAdapter(this, subjectObjects);
@@ -460,7 +462,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
         // display the total gpa by (4 Scale - % Scale - letter) in the screen.
-        displayTotalGpa(yearNumber, termNumber, degrees);
+        displayTotalGpa(yearNumber, termNumber, degreesFromDataBase);
 
 
         // no need to use the done button in this mode.
@@ -723,7 +725,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
     /**
      * Show Dialog with alert message to the user that he up to delete the semester from the
-     * database, and take his confirm for that or dismiss the the dialog and close it.
+     * database, and take his confirm for that or dismiss the dialog and close it.
      */
     private void showDeleteConfirmationDialog() {
 
@@ -733,7 +735,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         // set the dialog message text.
         builder.setMessage(R.string.dialog_message_delete_semester);
 
-        // set the click listeners for the positive button on the dialog.
+        // set the click listeners for the positive button (DELETE) on the dialog.
         builder.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the semester.
@@ -743,7 +745,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
             }
         });
 
-        // set the click listener for the negative button on the dialog.
+        // set the click listener for the negative (CANCEL) button on the dialog.
         builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so close the dialog.
@@ -753,7 +755,109 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
             }
         });
 
-        // Create and show the AlertDialog
+        // Create and show the AlertDialog.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+
+    /**
+     * Handle the back pressed button when the user open a semester from the database and edit some
+     * of its degrees.
+     */
+    @Override
+    public void onBackPressed() {
+
+        // if the activity open to add a new semester, no need to check that there is changing in
+        // degrees be
+        if (semesterUri == null) {
+            // use the super method to close the activity.
+            super.onBackPressed();
+            return;
+        }
+
+        // know if the user change his degrees or not.
+        boolean degreesHasChanged = checkChangingInDegrees();
+
+        // check if subject degrees changed or not and handle that two cases.
+        if (degreesHasChanged) {
+            // show dialog message to alert the user that there is degrees changes without saving.
+            showUnsavedChangesDialog();
+        } else {
+            // use the super method to close the activity.
+            super.onBackPressed();
+        }
+
+    }
+
+
+    /**
+     * Check if there is different between that stored in the database and the degrees that in the
+     * EditText in the items in the SemesterAdapter.
+     *
+     * @return true means there is changing in degrees, false means no changing happened.
+     */
+    private boolean checkChangingInDegrees() {
+
+        // remove the focus from the last EditText that the user used to get last degree he inserted.
+        listView.clearFocus();
+
+        // get the all subject degrees from the EditText in the adapter.
+        double[] degreesFromAdapter = semesterAdapter.getSubjectDegrees();
+
+        // size of the array.
+        int arraySize = degreesFromDataBase.length;
+
+        // check all degrees in the EditText.
+        for (int i = 0 ; i < arraySize ; i++) {
+
+            // if there is any degree from EdtText not equal the degree that stored in the database
+            // the function end and return true.
+            if (degreesFromAdapter[i] != degreesFromDataBase[i]) {
+                return true;
+            }
+
+        }
+        // in case there is no changing in degrees.
+        return false;
+    }
+
+
+    /**
+     * Show Dialog with message to tell the user that there is some changes in subject degrees,
+     * and take his confirm for discarding this changing and close the activity or dismiss dialog
+     * and keep editing the degrees.
+     */
+    private void showUnsavedChangesDialog() {
+
+        // Create an AlertDialog.Builder.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set the dialog message text.
+        builder.setMessage(R.string.dialog_message_unsaved_changes);
+
+        // set the click listeners for the positive button (DISCARD) on the dialog.
+        builder.setPositiveButton(R.string.button_discard, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // click on the discard button will close the current activity and open GpaActivity.
+                finish();
+            }
+        });
+
+        // set the click listener for the negative button (KEEP EDITING) on the dialog.
+        builder.setNegativeButton(R.string.button_keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //click on th keep editing button will dismiss the dialog
+                // and continue editing the semester.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog.
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -804,7 +908,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
-     * don not know exactly.
+     * Don't know exactly.
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
