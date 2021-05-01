@@ -13,10 +13,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -32,11 +35,19 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     private SharedPreferences mSharedPrefs; // to access to the preference settings.
 
+    private LinearLayout mCalculateButtonsLayout; // layout contain the calculate & cancel buttons.
+
     private FloatingActionButton mFloatingActionButton; // icon that start to add a new semester.
+
+    private ListView mSemesterListView; // a list display the semester items.
 
     private SemesterCursorAdapter mSemesterCursorAdapter; // adapter for the semester items.
 
     private static final int SEMESTER_LOADER = 0; // number of the semester loader.
+
+    private static final int DISPLAY_ITEMS = 0; // the layout display the items in the listViews.
+    private static final int CALCULATE_TOTAL_GPA = 1; // the layout display the two buttons responsible to calculate total gpa.
+    private int mMode = DISPLAY_ITEMS; // the mode the activity use from above.
 
 
     @Override
@@ -45,11 +56,17 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setContentView(R.layout.activity_gpa);
 
 
+        // to access to the preference settings.
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // the circle button that use to add a new semester.
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_floating_action_button);
+        // list that display the semester items.
+        mSemesterListView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
+        // layout contain buttons (calculate - cancel).
+        mCalculateButtonsLayout = (LinearLayout) findViewById(R.id.activity_gpa_Layout_for_buttons);
 
 
-        // check if the user log in before or not.
+        // check if the user login before or not.
         checkPreference();
 
         // handle clicks on the floating action button.
@@ -79,20 +96,21 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
      */
     private void setupSemesterListView() {
 
-        ListView semesterListView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
-        semesterListView.setAdapter(mSemesterCursorAdapter);
+
+        mSemesterListView.setAdapter(mSemesterCursorAdapter);
 
         // to hide the empty views from the layout when there is a semester item in the listView.
         RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_layout_for_empty_view);
-        semesterListView.setEmptyView(relativeLayout);
+        mSemesterListView.setEmptyView(relativeLayout);
 
         // handle clicks on the items in the semester ListView.
-        semesterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mSemesterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // open AddSemesterActivity by intent contain uri refer to the location for that
                 // semester inside the database.
+                // id parameter refer to the unique id for the semester inside database.
                 Intent intent = new Intent(GpaActivity.this, AddSemesterActivity.class);
                 Uri currentSemesterUri = new ContentUris().withAppendedId(SemesterGpaEntry.CONTENT_URI, id);
                 intent.setData(currentSemesterUri);
@@ -139,7 +157,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
             // for calculate total gpa button.
             case R.id.menu_gpa_calculate_total_gpa:
 
-                // TODO: handle click on the button to calculate total gpa for all semesters.
+                // start the calculate mode that hide the floating action button and display
+                // the calculate button layout that contain buttons (calculate - cancel).
+                displayCalculateLayout();
 
                 return true;
         }
@@ -183,6 +203,58 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
                 // start the InfoActivity.
                 Intent intent = new Intent(GpaActivity.this, InfoActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+    }
+
+
+    /**
+     * (Calculate total gpa mode).
+     * Repair the layout to start for calculating total gpa.
+     * Hide the floating action button & Show buttons (calculate - cancel).
+     */
+    private void displayCalculateLayout() {
+
+        // determine that the layout at.
+        mMode = CALCULATE_TOTAL_GPA;
+        Log.i(LOG_TAG, "The mode that the layout at : " + mMode);
+
+        // hide the floating action button.
+        mFloatingActionButton.setVisibility(View.GONE);
+
+        // show the layout that contain buttons (calculate - cancel).
+        mCalculateButtonsLayout.setVisibility(View.VISIBLE);
+
+        // add shadow under buttons layout.
+        addShadowUnderButtons();
+
+    }
+
+
+    /**
+     * Add bottom padding to the semester listView to make the last item in that list appear above
+     * the buttons (calculate & cancel) in calculate mode.
+     */
+    private void addShadowUnderButtons() {
+
+        // to get the height after the activity layout inflated.
+        ViewTreeObserver observerForBasicInfoLayout = mCalculateButtonsLayout.getViewTreeObserver();
+        observerForBasicInfoLayout.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                // (important) to clear the removeOnGlobalLayoutListener from the view.
+                // without it the listener will work without stopping when the activity start.
+                // we can note that by using logs.
+                mCalculateButtonsLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                // get the height of the linear that contain the two buttons (calculate - cancel).
+                int heightOfBasicInfoLayout = mCalculateButtonsLayout.getHeight(); // in pixels.
+
+                // add button padding to the ListView to make a shadow under the linear of buttons.
+                mSemesterListView.setPadding(0, 0, 0, heightOfBasicInfoLayout);
 
             }
         });
