@@ -157,7 +157,7 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
     /**
      * Determine the mode that the user at (edit-calculate) to change the state of the items view.
-     * Notify the Adapter that there is changes in the dada to reset the Adapter.
+     * Notify the Adapter that there is changes in the mode to reset the Adapter.
      *
      * @param mode the mode (edit-calculate).
      */

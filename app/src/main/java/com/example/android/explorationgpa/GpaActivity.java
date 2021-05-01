@@ -253,6 +253,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         // add shadow under buttons layout.
         addShadowUnderButtons();
 
+        // show the checkBox on the items.
+        mSemesterCursorAdapter.setAdapterMode(CALCULATE_TOTAL_GPA);
+
     }
 
 
@@ -275,6 +278,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         // remove teh shadow that was under buttons layout by make the listView bottomPadding = 0.
         mSemesterListView.setPadding(0, 0, 0, 0);
+
+        // hide the checkBox on the items.
+        mSemesterCursorAdapter.setAdapterMode(DISPLAY_ITEMS);
 
     }
 

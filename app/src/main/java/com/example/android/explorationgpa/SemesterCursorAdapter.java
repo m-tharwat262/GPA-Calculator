@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -27,6 +30,12 @@ public class SemesterCursorAdapter extends CursorAdapter {
     public static final String LOG_TAG = SemesterCursorAdapter.class.getSimpleName(); // class name.
 
     private Context mContext;
+
+    private ArrayList<Boolean> mItemChecked; // array list for store state of each checkbox.
+
+    private static final int DISPLAY_ITEMS = 0; // the layout display items without checkboxes.
+    private static final int CALCULATE_TOTAL_GPA = 1; // the layout display items with checkboxes..
+    private int mMode = DISPLAY_ITEMS; // the mode that the adapter uses from above.
 
 
     public SemesterCursorAdapter(Context context, Cursor c) {
@@ -63,6 +72,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         TextView timeTextView = (TextView) view.findViewById(R.id.semester_item_time);
         TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.semester_item_total_gpa);
         TextView gpaAsLetterTextView = (TextView) view.findViewById(R.id.semester_item_circle_gpa);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.semester_item_check_box);
 
 
         // get the column position inside the table in semester database.
@@ -140,6 +150,41 @@ public class SemesterCursorAdapter extends CursorAdapter {
         circleBackground.setColor(color);
 
 
+        // setup the checkBox.
+        if (mMode == CALCULATE_TOTAL_GPA) {
+
+            // show the checkBox in the item.
+            checkBox.setVisibility(View.VISIBLE);
+
+            // get position by cursor.
+            final int position = cursor.getPosition();
+
+            // to know when the user click on the checkBox.
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    // handle clicking on the checkBox and link it to the array (itemChecked).
+                    if (mItemChecked.get(position)) {
+                        // if current checkbox is checked (true) before, make it not checked (false).
+                        mItemChecked.set(position, false);
+                    } else {
+                        // if current checkbox is not checked (false), make it checked (true).
+                        mItemChecked.set(position, true);
+                    }
+
+                }
+            });
+
+            // (important) set the checkbox state for all item base on the arrayList (itemChecked).
+            // without it scrolling in the ListView will change the selected items.
+            checkBox.setChecked(mItemChecked.get(position));
+
+        } else {
+            // hide the checkBox from the item (in Displaying mode).
+            checkBox.setVisibility(View.GONE);
+        }
+
+
     }
 
 
@@ -203,6 +248,35 @@ public class SemesterCursorAdapter extends CursorAdapter {
         }
 
         return colorResourceId;
+    }
+
+
+    /**
+     * Determine the mode that the user at (display-calculate) to change the state of the items view.
+     * Notify the Adapter that there is changes in the mode to reset the Adapter.
+     *
+     * @param mode the mode (display-calculate).
+     */
+    public void setAdapterMode(int mode) {
+
+        // set the layout mode.
+        mMode = mode;
+
+        // the cursor size.
+        int arraySize = getCount();
+
+        // initialize the boolean arrayList that will control selecting the checkBox in the items.
+        // true : checked.
+        // false : not checked.
+        mItemChecked = new ArrayList<Boolean>();
+        for (int i = 0; i < arraySize; i++) {
+            // initializes all items value with false.
+            mItemChecked.add(i, false);
+        }
+
+        // to notify the adapter that the mode changed after call this method.
+        notifyDataSetChanged();
+
     }
 
 
