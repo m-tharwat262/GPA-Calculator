@@ -1,6 +1,7 @@
 package com.example.android.explorationgpa;
 
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -269,7 +270,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         // true : checked.
         // false : not checked.
         mItemChecked = new ArrayList<Boolean>();
-        for (int i = 0; i < arraySize; i++) {
+        for (int i = 0 ; i < arraySize ; i++) {
             // initializes all items value with false.
             mItemChecked.add(i, false);
         }
@@ -278,6 +279,38 @@ public class SemesterCursorAdapter extends CursorAdapter {
         notifyDataSetChanged();
 
     }
+
+
+    /**
+     * Get the Uris for the semester location inside database that selected by the user.
+     *
+     * @return array contain semester uris.
+     */
+    public ArrayList<Uri> getSemesterSelectedUris() {
+
+        ArrayList<Uri> SemesterUris = new ArrayList<>();
+
+        // the cursor size.
+        int arraySize = getCount();
+
+        // get the semester uri for any item selected.
+        for (int i = 0 ; i < arraySize ; i++) {
+
+            // know if the item selected or not.
+            boolean isChecked = mItemChecked.get(i);
+
+            if (isChecked) {
+                // create the uri for the semester and add it in the arrayList.
+                Uri currentUri = new ContentUris().withAppendedId(SemesterGpaEntry.CONTENT_URI, getItemId(i));
+                SemesterUris.add(currentUri);
+
+            }
+
+        }
+
+        return SemesterUris;
+    }
+
 
 
 }
