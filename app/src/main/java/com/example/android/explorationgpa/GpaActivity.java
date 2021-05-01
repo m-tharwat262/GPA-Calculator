@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -45,15 +46,16 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     private static final int SEMESTER_LOADER = 0; // number of the semester loader.
 
-    private static final int DISPLAY_ITEMS = 0; // the layout display the items in the listViews.
-    private static final int CALCULATE_TOTAL_GPA = 1; // the layout display the two buttons responsible to calculate total gpa.
-    private int mMode = DISPLAY_ITEMS; // the mode the activity use from above.
+    private static final int DISPLAY_ITEMS = 0; // the layout display items in the listViews.
+    private static final int CALCULATE_TOTAL_GPA = 1; // the layout display two buttons responsible to calculate total gpa.
+    private int mMode = DISPLAY_ITEMS; // the mode that the activity uses from above.
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpa);
+
 
 
         // to access to the preference settings.
@@ -73,6 +75,10 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setupFloatingActionButton();
 
 
+        // handle clicks on the cancel button.
+        setupCancelButton();
+
+
         // display the semesters as items inside the listView.
         mSemesterCursorAdapter = new SemesterCursorAdapter(this, null);
 
@@ -87,6 +93,42 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     }
 
+
+    /**
+     * Handle clicks on the floating action button.
+     */
+    private void setupFloatingActionButton() {
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // start the InfoActivity.
+                Intent intent = new Intent(GpaActivity.this, InfoActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+    }
+
+
+    /**
+     * Handle clicks on the cancel button.
+     */
+    private void setupCancelButton() {
+
+        Button cancelButton = (Button) findViewById(R.id.activity_gpa_button_cancel);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeCalculateLayout();
+            }
+        });
+
+
+    }
 
 
     /**
@@ -192,25 +234,6 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * Handle clicks on the floating action button.
-     */
-    private void setupFloatingActionButton() {
-
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // start the InfoActivity.
-                Intent intent = new Intent(GpaActivity.this, InfoActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-    }
-
-
-    /**
      * (Calculate total gpa mode).
      * Repair the layout to start for calculating total gpa.
      * Hide the floating action button & Show buttons (calculate - cancel).
@@ -229,6 +252,29 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         // add shadow under buttons layout.
         addShadowUnderButtons();
+
+    }
+
+
+    /**
+     * (Display items mode).
+     * Return the layout to display the items in the listViews again.
+     * Show the floating action button & Hide buttons (calculate - cancel).
+     */
+    private void removeCalculateLayout() {
+
+        // determine that the layout at.
+        mMode = DISPLAY_ITEMS;
+        Log.i(LOG_TAG, "The mode that the layout at : " + mMode);
+
+        // show the floating action button.
+        mFloatingActionButton.setVisibility(View.VISIBLE);
+
+        // hide the layout that contain buttons (calculate - cancel).
+        mCalculateButtonsLayout.setVisibility(View.GONE);
+
+        // remove teh shadow that was under buttons layout by make the listView bottomPadding = 0.
+        mSemesterListView.setPadding(0, 0, 0, 0);
 
     }
 
@@ -311,7 +357,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * don not know exactly.
+     * Don't know exactly.
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
