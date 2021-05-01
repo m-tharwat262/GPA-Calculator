@@ -127,12 +127,19 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         // handle clicks on any menu icons.
         switch (item.getItemId()) {
 
-            // for settings icon.
-            case R.id.action_settings:
+            // for settings button.
+            case R.id.menu_gpa_settings:
 
                 // start SettingActivity.
                 Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
                 startActivity(intent);
+
+                return true;
+
+            // for calculate total gpa button.
+            case R.id.menu_gpa_calculate_total_gpa:
+
+                // TODO: handle click on the button to calculate total gpa for all semesters.
 
                 return true;
         }
@@ -152,7 +159,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
                 getString(R.string.settings_student_name_key),
                 getString(R.string.settings_student_name_default));
 
-        // check if the user did not log in and in this case send him to the log in layout.
+        // check if the user didn't login and in this case send him to the log in layout.
         if (studentNamePreference.equals(getString(R.string.settings_student_name_default))) {
 
             // start LoginActivity to make the user login.
@@ -181,6 +188,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         });
 
     }
+
 
 
     /**

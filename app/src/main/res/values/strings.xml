@@ -12,9 +12,6 @@
     <string name="button_keep_editing">Keep Editing</string>
 
 
-    <!-- For menu_gpa.xml -->
-    <string name="action_settings">Settings</string>
-
 
     <!-- For add something between brackets -->
     <string name="text_between_brackets">(%1$s)</string>
@@ -313,14 +310,26 @@
 
     ///////////////////////////////// For menu xml files /////////////////////////////////
 
+    <!-- For menu_gpa.xml -->
 
-    <!-- for save icon in the menu_add_semester -->
+    <!-- calculate total gpa button -->
+    <string name="action_calculate_total_gpa">Calculate Total GPA</string>
+
+    <!-- setting button -->
+    <string name="action_settings">Settings</string>
+
+
+
+
+    <!-- For menu_add_semester.xml -->
+
+    <!-- save icon  button -->
     <string name="action_save">Save</string>
 
-    <!-- for delete icon in the menu_add_semester -->
+    <!-- delete icon button -->
     <string name="action_delete">Delete</string>
 
-    <!-- for edit icon in the menu_add_semester -->
+    <!-- edit icon button -->
     <string name="action_edit">Delete</string>
 
 
