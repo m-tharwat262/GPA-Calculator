@@ -38,6 +38,21 @@
     <string name="title_activity_cumulative_gpa">Cumulative GPA</string>
 
 
+
+
+
+
+    ///////////////////////////////// For GpaActivity.java /////////////////////////////////
+
+
+    <string name="maximum_semester_selected">select 10 semesters maximum</string>
+    <string name="minimum_semester_selected">select at least 2 semesters</string>
+    <string name="semester_repeated">don\'t repeat semesters</string>
+
+
+
+
+
     ///////////////////////////////// For SettingsActivity.java /////////////////////////////////
 
     <string name="settings_menu_item">Settings</string>
