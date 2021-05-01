@@ -9,31 +9,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".CumulativeGpaActivity"
+            android:label="@string/title_activity_cumulative_gpa"/>
+
         <activity
             android:name=".AddSemesterActivity"
-            android:label="@string/title_activity_add_semester"
-            />
+            android:label="@string/title_activity_add_semester" />
+
         <activity
             android:name=".InfoActivity"
             android:label="@string/title_activity_gpa" />
+
         <activity
             android:name=".settings.OrderActivity"
             android:label="@string/title_activity_settings_subjects_order" />
+
         <activity
             android:name=".settings.SuccessActivity"
             android:label="@string/title_activity_settings_subject_success" />
+
         <activity
             android:name=".settings.HoursActivity"
             android:label="@string/title_activity_settings_subject_hours" />
+
         <activity
             android:name=".settings.CalculationActivity"
             android:label="@string/title_activity_settings_calculate_gpa" />
+
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_log_in" />
+
         <activity
             android:name=".GpaActivity"
             android:label="@string/title_activity_gpa">

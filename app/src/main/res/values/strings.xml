@@ -35,6 +35,7 @@
     <string name="title_activity_settings_subject_success">Success</string>
     <string name="title_activity_settings_subjects_order">Order</string>
     <string name="title_activity_add_semester">Add Semester</string>
+    <string name="title_activity_cumulative_gpa">Cumulative GPA</string>
 
 
     ///////////////////////////////// For SettingsActivity.java /////////////////////////////////
