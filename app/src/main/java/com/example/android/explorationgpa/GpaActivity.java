@@ -83,7 +83,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         semesterListView.setAdapter(mSemesterCursorAdapter);
 
         // to hide the empty views from the layout when there is a semester item in the listView.
-        RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_linear_for_empty_view);
+        RelativeLayout relativeLayout =  (RelativeLayout) findViewById(R.id.activity_gpa_layout_for_empty_view);
         semesterListView.setEmptyView(relativeLayout);
 
         // handle clicks on the items in the semester ListView.

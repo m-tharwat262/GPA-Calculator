@@ -18,7 +18,7 @@
 
     <!-- contain the views that appear when there is no semester inserted yet -->
     <RelativeLayout
-        android:id="@+id/activity_gpa_linear_for_empty_view"
+        android:id="@+id/activity_gpa_layout_for_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
@@ -62,7 +62,7 @@
 
     <!-- Linear contain the floating action button with circle shape -->
     <LinearLayout
-        android:id="@+id/activity_gpa_linear_for_floating_action_button"
+        android:id="@+id/activity_gpa_layout_for_floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -77,6 +77,46 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/add_semester"
             app:maxImageSize="40dp" />
+
+    </LinearLayout>
+
+
+    <!-- Linear contain the two buttons calculate & cancel -->
+    <LinearLayout
+        android:id="@+id/activity_gpa_Layout_for_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible" >
+
+        <Button
+            android:id="@+id/activity_gpa_button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#F0514B"
+            android:padding="12dp"
+            android:text="@string/button_cancel"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <View
+            style="@style/Divider_horizontal"
+            android:background="@android:color/transparent" />
+
+        <Button
+            android:id="@+id/activity_gpa_button_calculate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#F0514B"
+            android:padding="12dp"
+            android:text="@string/button_calculate"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
