@@ -28,11 +28,13 @@ import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEn
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 
 public class GpaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
-    private static final String LOG_TAG = GpaActivity.class.getSimpleName(); // activity name.
+    private static final String LOG_TAG = GpaActivity.class.getSimpleName(); // class name.
 
     private SharedPreferences mSharedPrefs; // to access to the preference settings.
 
@@ -71,12 +73,16 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         // check if the user login before or not.
         checkPreference();
 
-        // handle clicks on the floating action button.
+        // handle clicking on the floating action button.
         setupFloatingActionButton();
 
 
-        // handle clicks on the cancel button.
+        // handle clicking on the cancel button.
         setupCancelButton();
+
+
+        // handle clicking on the calculate button.
+        setupCalculateButton();
 
 
         // display the semesters as items inside the listView.
@@ -123,7 +129,37 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // make the layout in the display mode
+                // by show the floating action button and hide two buttons (calculate - cancel).
                 removeCalculateLayout();
+
+            }
+        });
+
+
+    }
+
+
+    /**
+     * Handle clicks on the calculate button.
+     */
+    private void setupCalculateButton() {
+
+        Button calculateButton = (Button) findViewById(R.id.activity_gpa_button_calculate);
+
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // get the semester uris (location inside database)for the selected semester items.
+                ArrayList<Uri> semesterUris = mSemesterCursorAdapter.getSemesterSelectedUris();
+
+                // open the CumulativeGpaActivity by intent contain the semester uris.
+                Intent intent = new Intent(GpaActivity.this, CumulativeGpaActivity.class);
+                intent.putExtra("semester_uris", semesterUris);
+                startActivity(intent);
+
             }
         });
 
