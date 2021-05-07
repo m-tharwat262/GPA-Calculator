@@ -74,6 +74,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         // check if the user login before or not.
         checkPreference();
 
+
         // handle clicking on the floating action button.
         setupFloatingActionButton();
 
@@ -255,6 +256,28 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
+     * Control showing or hiding menu part depend on the layout mode (calculate - display).
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // when the mode is selecting items to calculate gap, no need to show the menu icons.
+        if (mMode == CALCULATE_TOTAL_GPA) {
+
+            // remove all the menu icons from the layout.
+            menu.clear();
+
+        } else {
+            // execute the super method as it.
+            super.onPrepareOptionsMenu(menu);
+
+        }
+
+        return true;
+    }
+
+
+    /**
      * Check if the user logged in or not when the app open.
      * Make the user log in when he open the app for the first time.
      */
@@ -300,6 +323,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         // show the checkBox on the items.
         mSemesterCursorAdapter.setAdapterMode(CALCULATE_TOTAL_GPA);
 
+        // show the menu icons in the layout.
+        invalidateOptionsMenu();
+
     }
 
 
@@ -325,6 +351,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         // hide the checkBox on the items.
         mSemesterCursorAdapter.setAdapterMode(DISPLAY_ITEMS);
+
+        // remove the menu icons from the layout.
+        invalidateOptionsMenu();
 
     }
 
