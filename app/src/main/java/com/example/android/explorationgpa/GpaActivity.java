@@ -131,7 +131,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
             @Override
             public void onClick(View v) {
 
-                // make the layout in the display mode
+                // make the layout in the display mode :
                 // by show the floating action button and hide two buttons (calculate - cancel).
                 removeCalculateLayout();
 
@@ -476,6 +476,26 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         // refer to that there is no repeated.
         return false;
+    }
+
+
+    /**
+     * Handle clicking on the back button depend on the layout mode (calculate - display).
+     */
+    @Override
+    public void onBackPressed() {
+
+        if (mMode == CALCULATE_TOTAL_GPA) {
+            // make the layout in the display mode :
+            // by show the floating action button and hide two buttons (calculate - cancel).
+            removeCalculateLayout();
+
+        } else {
+            // execute the super method as it.
+            super.onBackPressed();
+
+        }
+
     }
 
 
