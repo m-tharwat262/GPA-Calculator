@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CumulativeGpaActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- make the layout scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- shadow for the top part which contain the cumulative gpa -->
+            <View
+                android:id="@+id/activity_cumulative_gpa_shadow_for_top_part"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_height="116dp"/>
+
+
+            <!-- linear will contain the years items -->
+            <LinearLayout
+                android:id="@+id/activity_cumulative_gpa_year_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_height="100dp"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- for the top part in the layout which display the cumulative gpa -->
+    <LinearLayout
+        android:id="@+id/activity_cumulative_gpa_linear_top_part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#F0514B"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+
+        <!-- for the total gap with the circle shape in the background-->
+        <TextView
+            android:id="@+id/activity_cumulative_gpa_circle_shape"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_shape"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            tools:text="B+\n2.5" />
+
+        <!-- for the "Your Cumulative GPA" -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/cumulative_gpa"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

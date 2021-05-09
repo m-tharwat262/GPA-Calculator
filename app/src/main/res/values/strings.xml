@@ -193,6 +193,9 @@
     <string name="id">ID</string> // activity_info.xml - activity_add_semester.xml
     <string name="subject_hint_degree">000</string> // activity_add_semester.xml - subject_item_for_arabic_language.xml
 
+
+
+
     <!-- for activity_info.xml  -->
     <string name="year">Year</string>
     <string name="term">Term</string>
@@ -202,17 +205,22 @@
     <string name="semester_second_radio">Second</string>
 
 
+
+
     <!-- for activity_add_semester.xml  -->
     <string name="semester">Semester</string>
+
+
 
 
     <!-- for subject_item.xml  -->
     <string name="subject_hundred_degree">/100</string>
 
 
+
+
     <!-- for activity_add_semester.xml  -->
     <string name="semester_total_gpa">Semester Total Gpa =</string>
-
 
     <!-- Title text for the empty view, which describes the empty semesters image [CHAR LIMIT=50] -->
     <string name="empty_view_title_text_for_image">It\'s a bit lonely here…</string>
@@ -221,6 +229,11 @@
     <string name="empty_view_title_text_for_add_semester">Get started by adding a semester</string>
 
 
+
+
+
+    <!-- for activity_cumulative.xml -->
+    <string name="cumulative_gpa">Your Cumulative GPA</string>
 
 
 
