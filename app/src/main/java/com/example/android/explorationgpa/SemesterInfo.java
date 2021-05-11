@@ -33,13 +33,13 @@ public class SemesterInfo {
     /**
      * Take the number of the semester to specify the exact term that the semester at.
      *
-     * @param semester number of the semester (1-2-3-4-5-6-7-8-9-10).
+     * @param semesterNumber number of the semester (1-2-3-4-5-6-7-8-9-10).
      *
      * @return number of the year (0-1-2-3-4).
      */
-    public static int getNumberOfTerm(int semester) {
+    public static int getNumberOfTerm(int semesterNumber) {
 
-        if (semester == 2 || semester == 4 || semester == 6 || semester == 8 || semester == 10) {
+        if (semesterNumber == 2 || semesterNumber == 4 || semesterNumber == 6 || semesterNumber == 8 || semesterNumber == 10) {
             return 2;
         } else {
             return 1;
@@ -51,34 +51,34 @@ public class SemesterInfo {
     /**
      * Take the number of the year and term to specify the exact semester the user want.
      *
-     * @param year the year which the user choose (o-1-2-3-4).
-     * @param term the term which the user choose (1-2).
+     * @param yearNumber the year which the user choose (o-1-2-3-4).
+     * @param termNumber the term which the user choose (1-2).
      *
      * @return the semester that the user want (1-2-3-4-5-6-7-8-9-10).
      */
-    public static int getNumberOfSemester(int year, int term) {
+    public static int getNumberOfSemester(int yearNumber, int termNumber) {
 
         int semester = 0;
 
-        if (year == 0 && term == 1) {
+        if (yearNumber == 0 && termNumber == 1) {
             semester = 1;
-        } else if (year == 0 && term == 2) {
+        } else if (yearNumber == 0 && termNumber == 2) {
             semester = 2;
-        } else if (year == 1 && term == 1) {
+        } else if (yearNumber == 1 && termNumber == 1) {
             semester = 3;
-        } else if (year == 1 && term == 2) {
+        } else if (yearNumber == 1 && termNumber == 2) {
             semester = 4;
-        } else if (year == 2 && term == 1) {
+        } else if (yearNumber == 2 && termNumber == 1) {
             semester = 5;
-        } else if (year == 2 && term == 2) {
+        } else if (yearNumber == 2 && termNumber == 2) {
             semester = 6;
-        } else if (year == 3 && term == 1) {
+        } else if (yearNumber == 3 && termNumber == 1) {
             semester = 7;
-        } else if (year == 3 && term == 2) {
+        } else if (yearNumber == 3 && termNumber == 2) {
             semester = 8;
-        } else if (year == 4 && term == 1) {
+        } else if (yearNumber == 4 && termNumber == 1) {
             semester = 9;
-        } else if (year == 4 && term == 2) {
+        } else if (yearNumber == 4 && termNumber == 2) {
             semester = 10;
         }
 
@@ -90,51 +90,99 @@ public class SemesterInfo {
      * Determine the semester by the year & term and get the resources id for subjects string for
      * that semester in an array.
      *
-     * @param year the year which the user select (0-1-2-3-4-5).
-     * @param term the term which the user select (1-2).
+     * @param yearNumber the year which the user select (0-1-2-3-4-5).
+     * @param termNumber the term which the user select (1-2).
      *
      * @return array with resources id for subjects string for the semester.
      */
-    public static int[] getSubjectsOfSemester(int year, int term) {
+    public static int[] getSubjectsOfSemester(int yearNumber, int termNumber) {
 
-        int numOfSemester = getNumberOfSemester(year, term);// determine the semester (1:10)
+        int numOfSemester = getNumberOfSemester(yearNumber, termNumber);// determine the semester (1:10)
 
-        int[] semester = null;
+        int[] subjects = null;
 
             switch (numOfSemester) {
                 case 1:
-                    semester = getSubjectsForSemester_1();
+                    subjects = getSubjectsForSemester_1();
                     break;
                 case 2:
-                    semester = getSubjectsForSemester_2();
+                    subjects = getSubjectsForSemester_2();
                     break;
                 case 3:
-                    semester = getSubjectsForSemester_3();
+                    subjects = getSubjectsForSemester_3();
                     break;
                 case 4:
-                    semester = getSubjectsForSemester_4();
+                    subjects = getSubjectsForSemester_4();
                     break;
                 case 5:
-                    semester = getSubjectsForSemester_5();
+                    subjects = getSubjectsForSemester_5();
                     break;
                 case 6:
-                    semester = getSubjectsForSemester_6();
+                    subjects = getSubjectsForSemester_6();
                     break;
                 case 7:
-                    semester = getSubjectsForSemester_7();
+                    subjects = getSubjectsForSemester_7();
                     break;
                 case 8:
-                    semester = getSubjectsForSemester_8();
+                    subjects = getSubjectsForSemester_8();
                     break;
                 case 9:
-                    semester = getSubjectsForSemester_9();
+                    subjects = getSubjectsForSemester_9();
                     break;
                 case 10:
-                    semester = getSubjectsForSemester_10();
+                    subjects = getSubjectsForSemester_10();
                     break;
 
             }
-        return semester;
+        return subjects;
+    }
+
+
+    /**
+     * Get the resources id for subjects string for that semester as array.
+     *
+     * @param semesterNumber exact semester we want get the subject resource ids from it.
+     *
+     * @return array with resources id for subjects string for the semester.
+     */
+    public static int[] getSubjectsOfSemester(int semesterNumber) {
+
+        int[] subjects = null;
+
+        switch (semesterNumber) {
+            case 1:
+                subjects = getSubjectsForSemester_1();
+                break;
+            case 2:
+                subjects = getSubjectsForSemester_2();
+                break;
+            case 3:
+                subjects = getSubjectsForSemester_3();
+                break;
+            case 4:
+                subjects = getSubjectsForSemester_4();
+                break;
+            case 5:
+                subjects = getSubjectsForSemester_5();
+                break;
+            case 6:
+                subjects = getSubjectsForSemester_6();
+                break;
+            case 7:
+                subjects = getSubjectsForSemester_7();
+                break;
+            case 8:
+                subjects = getSubjectsForSemester_8();
+                break;
+            case 9:
+                subjects = getSubjectsForSemester_9();
+                break;
+            case 10:
+                subjects = getSubjectsForSemester_10();
+                break;
+
+        }
+        return subjects;
     }
 
 
@@ -142,18 +190,67 @@ public class SemesterInfo {
      * Determine the semester by the year & term and get the hours for the subjects in that semester
      * in an array.
      *
-     * @param year the year which the user select (0-1-2-3-4-5).
-     * @param term the term which the user select (1-2).
+     * @param yearNumber the year which the user select (0-1-2-3-4-5).
+     * @param termNumber the term which the user select (1-2).
      *
      * @return array with hours for the subjects in the semester.
      */
-    public static double[] getHoursForSemester(int year, int term) {
+    public static double[] getHoursForSemester(int yearNumber, int termNumber) {
 
-        int numOfSemester = getNumberOfSemester(year, term); // determine the semester (1:10)
+        int numOfSemester = getNumberOfSemester(yearNumber, termNumber); // determine the semester (1:10)
 
         double[] hours = null;
 
         switch (numOfSemester) {
+            case 1:
+                hours = getHoursForSemester_1();
+                break;
+            case 2:
+                hours = getHoursForSemester_2();
+                break;
+            case 3:
+                hours = getHoursForSemester_3();
+                break;
+            case 4:
+                hours = getHoursForSemester_4();
+                break;
+            case 5:
+                hours = getHoursForSemester_5();
+                break;
+            case 6:
+                hours = getHoursForSemester_6();
+                break;
+            case 7:
+                hours = getHoursForSemester_7();
+                break;
+            case 8:
+                hours = getHoursForSemester_8();
+                break;
+            case 9:
+                hours = getHoursForSemester_9();
+                break;
+            case 10:
+                hours = getHoursForSemester_10();
+                break;
+        }
+
+        return hours;
+    }
+
+
+    /**
+     * Determine the semester by the year & term and get the hours for the subjects in that semester
+     * in an array.
+     *
+     * @param semesterNumber exact semester we want get the subject hours from it.
+     *
+     * @return array with hours for the subjects in the semester.
+     */
+    public static double[] getHoursForSemester(int semesterNumber) {
+
+        double[] hours = null;
+
+        switch (semesterNumber) {
             case 1:
                 hours = getHoursForSemester_1();
                 break;

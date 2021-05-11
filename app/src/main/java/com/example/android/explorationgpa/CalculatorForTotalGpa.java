@@ -90,17 +90,14 @@ public class CalculatorForTotalGpa {
      * Make an array contain hours for the subjects that have degrees (more than 0.0).
      * Any Subject have zero degree will assume that the hours equal to zero too.
      *
-     * @param year number of the year.
-     * @param term number of the term.
+     * @param hours array contain all subject hours.
      * @param degrees array contain the subject degrees.
      *
      * @return array of hours that will used in the calculation.
      */
-    private static double[] getSubjectsHours(int year, int term, double[] degrees) {
+    private static double[] getValidSubjectsHours(double[] hours, double[] degrees) {
 
-        double[] hours = SemesterInfo.getHoursForSemester(year, term);
-
-        int arraySize = degrees.length; // get the array size.
+        int arraySize = hours.length; // get the array size.
 
         for (int i = 0 ; i < arraySize ; i++) {
 
@@ -255,6 +252,10 @@ public class CalculatorForTotalGpa {
     }
 
 
+
+
+
+
     /**
      * Execute the methods that related to the (4 scale type) to get the total gpa as number (0-4).
      *
@@ -268,13 +269,15 @@ public class CalculatorForTotalGpa {
 
         double[] totalPoints = calculatePointsOfDegree(degrees);
 
-        double[] totalHours = getSubjectsHours(year, term, degrees);
+        double[] hours = SemesterInfo.getHoursForSemester(year, term);
 
-        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, totalHours);
+        double[] validHours = getValidSubjectsHours(hours, degrees);
+
+        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, validHours);
 
         double sumResultOfMultiple = sumMultipleResults(ResultsForMultiplePointsAndHours);
 
-        double sumAllHours = sumAllHours(totalHours);
+        double sumAllHours = sumAllHours(validHours);
 
         double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
 
@@ -296,13 +299,15 @@ public class CalculatorForTotalGpa {
      */
     private static double executeMethodsForPercentageScale(int year, int term, double[] degrees) {
 
-        double[] totalHours = getSubjectsHours(year, term, degrees);
+        double[] hours = SemesterInfo.getHoursForSemester(year, term);
 
-        double[] ResultsForMultipleDegreesAndHours = multipleTwoNumbers(degrees, totalHours);
+        double[] validHours = getValidSubjectsHours(hours, degrees);
+
+        double[] ResultsForMultipleDegreesAndHours = multipleTwoNumbers(degrees, validHours);
 
         double sumResultOfMultiple = sumMultipleResults(ResultsForMultipleDegreesAndHours);
 
-        double sumAllHours = sumAllHours(totalHours);
+        double sumAllHours = sumAllHours(validHours);
 
         double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
 
@@ -314,35 +319,100 @@ public class CalculatorForTotalGpa {
     }
 
 
+
+
+
+
+
     /**
-     * Get the total gpa for (4 scale type) as double number.
+     * Execute the methods that related to the (4 scale type) to get the cumulative gpa as number (0-4).
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param hours array contain all subject hours.
+     * @param degrees array contain all subject degrees.
+     *
+     * @return number refers to the cumulative gpa (4 scale type).
+     */
+    private static double executeMethodsCumulativeForFourScale(double[] hours, double[] degrees) {
+
+        double[] totalPoints = calculatePointsOfDegree(degrees);
+
+        double[] validHours = getValidSubjectsHours(hours, degrees);
+
+        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, validHours);
+
+        double sumResultOfMultiple = sumMultipleResults(ResultsForMultiplePointsAndHours);
+
+        double sumAllHours = sumAllHours(validHours);
+
+        double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
+
+        Log.i(LOG_TAG, "end of executeMethodsForCumulative method inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+        return resultOfDivide;
+
+    }
+
+
+    /**
+     * Execute the methods that related to the (% scale type) to get the cumulative gpa as number (0-4).
+     *
+     * @param hours array contain all subject hours.
+     * @param degrees array contain all subject degrees.
+     *
+     * @return number refers to the cumulative gpa (% scale type).
+     */
+    private static double executeMethodsCumulativeForPercentageScale(double[] hours, double[] degrees) {
+
+        double[] validHours = getValidSubjectsHours(hours, degrees);
+
+        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(degrees, validHours);
+
+        double sumResultOfMultiple = sumMultipleResults(ResultsForMultiplePointsAndHours);
+
+        double sumAllHours = sumAllHours(validHours);
+
+        double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
+
+        Log.i(LOG_TAG, "end of executeMethodsForCumulative method inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+        return resultOfDivide;
+
+    }
+
+
+
+
+
+
+    /**
+     * Get the total gpa for (4 scale type) as a double number.
+     *
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      *
      * @return total gpa.
      */
-    public static double getTotalGpaOfSemesterForFourScale(int year, int term, double[] degrees) {
+    public static double getTotalGpaOfSemesterForFourScale(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        double totalGpa = executeMethodsForFourScale(year, term, degrees);
+        double totalGpa = executeMethodsForFourScale(yearNumber, termNumber, subjectDegrees);
 
         return totalGpa;
     }
 
 
     /**
-     * Get the total gpa for (% scale type) as double number.
+     * Get the total gpa for (% scale type) as a double number.
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      *
      * @return total gpa.
      */
-    public static double getTotalGpaOfSemesterForPercentageScale(int year, int term, double[] degrees) {
+    public static double getTotalGpaOfSemesterForPercentageScale(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        double totalGpa = executeMethodsForPercentageScale(year, term, degrees);
+        double totalGpa = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
 
         return totalGpa;
     }
@@ -351,15 +421,15 @@ public class CalculatorForTotalGpa {
     /**
      * Get the total gpa letter and make it ready as a String to display on the screen.
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      *
      * @return total gpa as letter.
      */
-    public static String getTotalGpaOfSemesterAsLetter(int year, int term, double[] degrees) {
+    public static String getTotalGpaOfSemesterAsLetter(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        double totalGpa = executeMethodsForPercentageScale(year, term, degrees);
+        double totalGpa = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
 
         String totalGpaLetter = getGpaLetter(totalGpa);
 
@@ -367,69 +437,132 @@ public class CalculatorForTotalGpa {
     }
 
 
+
+
+
+
+    /**
+     * Get the cumulative gpa for (4 scale type) as a double number.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain all subject degrees.
+     *
+     * @return cumulative gpa.
+     */
+    public static double getCumulativeGpaForFourScale(double[] subjectHours, double[] subjectDegrees) {
+
+        double cumulativeGpa = executeMethodsCumulativeForFourScale(subjectHours, subjectDegrees);
+
+        return cumulativeGpa;
+
+    }
+
+
+    /**
+     * Get the cumulative gpa for (% scale type) as a double number.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain all subject degrees.
+     *
+     * @return cumulative gpa.
+     */
+    public static double getCumulativeGpaOfSemesterForPercentageScale(double[] subjectHours, double[] subjectDegrees) {
+
+        double totalGpa = executeMethodsCumulativeForPercentageScale(subjectHours, subjectDegrees);
+
+        return totalGpa;
+    }
+
+
+    /**
+     * Get the cumulative gpa letter and make it ready as a String to display on the screen.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain the subjects degrees.
+     *
+     * @return cumulative gpa as letter.
+     */
+    public static String getCumulativeGpaOfSemesterAsLetter(double[] subjectHours, double[] subjectDegrees) {
+
+        double cumulativeGpa = executeMethodsCumulativeForPercentageScale(subjectHours, subjectDegrees);
+
+        String totalGpaLetter = getGpaLetter(cumulativeGpa);
+
+        return totalGpaLetter;
+    }
+
+
+
+
+
+
     /**
      * Shows the results for all methods that use for calculate the total gpa as a number (0-4)
-     * by using (4 scale type) in the LOGs as (i) to track every part of the calculation process.
+     * by using (4 scale type) in Logs with type (i) to track every part in calculation process.
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      */
-    public void getLogsTotalGpaForFourScale(int year, int term, double[] degrees) {
+    public static void getLogsTotalGpaForFourScale(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        double[] totalPoints = calculatePointsOfDegree(degrees);
+        double[] totalPoints = calculatePointsOfDegree(subjectDegrees);
         Log.i(LOG_TAG, "end of calculatePointsOfDegree method inside CalculatorForTotalGpa class : "
                 + Arrays.toString(totalPoints));
 
+        double[] hours = SemesterInfo.getHoursForSemester(yearNumber, termNumber);
+        Log.i(LOG_TAG, "end of SemesterInfo.getNumberOfSemester method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(hours));
 
-        double[] totalHours = getSubjectsHours(year, term, degrees);
-        Log.i(LOG_TAG, "end of getSubjectsHours method inside CalculatorForTotalGpa class : "
-                + Arrays.toString(totalHours));
+        double[] validHours = getValidSubjectsHours(hours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getValidSubjectsHours method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(validHours));
 
-
-        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, totalHours);
+        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, validHours);
         Log.i(LOG_TAG, "end of multipleTwoNumbers method inside CalculatorForTotalGpa class : "
                 + Arrays.toString(ResultsForMultiplePointsAndHours));
-
 
         double sumResultOfMultiple = sumMultipleResults(ResultsForMultiplePointsAndHours);
         Log.i(LOG_TAG, "end of sumMultipleResults method inside CalculatorForTotalGpa class : "
                 + sumResultOfMultiple);
 
-
-        double sumAllHours = sumAllHours(totalHours);
+        double sumAllHours = sumAllHours(validHours);
         Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
                 + sumAllHours);
 
-
         double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
-        Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
+        Log.i(LOG_TAG, "end of divideTwoNumbers method inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
         Log.i(LOG_TAG, "end of executeMethodsForFourScale method (same above) inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
-        double totalGpaForFourScale = getTotalGpaOfSemesterForFourScale(year, term, degrees);
+        double totalGpaForFourScale = getTotalGpaOfSemesterForFourScale(yearNumber, termNumber, subjectDegrees);
         Log.i(LOG_TAG, "end of getTotalGpaOfSemesterForFourScale method inside CalculatorForTotalGpa class : "
                 + totalGpaForFourScale);
+
     }
 
 
     /**
      * Shows the results for all methods that use for calculate the total gpa as a number (0-100 %)
-     * by using (percentage scale type) in the LOGs as (i) to track every part of the calculation process.
+     * by using (percentage scale type) in Logs with type (i) to track every part in calculation process.
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      */
-    public void getLogsForTotalGpaPercentageScale(int year, int term, double[] degrees) {
+    public static void getLogsTotalGpaForPercentageScale(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        double[] totalHours = getSubjectsHours(year, term, degrees);
-        Log.i(LOG_TAG, "end of getSubjectsHours method inside CalculatorForTotalGpa class : "
-                + Arrays.toString(totalHours));
+        double[] hours = SemesterInfo.getHoursForSemester(yearNumber,termNumber);
+        Log.i(LOG_TAG, "end of SemesterInfo.getHoursForSemester method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(hours));
 
-        double[] ResultsForMultipleDegreesAndHours = multipleTwoNumbers(degrees, totalHours);
+        double[] validHours = getValidSubjectsHours(hours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getValidSubjectsHours method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(validHours));
+
+        double[] ResultsForMultipleDegreesAndHours = multipleTwoNumbers(subjectDegrees, validHours);
         Log.i(LOG_TAG, "end of multipleTwoNumbers method inside CalculatorForTotalGpa class : "
                 + Arrays.toString(ResultsForMultipleDegreesAndHours));
 
@@ -437,36 +570,37 @@ public class CalculatorForTotalGpa {
         Log.i(LOG_TAG, "end of sumMultipleResults method inside CalculatorForTotalGpa class : "
                 + sumResultOfMultiple);
 
-        double sumAllHours = sumAllHours(totalHours);
+        double sumAllHours = sumAllHours(validHours);
         Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
                 + sumAllHours);
 
         double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
-        Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
+        Log.i(LOG_TAG, "end of divideTwoNumbers method inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
         Log.i(LOG_TAG, "end of executeMethodsForPercentageScale method (same above) inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
-        double totalGpaForPercentageScale = getTotalGpaOfSemesterForPercentageScale(year, term, degrees);
+        double totalGpaForPercentageScale = getTotalGpaOfSemesterForPercentageScale(yearNumber, termNumber, subjectDegrees);
         Log.i(LOG_TAG, "end of getTotalGpaOfSemesterForPercentageScale method inside CalculatorForTotalGpa class : "
                 + totalGpaForPercentageScale);
+
     }
 
 
     /**
      * Shows the results for all methods that use for calculate the total gpa as a letter (A-B-C...)
-     * in the LOGs as (i) to track every part of the calculation process.
+     * in Logs with type (i) to track every part in calculation process.
      *
-     * @param year number of the year (0-5).
-     * @param term number of the term (1-2).
-     * @param degrees array contain the subjects degrees.
+     * @param yearNumber number of the year (0-5).
+     * @param termNumber number of the term (1-2).
+     * @param subjectDegrees array contain the subjects degrees.
      */
-    public void getLogTagForTotalGpaAsLetter(int year, int term, double[] degrees) {
+    public static void getLogsForTotalGpaAsLetter(int yearNumber, int termNumber, double[] subjectDegrees) {
 
-        getLogsForTotalGpaPercentageScale(year, term , degrees);
+        getLogsTotalGpaForPercentageScale(yearNumber, termNumber , subjectDegrees);
 
-        double totalGpaAsPercentage = executeMethodsForPercentageScale(year, term, degrees);
+        double totalGpaAsPercentage = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
 
         String totalGpaAsLetter = getGpaLetter(totalGpaAsPercentage);
         Log.i(LOG_TAG, "end of getGpaLetter method inside CalculatorForTotalGpa class : "
@@ -474,6 +608,115 @@ public class CalculatorForTotalGpa {
 
         Log.i(LOG_TAG, "end of getTotalGpaOfSemesterAsLetter method (same above) inside CalculatorForTotalGpa class : "
                 + totalGpaAsLetter);
+
+    }
+
+
+
+
+
+
+    /**
+     * Shows the results for all methods that use for calculate the cumulative gpa as a number (0-4)
+     * by using (4 scale type) in Logs with type (i) to track every part in calculation process.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain all subject degrees.
+     */
+    public static void getLogsCumulativeGpaForFourScale(double[] subjectHours, double[] subjectDegrees) {
+
+        double[] totalPoints = calculatePointsOfDegree(subjectDegrees);
+        Log.i(LOG_TAG, "end of calculatePointsOfDegree method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(totalPoints));
+
+        double[] validHours = getValidSubjectsHours(subjectHours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getValidSubjectsHours method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(validHours));
+
+        double[] ResultsForMultiplePointsAndHours = multipleTwoNumbers(totalPoints, validHours);
+        Log.i(LOG_TAG, "end of multipleTwoNumbers method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(ResultsForMultiplePointsAndHours));
+
+        double sumResultOfMultiple = sumMultipleResults(ResultsForMultiplePointsAndHours);
+        Log.i(LOG_TAG, "end of sumMultipleResults method inside CalculatorForTotalGpa class : "
+                + sumResultOfMultiple);
+
+        double sumAllHours = sumAllHours(validHours);
+        Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
+                + sumAllHours);
+
+        double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
+        Log.i(LOG_TAG, "end of divideTwoNumbers method inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+
+        Log.i(LOG_TAG, "end of executeMethodsCumulativeForFourScale method (same above) inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+
+        double cumulativeGpa = executeMethodsCumulativeForFourScale(subjectHours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getLogsCumulativeGpaForFourScale method inside CalculatorForTotalGpa class : "
+                + cumulativeGpa);
+
+    }
+
+
+    /**
+     * Shows the results for all methods that use for calculate the cumulative gpa as a number (0-100 %)
+     * by using (percentage scale type) in Logs with type (i) to track every part in calculation process.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain the subjects degrees.
+     */
+    public static void getLogsCumulativeGpaForPercentageScale(double[] subjectHours, double[] subjectDegrees) {
+
+        double[] validHours = getValidSubjectsHours(subjectHours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getValidSubjectsHours method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(validHours));
+
+        double[] ResultsForMultipleDegreesAndHours = multipleTwoNumbers(subjectDegrees, validHours);
+        Log.i(LOG_TAG, "end of multipleTwoNumbers method inside CalculatorForTotalGpa class : "
+                + Arrays.toString(ResultsForMultipleDegreesAndHours));
+
+        double sumResultOfMultiple = sumMultipleResults(ResultsForMultipleDegreesAndHours);
+        Log.i(LOG_TAG, "end of sumMultipleResults method inside CalculatorForTotalGpa class : "
+                + sumResultOfMultiple);
+
+        double sumAllHours = sumAllHours(validHours);
+        Log.i(LOG_TAG, "end of sumAllHours method inside CalculatorForTotalGpa class : "
+                + sumAllHours);
+
+        double resultOfDivide = divideTwoNumbers(sumResultOfMultiple, sumAllHours);
+        Log.i(LOG_TAG, "end of divideTwoNumbers method inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+
+        Log.i(LOG_TAG, "end of executeMethodsCumulativeForPercentageScale method (same above) inside CalculatorForTotalGpa class : "
+                + resultOfDivide);
+
+        double cumulativeGpaForPercentageScale = getCumulativeGpaOfSemesterForPercentageScale(subjectHours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getCumulativeGpaOfSemesterForPercentageScale method inside CalculatorForTotalGpa class : "
+                + cumulativeGpaForPercentageScale);
+
+    }
+
+
+    /**
+     * Shows the results for all methods that use for calculate the cumulative gpa as a letter (A-B-C...)
+     * in Logs with type (i) to track every part in calculation process.
+     *
+     * @param subjectHours array contain all subject hours.
+     * @param subjectDegrees array contain the subjects degrees.
+     */
+    public static void getLogsForCumulativeGpaAsLetter(double[] subjectHours, double[] subjectDegrees) {
+
+        getLogsCumulativeGpaForPercentageScale(subjectHours, subjectDegrees);
+
+        double cumulativeGpaAsPercentage = executeMethodsCumulativeForPercentageScale(subjectHours, subjectDegrees);
+
+        String cumulativeGpaAsLetter = getGpaLetter(cumulativeGpaAsPercentage);
+        Log.i(LOG_TAG, "end of getGpaLetter method inside CalculatorForTotalGpa class : "
+                + cumulativeGpaAsLetter);
+
+        Log.i(LOG_TAG, "end of getCumulativeGpaOfSemesterAsLetter method (same above) inside CalculatorForTotalGpa class : "
+                + cumulativeGpaAsLetter);
 
     }
 
