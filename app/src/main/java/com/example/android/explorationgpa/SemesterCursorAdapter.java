@@ -145,7 +145,8 @@ public class SemesterCursorAdapter extends CursorAdapter {
         GradientDrawable circleBackground = (GradientDrawable) gpaAsLetterTextView.getBackground();
 
         // get the letter color.
-        int color = ContextCompat.getColor(context, getGpaLetterColor(totalGpaAsLetter));
+        int colorResourceId = CalculatorForTotalGpa.getGpaLetterColor(totalGpaAsLetter);
+        int color = ContextCompat.getColor(context, colorResourceId);
 
         // set the background color for the gpaAsLetterTextView to be the letter color above.
         circleBackground.setColor(color);
@@ -226,33 +227,6 @@ public class SemesterCursorAdapter extends CursorAdapter {
 
 
     /**
-     * Determine the color for each letter that refer to the total gpa.
-     *
-     * @param letter total gpa as letter.
-     *
-     * @return the color resource id.
-     */
-    private int getGpaLetterColor(String letter) {
-
-        int colorResourceId;
-
-        if (letter.equals("A") || letter.equals("A-")) {
-            colorResourceId = R.color.gpa_a;
-        } else if (letter.equals("B+") || letter.equals("B") || letter.equals("B-")) {
-            colorResourceId = R.color.gpa_b;
-        } else if (letter.equals("C+") || letter.equals("C") || letter.equals("C-")) {
-            colorResourceId = R.color.gpa_c;
-        } else if (letter.equals("D+") || letter.equals("D")) {
-            colorResourceId = R.color.gpa_d;
-        } else {
-            colorResourceId = R.color.gpa_f;
-        }
-
-        return colorResourceId;
-    }
-
-
-    /**
      * Determine the mode that the user at (display-calculate) to change the state of the items view.
      * Notify the Adapter that there is changes in the mode to reset the Adapter.
      *
@@ -309,6 +283,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
         }
 
         return SemesterUris;
+
     }
 
 
