@@ -249,6 +249,35 @@ public class CalculatorForTotalGpa {
         Log.i(LOG_TAG, "end of getGpaLetter method inside CalculatorForTotalGpa class : "
                 + letter);
         return letter;
+
+    }
+
+
+    /**
+     * Determine the color for each letter.
+     *
+     * @param letter gpa as letter.
+     *
+     * @return the color resource id.
+     */
+    public static int getGpaLetterColor(String letter) {
+
+        int colorResourceId;
+
+        if (letter.equals("A") || letter.equals("A-")) {
+            colorResourceId = R.color.gpa_a;
+        } else if (letter.equals("B+") || letter.equals("B") || letter.equals("B-")) {
+            colorResourceId = R.color.gpa_b;
+        } else if (letter.equals("C+") || letter.equals("C") || letter.equals("C-")) {
+            colorResourceId = R.color.gpa_c;
+        } else if (letter.equals("D+") || letter.equals("D")) {
+            colorResourceId = R.color.gpa_d;
+        } else {
+            colorResourceId = R.color.gpa_f;
+        }
+
+        return colorResourceId;
+
     }
 
 
