@@ -2,10 +2,12 @@ package com.example.android.explorationgpa;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -333,6 +335,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         cursor.close();
 
 
+
         // get the cumulative gpa as a number and format it to make just two numbers after dot (0.00).
         double cumulativeGpaNumber = CalculatorForTotalGpa.getCumulativeGpaForFourScale(hours, degrees);
         String cumGpaNumberAfterFormat = String.format("%.2f", cumulativeGpaNumber);
@@ -341,12 +344,21 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         String cumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaOfSemesterAsLetter(hours,degrees);
 
 
+
+        // set the TextView background color depend on the gpa letter.
+        GradientDrawable circleBackground = (GradientDrawable) cumGpaTextView.getBackground();
+        int colorResourceId = CalculatorForTotalGpa.getGpaLetterColor(cumulativeGpaLetter);
+        int color = ContextCompat.getColor(this, colorResourceId);
+        circleBackground.setColor(color);
+
+
+
         // setup the string for the cumulative gpa to make it ready to display on the screen.
         String cumGpaForDisplaying = cumGpaNumberAfterFormat + "\n" + cumulativeGpaLetter;
 
-        // display the cumulative gpa on the secreen.
+        // display the cumulative gpa on the screen.
         cumGpaTextView.setText(cumGpaForDisplaying);
-        
+
     }
 
 
