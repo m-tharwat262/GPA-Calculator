@@ -1,6 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".CumulativeGpaActivity" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- make a vertical line between items -->
+    <View style="@style/Divider_vertical"/>
+
+
+    <!-- layout include the short part for the year item -->
+    <LinearLayout
+        android:id="@+id/year_item_layout_short_part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical" >
+
+
+        <!-- layout contain the year name and total gpa for it -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- the year name -->
+            <TextView
+                android:id="@+id/year_item_year_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#F0514B"
+                tools:text="Primary Year" />
+
+            <TextView
+                android:id="@+id/year_item_year_gpa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#F0514B"
+                tools:text="2.55"/>
+
+        </LinearLayout>
+
+        <!-- note the user he can click on it to show or hide year details -->
+        <TextView
+            android:id="@+id/year_item_details_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/display_more_details"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            tools:text="(click for more details)"/>
+
+    </LinearLayout>
+
+
+    <!-- layout contain both terms (1-2) info -->
+    <LinearLayout
+        android:id="@+id/year_item_layout_contain_all_terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+
+        <!-- layout contain term (1) info -->
+        <LinearLayout
+            android:id="@+id/year_item_layout_for_term_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical" >
+
+
+            <!-- display the term and the semester number -->
+            <TextView
+                android:id="@+id/year_item_title_term_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                tools:text="term(1) / S.7" />
+
+            <!-- contain the semester info for the term (subject name & degree) -->
+            <com.example.android.explorationgpa.ListViewNoScroll
+                android:id="@+id/year_item_list_view_for_term_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- display total gpa for the term -->
+            <TextView
+                android:id="@+id/year_item_total_gpa_for_term_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="total gpa = 2.5" />
+
+        </LinearLayout>
+
+        <!-- make a vertical line between items -->
+        <View style="@style/Divider_vertical"
+            android:layout_height="4dp"/>
+
+        <!-- layout contain term (2) info -->
+        <LinearLayout
+            android:id="@+id/year_item_layout_for_term_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+
+            <!-- display the term and the semester number -->
+            <TextView
+                android:id="@+id/year_item_title_term_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                tools:text="term(2) / S.8" />
+
+            <!-- contain the semester info for the term (subject name & degree) -->
+            <com.example.android.explorationgpa.ListViewNoScroll
+                android:id="@+id/year_item_list_view_for_term_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- display total gpa for the term -->
+            <TextView
+                android:id="@+id/year_item_total_gpa_for_term_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="total gpa = 3.32" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
