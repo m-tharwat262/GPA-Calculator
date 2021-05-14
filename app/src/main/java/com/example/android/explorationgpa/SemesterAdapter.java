@@ -1,10 +1,12 @@
 package com.example.android.explorationgpa;
 
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +29,9 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
     private static final int MODE_DISPLAY_TOTAL_GPA = 1; // display the total gpa and prevent the user to edit anything.
     private static final int MODE_EDIT_DEGREES_AGAIN = 2; // make the user able to edit his degrees again.
     private static final int MODE_OPEN_WITH_URI = 3; // display the semester info when the user open the activity by intent contain uri.
+
+    private static final int MODE_ITEMS_FOR_CUMULATIVE_ACTIVITY = 4; // that for display the semester info for the cumulative activity.
+
     private int mMode = MODE_FIRST_OPEN; // the basic mode that use across the all activity functions.
 
 
@@ -49,7 +54,14 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
         if (listItemView == null) {
 
             // inflate the layout that contain the item view which we made to display the subject info.
-            listItemView = LayoutInflater.from(mContext).inflate(R.layout.subject_item, parent, false);
+
+            if (mMode == MODE_ITEMS_FOR_CUMULATIVE_ACTIVITY) {
+                // use the item view made for display the semester info for cumulative activity.
+                listItemView = getCumulativeItemView();
+            } else {
+                listItemView = LayoutInflater.from(mContext).inflate(R.layout.subject_item, parent, false);
+            }
+
         }
 
 
@@ -67,7 +79,7 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
 
         // setup the item view by know the mode that the user at.
-        if (mMode == MODE_DISPLAY_TOTAL_GPA || mMode == MODE_OPEN_WITH_URI) {
+        if (mMode == MODE_DISPLAY_TOTAL_GPA || mMode == MODE_OPEN_WITH_URI || mMode == MODE_ITEMS_FOR_CUMULATIVE_ACTIVITY) {
             // (important) make EditText lost focus to execute the the code that in the listener below.
             changeDegreeEditText.clearFocus();
             // display the gpa letter.
@@ -211,5 +223,44 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
         }
         return false;
     }
+
+
+    /**
+     * Change in the subject_item.xml to be ready to display the semester info for the cumulative activity.
+     *
+     * @return the subject item well be used in the adapter.
+     */
+    private View getCumulativeItemView() {
+
+        // inflate the subject_item.xml.
+        final View view = View.inflate(mContext,R.layout.subject_item, null);
+
+
+        // make the item height equal to the TextView that display the subject name.
+        // the height before was depend on the EditText that contain the subject degree but here
+        // no need to that EditText, so we change the item height.
+        final TextView subjectNameTextView = view.findViewById(R.id.subject_item_subject_name);
+        subjectNameTextView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                subjectNameTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int height = subjectNameTextView.getHeight();
+                view.setMinimumHeight(height);
+
+            }
+
+        });
+
+
+        // no need to show the TextView that display the "/100" on the item.
+        TextView textView = view.findViewById(R.id.subject_item_hundred_degree);
+        textView.setVisibility(View.GONE);
+
+        // return the subject item.
+        return view;
+
+    }
+
 
 }
