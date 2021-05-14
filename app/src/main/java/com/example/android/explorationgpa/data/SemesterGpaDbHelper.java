@@ -26,7 +26,7 @@ public class SemesterGpaDbHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Create the table in the data base for the first time that the app open
+     * Create the table in the database for the first time that the app open.
      * That will contain the total gpa fot the semester.
      */
     @Override
