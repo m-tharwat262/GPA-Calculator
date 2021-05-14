@@ -431,6 +431,25 @@ public class CalculatorForTotalGpa {
 
 
     /**
+     * Get the total gpa for (4 scale type) as a double number.
+     *
+     * @param semesterNumber number of the year (1-10).
+     * @param subjectDegrees array contain the subjects degrees.
+     *
+     * @return total gpa.
+     */
+    public static double getTotalGpaOfSemesterForFourScale(int semesterNumber, double[] subjectDegrees) {
+
+        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
+
+        double totalGpa = executeMethodsForFourScale(yearNumber, termNumber, subjectDegrees);
+
+        return totalGpa;
+    }
+
+
+    /**
      * Get the total gpa for (% scale type) as a double number.
      *
      * @param yearNumber number of the year (0-5).
@@ -448,6 +467,25 @@ public class CalculatorForTotalGpa {
 
 
     /**
+     * Get the total gpa for (% scale type) as a double number.
+     *
+     * @param semesterNumber number of the year (1-10).
+     * @param subjectDegrees array contain the subjects degrees.
+     *
+     * @return total gpa.
+     */
+    public static double getTotalGpaOfSemesterForPercentageScale(int semesterNumber, double[] subjectDegrees) {
+
+        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
+
+        double totalGpa = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
+
+        return totalGpa;
+    }
+
+
+    /**
      * Get the total gpa letter and make it ready as a String to display on the screen.
      *
      * @param yearNumber number of the year (0-5).
@@ -457,6 +495,27 @@ public class CalculatorForTotalGpa {
      * @return total gpa as letter.
      */
     public static String getTotalGpaOfSemesterAsLetter(int yearNumber, int termNumber, double[] subjectDegrees) {
+
+        double totalGpa = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
+
+        String totalGpaLetter = getGpaLetter(totalGpa);
+
+        return totalGpaLetter;
+    }
+
+
+    /**
+     * Get the total gpa letter and make it ready as a String to display on the screen.
+     *
+     * @param semesterNumber number of the year (1-10).
+     * @param subjectDegrees array contain the subjects degrees.
+     *
+     * @return total gpa as letter.
+     */
+    public static String getTotalGpaOfSemesterAsLetter(int semesterNumber, double[] subjectDegrees) {
+
+        int yearNumber = SemesterInfo.getNumberOfYear(semesterNumber);
+        int termNumber = SemesterInfo.getNumberOfTerm(semesterNumber);
 
         double totalGpa = executeMethodsForPercentageScale(yearNumber, termNumber, subjectDegrees);
 
@@ -495,7 +554,7 @@ public class CalculatorForTotalGpa {
      *
      * @return cumulative gpa.
      */
-    public static double getCumulativeGpaOfSemesterForPercentageScale(double[] subjectHours, double[] subjectDegrees) {
+    public static double getCumulativeGpaForPercentageScale(double[] subjectHours, double[] subjectDegrees) {
 
         double totalGpa = executeMethodsCumulativeForPercentageScale(subjectHours, subjectDegrees);
 
@@ -511,7 +570,7 @@ public class CalculatorForTotalGpa {
      *
      * @return cumulative gpa as letter.
      */
-    public static String getCumulativeGpaOfSemesterAsLetter(double[] subjectHours, double[] subjectDegrees) {
+    public static String getCumulativeGpaAsLetter(double[] subjectHours, double[] subjectDegrees) {
 
         double cumulativeGpa = executeMethodsCumulativeForPercentageScale(subjectHours, subjectDegrees);
 
@@ -720,8 +779,8 @@ public class CalculatorForTotalGpa {
         Log.i(LOG_TAG, "end of executeMethodsCumulativeForPercentageScale method (same above) inside CalculatorForTotalGpa class : "
                 + resultOfDivide);
 
-        double cumulativeGpaForPercentageScale = getCumulativeGpaOfSemesterForPercentageScale(subjectHours, subjectDegrees);
-        Log.i(LOG_TAG, "end of getCumulativeGpaOfSemesterForPercentageScale method inside CalculatorForTotalGpa class : "
+        double cumulativeGpaForPercentageScale = getCumulativeGpaForPercentageScale(subjectHours, subjectDegrees);
+        Log.i(LOG_TAG, "end of getCumulativeGpaForPercentageScale method inside CalculatorForTotalGpa class : "
                 + cumulativeGpaForPercentageScale);
 
     }
