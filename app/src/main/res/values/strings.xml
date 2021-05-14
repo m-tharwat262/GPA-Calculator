@@ -24,6 +24,15 @@
     <string name="number_with_hundred_percentage_sign">%1$s%%</string>
 
 
+    <!-- fot years name -->
+    <string name="year_zero">Primary year</string>
+    <string name="year_one">First year</string>
+    <string name="year_two">Second year</string>
+    <string name="year_three">Third year</string>
+    <string name="year_four">Senior year</string>
+
+
+
 
     ///////////////////////////////// For AndroidManifests file /////////////////////////////////
 
@@ -124,13 +133,6 @@
     <string name="term_first">first term</string>
     <string name="term_second">second term</string>
 
-    <!-- fot years name -->
-    <string name="year_zero">Primary year</string>
-    <string name="year_one">First year</string>
-    <string name="year_two">Second year</string>
-    <string name="year_three">Third year</string>
-    <string name="year_four">Senior year</string>
-
     <!-- for insert a new semester inside database -->
     <string name="insert_semester_inside_database_successful">Semester saved</string>
     <string name="insert_semester_inside_database_failed">Error with saving semester</string>
@@ -180,6 +182,25 @@
 
     <string name="semester_with_placeholder">Semester(%1$d)</string>
     <string name="gpa_equal_with_placeholder">&#160;/ GPA = %1$s</string>
+
+
+
+
+
+
+
+
+    //////////////////////////////// For CumulativeGpa.java ////////////////////////////////
+
+
+    <string name="display_more_details">(click for more details)</string>
+    <string name="display_less_details">(click for less details)</string>
+
+    <string name="term_word_in_year_item">Term(%1$d) / S.%2$d</string>
+
+    <string name="term_gpa">Term GPA = %1$s</string>
+
+
 
 
 

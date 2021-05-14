@@ -10,11 +10,12 @@ import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
@@ -28,7 +29,18 @@ import java.util.ArrayList;
 public class CumulativeGpaActivity extends AppCompatActivity {
 
 
-    private static final String LOG_TAG = CumulativeGpaActivity.class.getSimpleName();
+    private static final String LOG_TAG = CumulativeGpaActivity.class.getSimpleName(); // class name.
+
+    private LinearLayout mYearItermContainer; // will contain the year items.
+
+    private Cursor mCursor; // to contain all required data about semesters.
+
+    private int SEMESTER_NUMBER_INDEX; // the semester number position in the cursor.
+    private int SEMESTER_DEGREES_INDEX; // the semester degree position in the cursor.
+
+    private ArrayList<Integer> mSemesterNumbers; // contain the array numbers that stored in the cursor.
+
+    private static final int SEMESTER_ADAPTER_MODE = 4; // use to set the semester adapter to display the subject item in year items.
 
 
 
@@ -38,10 +50,14 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cumulative_gpa);
 
 
+
+        // determine the LinearLayout that contain the year items.
+        mYearItermContainer = findViewById(R.id.activity_cumulative_gpa_year_items);
+
+
         // get data (semester uris) from the last activity (GpaActivity).
         Intent intent = getIntent();
         ArrayList<Uri> semesterUris = intent.getParcelableArrayListExtra("semester_uris");
-        Log.i(LOG_TAG, "the semester uris that comes from the GpaActivity : " + semesterUris);
 
 
 
@@ -49,8 +65,29 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         setupTheLayoutShadows();
 
 
-        // display the cumulative gpa in the top part in the activity layout;
-        displayCumulativeGpa(semesterUris);
+        // create a Cursor contain all required data about semesters that will be used in the activity.
+        mCursor = getCursor(semesterUris);
+
+
+        // determine the position for the semester number and degrees in the Cursor.
+        SEMESTER_NUMBER_INDEX = mCursor.getColumnIndex(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
+        SEMESTER_DEGREES_INDEX = mCursor.getColumnIndex(SemesterGpaEntry.COLUMN_SEMESTER_DEGREES);
+
+
+        // create ArrayList contain the semester numbers in order like its order in the cursor.
+        mSemesterNumbers = getSemesterNumbers();
+
+
+        // display the cumulative gpa in the top part on the screen.
+        displayCumulativeGpa();
+
+
+        // display year items on the screen.
+        displayYearItems();
+
+
+        // close the cursor to clean the resources after no need to it.
+        mCursor.close();
 
 
     }
@@ -98,7 +135,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
      *
      * @return cursor contain semesters data that will use in the activity to calculate cumulative gpa.
      */
-    private Cursor getCursorForSemesterUris(ArrayList<Uri> semesterUris) {
+    private Cursor getCursor(ArrayList<Uri> semesterUris) {
 
         // setup the projection parameter for the query method.
         String[] projection = {
@@ -150,7 +187,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     /**
      * Get the unique ids from the uris inserted.
      *
-     * @param uris refer to the specific location inside the database
+     * @param uris refer to the specific location inside the database.
      *
      * @return array contain the unique ids for each uri inserted.
      */
@@ -177,61 +214,53 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
     /**
-     * Get all semester numbers from the cursor inserted.
-     *
-     * @param cursor contain the semesters data.
+     * Get all semester numbers from the cursor member.
      *
      * @return ArrayList contain the semester numbers for the all semesters in the cursor.
      */
-    private ArrayList<Integer> getSemesterNumbers (Cursor cursor) {
+    private ArrayList<Integer> getSemesterNumbers() {
 
         // create ArrayList to make it to contain the semester numbers.
-        ArrayList<Integer> allSemesterNumbers = new ArrayList<>();
-
-        // get the index numbers for semester number column in the table inside semester database.
-        int semesterNumberIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_NUMBER);
-
+        ArrayList<Integer> semesterNumbers = new ArrayList<>();
 
         // to make sure that the cursor in the zero position before start the loop bottom.
-        cursor.moveToPosition(-1);
+        mCursor.moveToPosition(-1);
 
         // move across all the cursor position to get the semester number for each semester inside it.
-        while (cursor.moveToNext()) {
+        while (mCursor.moveToNext()) {
 
             // get the semester number for the cursor.
-            int semesterNumberFromDatabase = cursor.getInt(semesterNumberIndex);
+            int semesterNumberFromDatabase = mCursor.getInt(SEMESTER_NUMBER_INDEX);
 
             // add the semester number to the ArrayList.
-            allSemesterNumbers.add(semesterNumberFromDatabase);
+            semesterNumbers.add(semesterNumberFromDatabase);
 
         }
 
         // ArrayList contain the semester numbers inside it.
-        return allSemesterNumbers;
+        return semesterNumbers;
 
     }
 
 
     /**
-     * Get all subject hours in all semesters which numbers insert to the method.
-     *
-     * @param allSemesterNumbers ArrayList contain all semester numbers we want get hours for it.
+     * Get all subject hours in all semesters in the member cursor.
      *
      * @return array contain all subject hours.
      */
-    private double[] getSemesterHours (ArrayList<Integer> allSemesterNumbers) {
+    private double[] getSemesterHours() {
 
         // create ArrayList to contain the all subject hours.
         ArrayList<Double> allSemesterHours = new ArrayList<>();
 
         // size of the sllSemesterNumbers ArrayList.
-        int arraySize = allSemesterNumbers.size();
+        int arraySize = mSemesterNumbers.size();
 
 
         // put each semester hours in the allSemesterHours ArrayList.
         for (int i = 0 ; i < arraySize ; i++) {
 
-            int semesterNumber = allSemesterNumbers.get(i);
+            int semesterNumber = mSemesterNumbers.get(i);
             // get the semester hours.
             double[] hours = SemesterInfo.getHoursForSemester(semesterNumber);
 
@@ -260,27 +289,22 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     /**
      * Get all subject degrees from all semesters inside the cursor inserted.
      *
-     * @param cursor contain the semesters data.
-     *
      * @return array contain all subject degrees.
      */
-    private double[] getAllSemesterDegrees (Cursor cursor) {
+    private double[] getAllSemesterDegrees() {
 
         // create ArrayList will contain all subject degrees fo all semesters.
         ArrayList<Double> allSemesterDegrees = new ArrayList<>();
 
-        // get the index numbers for each column in the table inside semester database.
-        int semesterDegreesIndex = cursor.getColumnIndexOrThrow(SemesterGpaEntry.COLUMN_SEMESTER_DEGREES);
-
 
         // to make sure that the cursor in the zero position before start the loop bottom.
-        cursor.moveToPosition(-1);
+        mCursor.moveToPosition(-1);
 
         // move across all the cursor position to get the subject degrees for each semester inside the cursor.
-        while (cursor.moveToNext()) {
+        while (mCursor.moveToNext()) {
 
             // get all subject degrees for the semester from database.
-            byte[] blob = cursor.getBlob(semesterDegreesIndex); // degrees as BLOB.
+            byte[] blob = mCursor.getBlob(SEMESTER_DEGREES_INDEX); // degrees as BLOB.
             String json = new String(blob); // convert BLOB above to json object.
             Gson gson = new Gson(); // initialize the Gson Object.
             double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
@@ -309,30 +333,17 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
     /**
      * Display the cumulative gpa on the screen by (4 Scale type - letter type).
-     *
-     * @param semesterUris refer to the semester uris that comes from the GpaActivity.
      */
-    private void displayCumulativeGpa(ArrayList<Uri> semesterUris) {
+    private void displayCumulativeGpa() {
 
         // get the specific part in the activity layout that will display the cumulative gpa.
         TextView cumGpaTextView = findViewById(R.id.activity_cumulative_gpa_circle_shape);
 
-
-        // get the cursor contained required data about semesters to calculate the cumulative gpa.
-        Cursor cursor = getCursorForSemesterUris(semesterUris);
-
-        // get all semester numbers stored in the cursor above.
-        ArrayList<Integer> semesterNumbers = getSemesterNumbers(cursor);
-
         // get all subject hours that will be used in the calculation for the cumulative gpa.
-        double[] hours = getSemesterHours(semesterNumbers);
+        double[] hours = getSemesterHours();
 
         // get all subject degrees that will be used in the calculation for the cumulative gpa.
-        double[] degrees = getAllSemesterDegrees(cursor);
-
-
-        // close the cursor to clean used resources after no need for it.
-        cursor.close();
+        double[] degrees = getAllSemesterDegrees();
 
 
 
@@ -341,7 +352,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         String cumGpaNumberAfterFormat = String.format("%.2f", cumulativeGpaNumber);
 
         // get the cumulative gpa as a letter.
-        String cumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaOfSemesterAsLetter(hours,degrees);
+        String cumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaAsLetter(hours,degrees);
 
 
 
@@ -360,6 +371,443 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         cumGpaTextView.setText(cumGpaForDisplaying);
 
     }
+
+
+    /**
+     * Display the years items on the screen.
+     */
+    private void displayYearItems() {
+
+        for (int i = 1 ; i < 11 ; i += 2) {
+
+            // get the position in the cursor.
+            // if the semester not exist, the cursor will return (-1) as a position.
+            int position1 = getPositionInCursor(i);
+            int position2 = getPositionInCursor(i+1);
+
+
+            // if the semester not exist in the cursor we will make it equal 0.
+            int firstSemesterNumber = 0;
+            int secondSemesterNumber = 0;
+
+            if (position1 != -1) {
+                firstSemesterNumber = i;
+            }
+
+            if (position2 != -1) {
+                secondSemesterNumber = i + 1;
+            }
+
+
+
+            // start add the year item to the screen if there is one valid semester in the year
+            // or both semester (term 1 & term 2) are valid.
+            if ( (position1 != -1) || (position2 != -1) ) {
+                AddYearIterm(firstSemesterNumber, position1, secondSemesterNumber, position2);
+            }
+
+        }
+
+    }
+
+
+    /**
+     * Get the position for the semester in the cursor.
+     *
+     * @param semesterNumber number of the semester.
+     *
+     * @return the position in cursor or (-1) if the semester not exist in the cursor.
+     */
+    private int getPositionInCursor(int semesterNumber) {
+
+        // the position in the ArrayList that contain the semesterNumbers is the same position for
+        // that semester in the cursor.
+        int positionInCursor = mSemesterNumbers.indexOf(semesterNumber);
+
+        return positionInCursor;
+
+    }
+
+
+    /**
+     * Get subject degrees for any semester in the member cursor by know the position for that semester
+     * inside the cursor.
+     *
+     * @param cursorPosition the position in the member cursor.
+     *
+     * @return array contain the semester degrees.
+     */
+    private double[] getDegreesForOneSemester(int cursorPosition) {
+
+        if (cursorPosition == -1) {
+            return null;
+        }
+
+        // make the cursor in a specific position.
+        mCursor.moveToPosition(cursorPosition);
+
+        // get all subject degrees for the semester from database.
+        byte[] blob = mCursor.getBlob(SEMESTER_DEGREES_INDEX); // degrees as BLOB.
+        String json = new String(blob); // convert BLOB above to json object.
+        Gson gson = new Gson(); // initialize the Gson Object.
+        double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
+
+        // return the semester degrees.
+        return degrees;
+
+    }
+
+
+    /**
+     * Add year item contain all the year data to the linearLayout that responsible to display
+     * year items in the activity.
+     *
+     * @param semester1 semester number in the term(1).
+     * @param position1 the semester(1) position in the member cursor.
+     * @param semester2 semester number in the term(2).
+     * @param position2 the semester(2) position in the member cursor.
+     */
+    private void AddYearIterm(int semester1, int position1, int semester2, int position2) {
+
+        // inflate a new year item to put it in its place in the activity.
+        View yearItemView = LayoutInflater.from(this).inflate(R.layout.year_item, null);
+
+        // the short year part in the year item contain (year name - year gpa - short note message).
+        LinearLayout shortYearItem = yearItemView.findViewById(R.id.year_item_layout_short_part);
+
+        // the short note message TextView that hint the user there is more details
+        // when he click on the short item.
+        final TextView detailsButtonTextView = yearItemView.findViewById(R.id.year_item_details_button);
+
+        // the part contain terms (one and two).
+        final LinearLayout termsLayouts = yearItemView.findViewById(R.id.year_item_layout_contain_all_terms);
+
+
+
+        // display the year name in the short part.
+        TextView yearNameTextView = yearItemView.findViewById(R.id.year_item_year_name);
+        int yearNameResourceId = getYearNameResourceId(semester1, semester2);
+        String yearName = getString(yearNameResourceId);
+        yearNameTextView.setText(yearName);
+
+
+
+        // get subject degrees for the term(1) and term(2).
+        double[] degrees1 = getDegreesForOneSemester(position1);
+        double[] degrees2 = getDegreesForOneSemester(position2);
+
+        // display the year gpa in the short part.
+        TextView yearGpaTextView = yearItemView.findViewById(R.id.year_item_year_gpa);
+        double yearGpa = getYearGpa(semester1, degrees1, semester2, degrees2);
+        String yearGpaAfterFormat = String.format("%.2f", yearGpa);
+        yearGpaTextView.setText(yearGpaAfterFormat);
+
+
+
+        // add listener to the short part to control displaying or hiding the terms in the year item.
+        shortYearItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // know the visibility state (visible - Gone).
+                int visibilityState = termsLayouts.getVisibility();
+
+                // switch between displaying and hiding the terms depend on the clicks on the short part.
+                if (visibilityState == View.GONE) {
+                    detailsButtonTextView.setText(R.string.display_less_details);
+                    termsLayouts.setVisibility(View.VISIBLE);
+
+                } else {
+                    detailsButtonTextView.setText(R.string.display_more_details);
+                    termsLayouts.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+
+        // add the terms data (subjects names & degrees - total gpa) in the term item.
+        View viewAfterSetupTerms = setTermsData(yearItemView, position1, position2);
+
+
+        // add the year item to the LinearLayout that responsible to display year items in the activity.
+        mYearItermContainer.addView(viewAfterSetupTerms);
+
+    }
+
+
+    /**
+     * Set the terms data (term number - subjects - total gpa) inside the year item view that insert
+     * to the function and return it back again.
+     *
+     * @param yearItemView the view that responsible to display the year info.
+     * @param position1 refer to the position in the cursor for term(1).
+     * @param position2 refer to the position in the cursor for term(2).
+     *
+     * @return the year item after filled the views inside it with the terms data.
+     */
+    private View setTermsData(View yearItemView, int position1, int position2) {
+
+        // names the views that will used in each term (1-2) item.
+        TextView TermTitleTextView;
+        ListView semesterListView;
+        TextView totalGpaTextView;
+
+        // cursor position.
+        int position;
+
+
+        // the loop do the same function to fill data in both term(1) & term(2).
+        for (int i = 1 ; i < 3 ; i++) {
+
+
+            // check first if the term has information to put it in the views first or not by know
+            // if the semester in that term is valid (has a position in cursor, means not equal -1).
+            if ( (i == 1) && (position1 == -1) ) {
+
+                // hide the term one layout form the year item.
+                LinearLayout termOneLinearLayout = yearItemView.findViewById(R.id.year_item_layout_for_term_one);
+                termOneLinearLayout.setVisibility(View.GONE);
+
+                // no need to complete for the next steps in the loop.
+                continue;
+
+            }
+
+            if (i == 2 && position2 == -1) {
+
+                // hide the term two layout form the year item.
+                LinearLayout termTwoLinearLayout = yearItemView.findViewById(R.id.year_item_layout_for_term_two);
+                termTwoLinearLayout.setVisibility(View.GONE);
+
+                // no need to complete for the next steps in the loop.
+                continue;
+
+            }
+
+
+
+            // initialize the views that will be used in the loop and the position that will be used
+            // to get the semester data.
+            if (i == 1) {
+                TermTitleTextView = yearItemView.findViewById(R.id.year_item_title_term_one);
+                semesterListView = yearItemView.findViewById(R.id.year_item_list_view_for_term_one);
+                totalGpaTextView = yearItemView.findViewById(R.id.year_item_total_gpa_for_term_one);
+                position = position1;
+            } else {
+                TermTitleTextView = yearItemView.findViewById(R.id.year_item_title_term_two);
+                semesterListView = yearItemView.findViewById(R.id.year_item_list_view_for_term_two);
+                totalGpaTextView = yearItemView.findViewById(R.id.year_item_total_gpa_for_term_two);
+                position = position2;
+            }
+
+
+
+            // move the cursor to the position that the semester at.
+            mCursor.moveToPosition(position);
+
+
+            // display the term and the semester title on the screen.
+            int semesterNumber = mCursor.getInt(SEMESTER_NUMBER_INDEX);
+            String termTitle = String.format(getResources().getString(R.string.term_word_in_year_item), i,semesterNumber);
+            TermTitleTextView.setText(termTitle);
+
+
+            // get all subject degrees for the semester from database.
+            byte[] blob = mCursor.getBlob(SEMESTER_DEGREES_INDEX); // degrees as BLOB.
+            String json = new String(blob); // convert BLOB above to json object.
+            Gson gson = new Gson(); // initialize the Gson Object.
+            double[] degrees = gson.fromJson(json, new TypeToken<double[]>(){}.getType()); // convert the json String to double array.
+
+
+            // get only the subjects that has degree more than zero as a SubjectObjects.
+            ArrayList<SubjectObject> subjectObjects = getValidSemesterSubjects(semesterNumber, degrees);
+
+            // initialize and reaper the SemesterAdapter to display the subject info
+            // like (name - degree - gpa letter).
+            SemesterAdapter semesterAdapter = new SemesterAdapter(this, subjectObjects);
+            semesterAdapter.setAdapterMode(SEMESTER_ADAPTER_MODE);
+
+
+            // display the subjects info inside a listView.
+            semesterListView.setAdapter(semesterAdapter);
+
+
+            // display the total gpa for the term.
+            double totalGpaFourScale = CalculatorForTotalGpa.getTotalGpaOfSemesterForFourScale(semesterNumber, degrees);
+            String totalGpaAfterFormat = String.format("%.2f", totalGpaFourScale);
+            String termGpaStatement = getResources().getString(R.string.term_gpa, totalGpaAfterFormat);
+            totalGpaTextView.setText(termGpaStatement);
+
+
+        } // end the for loop.
+
+
+        // the year item view after fill it with the terms data.
+        return yearItemView;
+
+    }
+
+
+    /**
+     * Create ArrayList of SubjectObjects by insert the subject name and its degree to
+     * the SubjectObject (only if the degree more than zero).
+     *
+     * @param semesterNumber number of the semester.
+     * @param degrees all subject degrees for the semester that the method will work on.
+     *
+     * @return ArrayList contain the SubjectObject for the subjects that has degree more than zero.
+     */
+    private ArrayList<SubjectObject> getValidSemesterSubjects(int semesterNumber, double[] degrees) {
+
+        // get resources ids for the subject names.
+        int [] subjectResourcesIds = SemesterInfo.getSubjectsOfSemester(semesterNumber);
+
+        // initialize arrayList of SubjectObject which will contain only subject names that has degree more than zero.
+        ArrayList<SubjectObject> subjectObjects = new ArrayList<>();
+
+        // get the size of the array inserted (degrees array).
+        int arraySize = degrees.length;
+
+        for(int i = 0 ; i < arraySize ; i++) {
+
+            // get the degree by position.
+            double degree = degrees[i];
+
+            // if the degree for the subject more than zero we will make SubjectObject for it.
+            // tht SubjectObject store the resource id for the subject name and the degree for it.
+            if (degree > 0) {
+                int resourceId = subjectResourcesIds[i];
+                SubjectObject subjectObject = new SubjectObject(resourceId, degree);
+                subjectObjects.add(subjectObject);
+            }
+        }
+
+        return subjectObjects;
+
+    }
+
+
+    /**
+     * Get the year name by giving any of the semester numbers that in that year.
+     *
+     * @param semester1 semester number for the term (1).
+     * @param semester2 semester number for the term (2).
+     *
+     * @return resource id for the string name.
+     */
+    private int getYearNameResourceId(int semester1, int semester2) {
+
+        if (semester1 == 1 || semester2 == 2) {
+            return R.string.year_zero;
+        } else if (semester1 == 3 || semester2 == 4) {
+            return R.string.year_one;
+        } else if (semester1 == 5 || semester2 == 6) {
+            return R.string.year_two;
+        } else if (semester1 == 7 || semester2 == 8) {
+            return R.string.year_three;
+        } else {
+            return R.string.year_four;
+        }
+
+    }
+
+
+    /**
+     * Get the year gpa (gpa for the two terms 1-2) by (4 Scale Type).
+     *
+     * @param semester1 semester number refer to the term(1) - if the value equal 0 means there is
+     *                  no data for that semester in the member cursor and the method ignore it in
+     *                  the gpa calculation.
+     * @param degrees1 subject degrees in the semester(1).
+     *
+     * @param semester2 semester number refer to the term(2) - if the value equal 0 means there is
+     *                  no data for that semester in the member cursor and the method ignore it in
+     *                  the gpa calculation.
+     * @param degrees2 subject degrees in the semester(2).
+     *
+     * @return year gpa.
+     */
+    private double getYearGpa(int semester1, double[] degrees1, int semester2, double[] degrees2) {
+
+        // if the semester number equal to 0 means that semester must be ignored in calculation,
+        // so no need to get the subject hours for that semester.
+        double[] hours1 = null;
+        double[] hours2 = null;
+        if (semester1 != 0) {
+            hours1 = SemesterInfo.getHoursForSemester(semester1);
+        }
+
+        if (semester2 != 0) {
+            hours2 = SemesterInfo.getHoursForSemester(semester2);
+        }
+
+
+        // make the two arrays contains the semester hours in one array.
+        double[] allHours = mergeTwoArrays(hours1, hours2);
+        // make the two arrays contains the semester degrees in one array.
+        double[] allDegrees = mergeTwoArrays(degrees1, degrees2);
+
+
+        // calculate the year gpa.
+        double yearGpa = CalculatorForTotalGpa.getCumulativeGpaForFourScale(allHours,allDegrees);
+
+        return yearGpa;
+
+    }
+
+
+    /**
+     * Merge two constant array elements to get one array contains both elements inside them.
+     * The merge process put the elements in the (array1) at first in the merging array and
+     * the (array2) after that.
+     *
+     * @param array1 the first array.
+     *
+     * @param array2 the second array.
+     *
+     * @return array contain all elements in the array1 & array2.
+     */
+    private double[] mergeTwoArrays(double[] array1, double[] array2) {
+
+        // check if there is an array equal (null) and if that tru no need to merge the two array
+        // together and the method can be finished early and just return the other array.
+        if (array1 == null) {
+            return array2;
+        } else if (array2 == null) {
+            return array1;
+        }
+
+
+        // create an ArrayList to put the elements in the (array1 & array2) inside it.
+        ArrayList<Double> allElements = new ArrayList<>();
+
+        // add the first array element to the ArrayList.
+        for (int i = 0 ; i < array1.length ; i++) {
+            allElements.add(array1[i]);
+        }
+
+
+        // add the second array element to the ArrayList.
+        for (int i = 0 ; i < array2.length ; i++) {
+                allElements.add(array2[i]);
+        }
+
+
+        // create a constant Array with size equal the ArrayList.
+        double [] allElementsInConstantArray = new double[allElements.size()];
+
+        // add all elements from the ArrayList to the constant Array.
+        for (int i = 0 ; i < allElements.size() ; i ++) {
+            allElementsInConstantArray[i] = allElements.get(i);
+        }
+
+
+        // return the constant Array.
+        return allElementsInConstantArray;
+
+    }
+
 
 
 }
