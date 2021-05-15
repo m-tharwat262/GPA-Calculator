@@ -10,20 +10,26 @@
         android:id="@+id/menu_database_action_edit"
         android:title="@string/action_edit"
         android:icon="@drawable/edit_icon"
-        app:showAsAction="always"/>
+        android:visible="false"
+        app:showAsAction="always"
+        tools:visible="true"/>
 
     <!-- delete icon -->
     <item
         android:id="@+id/menu_database_action_delete"
         android:title="@string/action_delete"
         android:icon="@drawable/delete_icon"
-        app:showAsAction="always" />
+        android:visible="false"
+        app:showAsAction="always"
+        tools:visible="true" />
 
     <!-- save icon -->
     <item
         android:id="@+id/menu_database_action_save"
         android:title="@string/action_save"
         android:icon="@drawable/save_icon"
-        app:showAsAction="always" />
+        android:visible="false"
+        app:showAsAction="always"
+        tools:visible="true" />
 
 </menu>

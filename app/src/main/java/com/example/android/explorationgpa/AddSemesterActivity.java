@@ -603,11 +603,15 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         if (mMode == MODE_OPEN_WITH_URI) {
             // hide the save icon from the menu.
             saveIcon.setVisible(false);
+
+            // show edit & delete icons from the menu.
+            editIcon.setVisible(true);
+            deleteIcon.setVisible(true);
         } else {
             // show the save icon in the menu.
             saveIcon.setVisible(true);
 
-            // hide the edit & delete icon from the menu.
+            // hide edit & delete icons from the menu.
             editIcon.setVisible(false);
             deleteIcon.setVisible(false);
         }
