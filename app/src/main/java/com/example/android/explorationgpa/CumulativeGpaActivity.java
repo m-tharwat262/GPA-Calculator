@@ -647,6 +647,15 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         } // end the for loop.
 
 
+        // show a vertical line between the term one and two in the year item when both of them
+        // have data displayed on the screen and no need for that line if one term displayed.
+        if (position1 != -1 && position2 != -1) {
+            View verticalLine = yearItemView.findViewById(R.id.year_item_vertical_line_between_terms);
+            verticalLine.setVisibility(View.VISIBLE);
+
+        }
+
+
         // the year item view after fill it with the terms data.
         return yearItemView;
 

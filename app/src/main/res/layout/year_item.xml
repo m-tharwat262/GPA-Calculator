@@ -115,8 +115,11 @@
         </LinearLayout>
 
         <!-- make a vertical line between items -->
-        <View style="@style/Divider_vertical"
-            android:layout_height="4dp"/>
+        <View
+            android:id="@+id/year_item_vertical_line_between_terms"
+            style="@style/Divider_vertical"
+            android:layout_height="4dp"
+            android:visibility="gone"/>
 
         <!-- layout contain term (2) info -->
         <LinearLayout
