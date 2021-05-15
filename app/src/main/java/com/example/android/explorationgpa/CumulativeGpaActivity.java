@@ -48,6 +48,8 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
     private static final int SEMESTER_ADAPTER_MODE = 4; // use to set the semester adapter to display the subject item in year items.
 
+    private double mCumulativeGpaNumber;
+    private String mCumulativeGpaLetter;
 
 
     @Override
@@ -352,24 +354,24 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
         // get the cumulative gpa as a number and format it to make just two numbers after dot (0.00).
-        double cumulativeGpaNumber = CalculatorForTotalGpa.getCumulativeGpaForFourScale(hours, degrees);
-        String cumGpaNumberAfterFormat = String.format("%.2f", cumulativeGpaNumber);
+        mCumulativeGpaNumber = CalculatorForTotalGpa.getCumulativeGpaForFourScale(hours, degrees);
+        String cumGpaNumberAfterFormat = String.format("%.2f", mCumulativeGpaNumber);
 
         // get the cumulative gpa as a letter.
-        String cumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaAsLetter(hours,degrees);
+        mCumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaAsLetter(hours,degrees);
 
 
 
         // set the TextView background color depend on the gpa letter.
         GradientDrawable circleBackground = (GradientDrawable) cumGpaTextView.getBackground();
-        int colorResourceId = CalculatorForTotalGpa.getGpaLetterColor(cumulativeGpaLetter);
+        int colorResourceId = CalculatorForTotalGpa.getGpaLetterColor(mCumulativeGpaLetter);
         int color = ContextCompat.getColor(this, colorResourceId);
         circleBackground.setColor(color);
 
 
 
         // setup the string for the cumulative gpa to make it ready to display on the screen.
-        String cumGpaForDisplaying = cumGpaNumberAfterFormat + "\n" + cumulativeGpaLetter;
+        String cumGpaForDisplaying = cumGpaNumberAfterFormat + "\n" + mCumulativeGpaLetter;
 
         // display the cumulative gpa on the screen.
         cumGpaTextView.setText(cumGpaForDisplaying);
@@ -865,6 +867,8 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(CumulativeGpaEntry.COLUMN_STUDENT_NAME, studentName);
         values.put(CumulativeGpaEntry.COLUMN_STUDENT_ID, studentId);
+        values.put(CumulativeGpaEntry.COLUMN_GPA_NUMBER, mCumulativeGpaNumber);
+        values.put(CumulativeGpaEntry.COLUMN_GPA_LETTER, mCumulativeGpaLetter);
         values.put(CumulativeGpaEntry.COLUMN_SEMESTER_URIS, semesterUrisAsByte);
         values.put(CumulativeGpaEntry.COLUMN_UNIX, time);
 
