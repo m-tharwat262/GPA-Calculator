@@ -11,6 +11,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -805,6 +807,76 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
         // return the constant Array.
         return allElementsInConstantArray;
+
+    }
+
+
+
+
+    /**
+     * Save the cumulative item data inside the cumulative database.
+     */
+    private void saveInDatabase() {
+
+        // TODO: save the cumulative item data inside the database.
+
+    }
+
+
+
+
+    /**
+     * Override method to use our custom menu (menu_database_actions) in the activity.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_database_actions, menu);
+
+        return true;
+
+    }
+
+
+    /**
+     * Override method to control what happen when the user click on any icon in the menu bar.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            // for save icon.
+            case R.id.menu_database_action_save:
+
+                // save the cumulative item data inside the database.
+                saveInDatabase();
+
+                // close the activity and return the user to GpaActivity.
+                finish();
+
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    /**
+     * Override method to control displaying or hiding icons in the menu bar.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // initialize the save icon in the menu.
+        MenuItem saveIcon = menu.findItem(R.id.menu_database_action_save);
+
+        // show the save icon.
+        saveIcon.setVisible(true);
+
+        return true;
 
     }
 
