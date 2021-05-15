@@ -201,6 +201,11 @@
     <string name="term_gpa">Term GPA = %1$s</string>
 
 
+    <!-- for insert a new cumulative item inside database -->
+    <string name="insert_cumulative_inside_database_successful">Cumulative gpa saved</string>
+    <string name="insert_cumulative_inside_database_failed">Error with saving the cumulative gpa</string>
+
+
 
 
 

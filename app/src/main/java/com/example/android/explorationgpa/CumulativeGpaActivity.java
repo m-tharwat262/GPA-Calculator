@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
@@ -19,7 +20,9 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpaEntry;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,7 +43,8 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     private int SEMESTER_NUMBER_INDEX; // the semester number position in the cursor.
     private int SEMESTER_DEGREES_INDEX; // the semester degree position in the cursor.
 
-    private ArrayList<Integer> mSemesterNumbers; // contain the array numbers that stored in the cursor.
+    private ArrayList<Uri> mSemesterUris; // contain the uris that comes to the activity with the intent.
+    private ArrayList<Integer> mSemesterNumbers; // contain the semester numbers that stored in the cursor.
 
     private static final int SEMESTER_ADAPTER_MODE = 4; // use to set the semester adapter to display the subject item in year items.
 
@@ -59,7 +63,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
         // get data (semester uris) from the last activity (GpaActivity).
         Intent intent = getIntent();
-        ArrayList<Uri> semesterUris = intent.getParcelableArrayListExtra("semester_uris");
+        mSemesterUris = intent.getParcelableArrayListExtra("semester_uris");
 
 
 
@@ -68,7 +72,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
         // create a Cursor contain all required data about semesters that will be used in the activity.
-        mCursor = getCursor(semesterUris);
+        mCursor = getMemberCursor();
 
 
         // determine the position for the semester number and degrees in the Cursor.
@@ -131,13 +135,11 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
     /**
      * Get the required data about semesters from semester database to use it in calculate the
-     * cumulative gpa
-     *
-     * @param semesterUris semesters uris for its location inside database.
+     * cumulative gpa.
      *
      * @return cursor contain semesters data that will use in the activity to calculate cumulative gpa.
      */
-    private Cursor getCursor(ArrayList<Uri> semesterUris) {
+    private Cursor getMemberCursor() {
 
         // setup the projection parameter for the query method.
         String[] projection = {
@@ -151,7 +153,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
         StringBuilder selectionStringBuilder = new StringBuilder();
 
         // get the unique ids for the semester uris.
-        long[] semesterIds = getIdsFromUris(semesterUris);
+        long[] semesterIds = getIdsFromUris(mSemesterUris);
 
         // start build the selection statement to be (  "_id IN (?"  ).
         selectionStringBuilder.append(SemesterGpaEntry._ID + " IN (?");
@@ -813,14 +815,190 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
 
+
     /**
      * Save the cumulative item data inside the cumulative database.
      */
     private void saveInDatabase() {
 
-        // TODO: save the cumulative item data inside the database.
+        // get current date and time as a unix number.
+        long time = System.currentTimeMillis();
+
+
+        // get cursor contain the student info (name & ID) from the first semester in the semesters
+        // that comes from the previous activity (GpaActivity).
+        Cursor cursor = getCursorForStudentInfo();
+
+        // make the cursor in the valid position to start extract data from it.
+        cursor.moveToNext();
+
+
+        // get the student info (name & ID).
+        String studentName = getStudentName(cursor);
+        int studentId = getStudentId(cursor);
+
+
+        // close the cursor after no need for it to clean resources.
+        cursor.close();
+
+
+        // (important) to convert the uris to strings to can store it inside the database.
+        ArrayList<String> stringUris = convertUrisToStrings();
+
+
+
+        // convert stringUris ArrayList to a byte array.
+        Gson gson = new Gson();
+        byte[] semesterUrisAsByte = gson.toJson(stringUris).getBytes();
+
+
+        // initialize and setup the ContentValues to contain the data that will be insert inside the database.
+        ContentValues values = new ContentValues();
+        values.put(CumulativeGpaEntry.COLUMN_STUDENT_NAME, studentName);
+        values.put(CumulativeGpaEntry.COLUMN_STUDENT_ID, studentId);
+        values.put(CumulativeGpaEntry.COLUMN_SEMESTER_URIS, semesterUrisAsByte);
+        values.put(CumulativeGpaEntry.COLUMN_UNIX, time);
+
+
+
+        // insert the cumulative item data inside the cumulative database.
+        insertData(values);
 
     }
+
+
+    /**
+     * insert a cumulative item data inside the cumulative database.
+     */
+    private void insertData(ContentValues values) {
+
+        // insert the new cumulative item data to the database and get the uri refer to the location
+        // for that item in the database.
+        Uri uri = getContentResolver().insert(CumulativeGpaEntry.CONTENT_URI, values);
+
+        // check if the cumulative item data inserted successfully or failed.
+        if (uri == null) {
+            // show a toast message to the user says that "Error with saving the cumulative gpa".
+            Toast.makeText(this, R.string.insert_cumulative_inside_database_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            // show a toast message to the user says that "Cumulative gpa saved".
+            Toast.makeText(this, R.string.insert_cumulative_inside_database_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * Create cursor contain the student data that stored in the lowest semester (by number)
+     * from all the semesters that comes from the previous activity (GpaActivity).
+     *
+     * @return Cursor contain the student info (name & ID) that stored with the semester in the database
+     */
+    private Cursor getCursorForStudentInfo() {
+
+        // refer to the uri for the lowest semester in number.
+        Uri lowestSemesterUri = null;
+
+        // get the lowest semester number in all semesters in the mSemesterUris ArrayList
+        // and get the uri for that semester.
+        for (int i = 1 ; i < 11 ; i++) {
+
+            // the semester uri position in mSemesterUris has the same position in mSemesterNumbers.
+            int position = mSemesterNumbers.indexOf(i);
+
+            // if the position is (-1) means there is no semester with number (i) in mSemesterNumbers.
+            if (position != -1) {
+                lowestSemesterUri = mSemesterUris.get(position);
+                // end the loop.
+                break;
+            }
+
+        }
+
+
+
+        // set the projection to the query method to get a specific data from database.
+        String[] projection = {
+                CumulativeGpaEntry.COLUMN_STUDENT_NAME,
+                CumulativeGpaEntry.COLUMN_STUDENT_ID
+        };
+
+
+        // get the semester data from the semester database.
+        Cursor cursor = getContentResolver().query(lowestSemesterUri, projection, null, null, null);
+
+        return cursor;
+
+    }
+
+
+    /**
+     * Get the student name from the data stored in the cursor.
+     *
+     * @param cursor contain the student info stored with a semester item in the database.
+     *
+     * @return the student name.
+     */
+    private String getStudentName(Cursor cursor) {
+
+        // get the column position for the student name in the cursor.
+        int studentNameIndex = cursor.getColumnIndex(SemesterGpaEntry.COLUMN_STUDENT_NAME);
+
+        // get the student name from the cursor.
+        String studentName = cursor.getString(studentNameIndex);
+
+        // return the student name.
+        return studentName;
+
+    }
+
+
+    /**
+     * Get the student ID from the data stored in the cursor.
+     *
+     * @param cursor contain the student info stored with a semester item in the database.
+     *
+     * @return the student ID.
+     */
+    private int getStudentId(Cursor cursor) {
+
+        // get the column position for the student ID in the cursor.
+        int studentIdIndex = cursor.getColumnIndex(SemesterGpaEntry.COLUMN_STUDENT_ID);
+
+        // get the student ID from the cursor.
+        int studentId = cursor.getInt(studentIdIndex);
+
+        // return the student ID.
+        return studentId;
+
+    }
+
+
+    /**
+     * Convert all semester uris that comes from the previous activity (GpaActivity) from
+     * ArrayList<Uris> to ArrayList<String>.
+     *
+     * @return ArrayList contain the semester uris as Strings.
+     */
+    private ArrayList<String> convertUrisToStrings() {
+
+        // create the ArrayList that will store the uris inside it.
+        ArrayList<String> urisAsString = new ArrayList<>();
+
+        // convert each Uri in mSemesterUris and put it inside urisAsString ArrayList.
+        for (int i = 0 ; i < mSemesterUris.size() ; i++) {
+
+            String stringUri = mSemesterUris.get(i).toString();
+            urisAsString.add(stringUri);
+
+        }
+
+        // return ArrayList contain the uris as Strings.
+        return urisAsString;
+
+    }
+
+
 
 
 
