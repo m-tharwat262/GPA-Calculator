@@ -534,7 +534,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // inflate our custom menu we made for AddSemesterActivity.
-        getMenuInflater().inflate(R.menu.menu_add_semester, menu);
+        getMenuInflater().inflate(R.menu.menu_database_actions, menu);
 
         return true;
     }
@@ -550,7 +550,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         switch (item.getItemId()) {
 
             // for save icon.
-            case R.id.menu_add_semester_action_save:
+            case R.id.menu_database_action_save:
 
                 // make sure that the user in the mode (1) that responsible for display the semester
                 // total gpa after press DONE button before save the semester inside the database.
@@ -565,13 +565,13 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
                 }
 
                 return true;
-            case R.id.menu_add_semester_action_delete:
+            case R.id.menu_database_action_delete:
 
                 // show a dialog message to alert the user that he up to delete the semester.
                 showDeleteConfirmationDialog();
 
                 return true;
-            case R.id.menu_add_semester_action_edit:
+            case R.id.menu_database_action_edit:
 
                 // rename the activity title name to be "Edit Semester".
                 setTitle(R.string.activity_edit_mode);
@@ -594,12 +594,11 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
      */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
 
         // initialize all icons in the menu.
-        MenuItem saveIcon = menu.findItem(R.id.menu_add_semester_action_save);
-        MenuItem editIcon = menu.findItem(R.id.menu_add_semester_action_edit);
-        MenuItem deleteIcon = menu.findItem(R.id.menu_add_semester_action_delete);
+        MenuItem saveIcon = menu.findItem(R.id.menu_database_action_save);
+        MenuItem editIcon = menu.findItem(R.id.menu_database_action_edit);
+        MenuItem deleteIcon = menu.findItem(R.id.menu_database_action_delete);
 
         if (mMode == MODE_OPEN_WITH_URI) {
             // hide the save icon from the menu.
