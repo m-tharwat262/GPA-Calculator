@@ -43,6 +43,8 @@ public class CumulativeGpaDbHelper extends SQLiteOpenHelper {
                 + CumulativeGpaEntry._ID                          + " INTEGER PRIMARY KEY AUTOINCREMENT, " // for unique id for each row.
                 + CumulativeGpaEntry.COLUMN_STUDENT_NAME          + " TEXT NOT NULL, "                     // for student name.
                 + CumulativeGpaEntry.COLUMN_STUDENT_ID            + " INTEGER NOT NULL, "                  // for semester number.
+                + CumulativeGpaEntry.COLUMN_GPA_NUMBER            + " REAL NOT NULL, "                     // for cumulative gpa as double number.
+                + CumulativeGpaEntry.COLUMN_GPA_LETTER            + " TEXT NOT NULL, "                     // for cumulative gpa as letter.
                 + CumulativeGpaEntry.COLUMN_SEMESTER_URIS         + " BLOB NOT NULL, "                     // semester uris (refer to the location in the semester database).
                 + CumulativeGpaEntry.COLUMN_UNIX                  + " INTEGER NOT NULL DEFAULT 0);";       // for the date and time.
 
@@ -52,6 +54,8 @@ public class CumulativeGpaDbHelper extends SQLiteOpenHelper {
         // _id INTEGER PRIMARY KEY AUTOINCREMENT ,
         // name TEXT NOT NULL ,
         // id INTEGER NOT NULL ,
+        // gpa_number NOT NULL ,
+        // gpa_letter NOT NULL,
         // uris BLOB NOT NULL,
         // unix INTEGER NOT NULL DEFAULT 0);"
 
