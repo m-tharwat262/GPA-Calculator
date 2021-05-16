@@ -68,10 +68,9 @@ public class SemesterCursorAdapter extends CursorAdapter {
         // determine the views inside the item.
         TextView studentNameTextView = (TextView) view.findViewById(R.id.cursor_item_student_name);
         TextView studentIdTextView = (TextView) view.findViewById(R.id.cursor_item_student_id);
-        TextView semesterNumberTextView = (TextView) view.findViewById(R.id.cursor_item_semester_number);
+        TextView gpaStatementTextView = (TextView) view.findViewById(R.id.cursor_item_gpa_statement);
         TextView dateTextView = (TextView) view.findViewById(R.id.cursor_item_date);
         TextView timeTextView = (TextView) view.findViewById(R.id.cursor_item_time);
-        TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.cursor_item_total_gpa);
         TextView gpaAsLetterTextView = (TextView) view.findViewById(R.id.cursor_item_circle_gpa);
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.cursor_item_check_box);
 
@@ -95,12 +94,6 @@ public class SemesterCursorAdapter extends CursorAdapter {
         studentIdTextView.setText(studentIdAsString);
 
 
-        // get the semester number from the database and display it in the screen.
-        int semesterNumber = cursor.getInt(semesterNumberColumnIndex);
-        Resources resources = mContext.getResources();
-        String semester = String.format(resources.getString(R.string.semester_with_placeholder), semesterNumber);
-        semesterNumberTextView.setText(semester);
-
 
         // get the unix number from the database and store it inside Date object to format it.
         long unixNumber = cursor.getLong(unixNumberColumnIndex);
@@ -113,6 +106,11 @@ public class SemesterCursorAdapter extends CursorAdapter {
         // display the time in the screen.
         String timeFormat = formatTime(dateObject);
         timeTextView.setText(timeFormat);
+
+
+
+        // get the semester number from the database and display it in the screen.
+        int semesterNumber = cursor.getInt(semesterNumberColumnIndex);
 
 
         // get degrees from database.
@@ -130,8 +128,9 @@ public class SemesterCursorAdapter extends CursorAdapter {
 
         // display the total gpa as number in the screen.
         String numberAfterFormat = String.format("%.2f", totalGpaAsNumber);
-        String gpaStatement = String.format(resources.getString(R.string.gpa_equal_with_placeholder), numberAfterFormat);
-        gpaAsNumberTextView.setText(gpaStatement);
+        Resources resources = mContext.getResources();
+        String gpaStatement = String.format(resources.getString(R.string.gpa_statement_for_semester_item), semesterNumber, numberAfterFormat);
+        gpaStatementTextView.setText(gpaStatement);
 
 
         // get total gpa for the semester as letter.
