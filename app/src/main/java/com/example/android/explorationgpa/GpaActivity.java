@@ -183,6 +183,14 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
                     Intent intent = new Intent(GpaActivity.this, CumulativeGpaActivity.class);
                     intent.putExtra("semester_uris", semesterUris);
                     startActivity(intent);
+
+
+                    // so when the user go to the next activity(CumulativeGpaActivity) and closed it
+                    // and come back here(this activity) again, display to him the layout in the
+                    // display mode:
+                    // by show the floating action button and hide two buttons (calculate - cancel).
+                    removeCalculateLayout();
+
                 }
 
 
