@@ -55,7 +55,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
         // use our custom list item inside the adapter.
-        return LayoutInflater.from(context).inflate(R.layout.semester_item, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.cursor_item, parent, false);
 
     }
 
@@ -66,14 +66,14 @@ public class SemesterCursorAdapter extends CursorAdapter {
 
 
         // determine the views inside the item.
-        TextView studentNameTextView = (TextView) view.findViewById(R.id.semester_item_student_name);
-        TextView studentIdTextView = (TextView) view.findViewById(R.id.semester_item_student_id);
-        TextView semesterNumberTextView = (TextView) view.findViewById(R.id.semester_item_semester_number);
-        TextView dateTextView = (TextView) view.findViewById(R.id.semester_item_date);
-        TextView timeTextView = (TextView) view.findViewById(R.id.semester_item_time);
-        TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.semester_item_total_gpa);
-        TextView gpaAsLetterTextView = (TextView) view.findViewById(R.id.semester_item_circle_gpa);
-        CheckBox checkBox = (CheckBox) view.findViewById(R.id.semester_item_check_box);
+        TextView studentNameTextView = (TextView) view.findViewById(R.id.cursor_item_student_name);
+        TextView studentIdTextView = (TextView) view.findViewById(R.id.cursor_item_student_id);
+        TextView semesterNumberTextView = (TextView) view.findViewById(R.id.cursor_item_semester_number);
+        TextView dateTextView = (TextView) view.findViewById(R.id.cursor_item_date);
+        TextView timeTextView = (TextView) view.findViewById(R.id.cursor_item_time);
+        TextView gpaAsNumberTextView = (TextView) view.findViewById(R.id.cursor_item_total_gpa);
+        TextView gpaAsLetterTextView = (TextView) view.findViewById(R.id.cursor_item_circle_gpa);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.cursor_item_check_box);
 
 
         // get the column position inside the table in semester database.
@@ -217,7 +217,7 @@ public class SemesterCursorAdapter extends CursorAdapter {
      */
     private String formatTime(Date dateObject) {
 
-        // setup the format shape of the tiem that should display in the item.
+        // setup the format shape of the time that should display in the item.
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
 
         // transfer the unix to the format above.

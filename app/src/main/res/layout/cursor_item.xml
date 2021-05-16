@@ -2,16 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/semester_item_background_layout"
+    android:id="@+id/cursor_item_background_layout_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context=".GpaActivity">
 
 
-    <!-- the circle shape that contain the semester total gpa as letter -->
+    <!-- the circle shape that contain the gpa as letter -->
     <TextView
-        android:id="@+id/semester_item_circle_gpa"
+        android:id="@+id/cursor_item_circle_gpa"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
@@ -24,7 +25,8 @@
         android:textSize="20sp"
         tools:text="A+" />
 
-    <!-- Linear contain the semester info that saved inside the database -->
+
+    <!-- Linear contain the student info and gpa as number -->
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="0dp"
@@ -38,7 +40,7 @@
 
         <!-- for the student name -->
         <TextView
-            android:id="@+id/semester_item_student_name"
+            android:id="@+id/cursor_item_student_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -50,7 +52,7 @@
 
         <!-- for the student ID -->
         <TextView
-            android:id="@+id/semester_item_student_id"
+            android:id="@+id/cursor_item_student_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -67,7 +69,7 @@
 
             <!-- for semester number -->
             <TextView
-                android:id="@+id/semester_item_semester_number"
+                android:id="@+id/cursor_item_semester_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -79,7 +81,7 @@
 
             <!-- for total gpa as number-->
             <TextView
-                android:id="@+id/semester_item_total_gpa"
+                android:id="@+id/cursor_item_total_gpa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -94,7 +96,7 @@
 
     </LinearLayout>
 
-    <!-- Linear contain the date and time that the semester saved at -->
+    <!-- Linear contain the date and time -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,7 +107,7 @@
 
         <!-- for date -->
         <TextView
-            android:id="@+id/semester_item_date"
+            android:id="@+id/cursor_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -115,7 +117,7 @@
 
         <!-- for time -->
         <TextView
-            android:id="@+id/semester_item_time"
+            android:id="@+id/cursor_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -128,7 +130,7 @@
 
     <!-- for selecting the item -->
     <CheckBox
-        android:id="@+id/semester_item_check_box"
+        android:id="@+id/cursor_item_check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
