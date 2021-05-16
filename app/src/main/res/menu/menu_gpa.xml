@@ -10,6 +10,12 @@
         android:id="@+id/menu_gpa_calculate_total_gpa"
         android:title="@string/action_calculate_total_gpa"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_gpa_delete_all_semesters"
+        android:title="@string/action_delete_all_semesters"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/menu_gpa_settings"
         android:title="@string/action_settings"

@@ -378,6 +378,9 @@
     <!-- calculate total gpa button -->
     <string name="action_calculate_total_gpa">Calculate Total GPA</string>
 
+    <!-- delete all semester items button -->
+    <string name="action_delete_all_semesters">Delete All Semesters</string>
+
     <!-- setting button -->
     <string name="action_settings">Settings</string>
 
