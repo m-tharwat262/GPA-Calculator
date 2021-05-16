@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpaEntry;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,10 +45,14 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     private FloatingActionButton mFloatingActionButton; // icon that start to add a new semester.
 
     private ListView mSemesterListView; // a list display the semester items.
+    private ListView mCumulativeListView; // a list display the cumulative items.
 
     private SemesterCursorAdapter mSemesterCursorAdapter; // adapter for the semester items.
+    private CumulativeCursorAdapter mCumulativeCursorAdapter; // adapter for the cumulative items.
 
-    private static final int SEMESTER_LOADER = 0; // number of the semester loader.
+    private static final int SEMESTER_LOADER = 0; // number for the semester loader.
+    private static final int CUMULATIVE_LOADER = 1; // number for the cumulative loader.
+
 
     private static final int DISPLAY_ITEMS = 0; // the layout display items in the listViews.
     private static final int CALCULATE_TOTAL_GPA = 1; // the layout display two buttons responsible to calculate total gpa.
@@ -65,8 +70,11 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         // the circle button that use to add a new semester.
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.activity_gpa_floating_action_button);
-        // list that display the semester items.
+
+        // lists that display the (semester - cumulative) items.
         mSemesterListView = (ListView) findViewById(R.id.activity_gpa_listView_for_semesters);
+        mCumulativeListView = (ListView) findViewById(R.id.activity_gpa_listView_for_cumulative);
+
         // layout contain buttons (calculate - cancel).
         mCalculateButtonsLayout = (LinearLayout) findViewById(R.id.activity_gpa_Layout_for_buttons);
 
@@ -87,16 +95,23 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setupCalculateButton();
 
 
-        // display the semesters as items inside the listView.
+        // initialize cursor adapter for (semester items - cumulative items).
         mSemesterCursorAdapter = new SemesterCursorAdapter(this, null);
+        mCumulativeCursorAdapter = new CumulativeCursorAdapter(this, null);
 
 
         // handle everything related to the semester ListView(adapting, empty views, item clicks).
         setupSemesterListView();
 
 
-        // start the semester loader.
+        // handle everything related to the cumulative ListView(adapting, item clicks).
+        setupCumulativeListView();
+
+
+
+        // start loaders (semester loader - cumulative loader).
         LoaderManager.getInstance(this).initLoader(SEMESTER_LOADER, null, this);
+        LoaderManager.getInstance(this).initLoader(CUMULATIVE_LOADER, null, this);
 
 
     }
@@ -177,13 +192,13 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * Handle clicks on the items in the semester ListView.
+     * Handle clicks on items in the semester ListView.
      * Control showing or hiding the empty views in the layout depending on if there is items or not
      * inside the ListView.
      */
     private void setupSemesterListView() {
 
-
+        // put the adapter relate to display semester items to the semester ListView.
         mSemesterListView.setAdapter(mSemesterCursorAdapter);
 
         // to hide the empty views from the layout when there is a semester item in the listView.
@@ -202,6 +217,29 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
                 Uri currentSemesterUri = new ContentUris().withAppendedId(SemesterGpaEntry.CONTENT_URI, id);
                 intent.setData(currentSemesterUri);
                 startActivity(intent);
+
+            }
+        });
+
+
+    }
+
+
+    /**
+     * Handle clicks on items in the cumulative ListView.
+     */
+    private void setupCumulativeListView() {
+
+        // put the adapter relate to display cumulative items to the cumulative ListView.
+        mCumulativeListView.setAdapter(mCumulativeCursorAdapter);
+
+
+        // handle clicks on the items in the semester ListView.
+        mCumulativeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // TODO: handle clicks on the items.
 
             }
         });
@@ -536,13 +574,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int loaderID, Bundle args) {
 
-        // to get data from the database by specific order :
-        // first by student name ASCENDING => (a : z).
-        // second by student ID ASCENDING => (1 : 10).
-        // third by the semester ASCENDING => (1 : 10).
-        String sortOrder = SemesterGpaEntry.COLUMN_STUDENT_NAME + " ASC, "
-                + SemesterGpaEntry.COLUMN_STUDENT_ID + " ASC, "
-                + SemesterGpaEntry.COLUMN_SEMESTER_NUMBER + " ASC";
+
 
 
         // handle what each loader do.
@@ -550,12 +582,33 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
             // for semester loader.
             case SEMESTER_LOADER:
+
+                // to get data from the database by specific order :
+                // first by student name ASCENDING => (a : z).
+                // second by student ID ASCENDING => (1 : 10).
+                // third by the semester ASCENDING => (1 : 10).
+                String sortOrder = SemesterGpaEntry.COLUMN_STUDENT_NAME + " ASC, "
+                        + SemesterGpaEntry.COLUMN_STUDENT_ID + " ASC, "
+                        + SemesterGpaEntry.COLUMN_SEMESTER_NUMBER + " ASC";
+
+
                 return new CursorLoader(this,
                         SemesterGpaEntry.CONTENT_URI,
                         null, // null because all the table columns will be used.
                         null,
                         null,
                         sortOrder);
+
+
+            // for cumulative loader.
+            case CUMULATIVE_LOADER:
+
+                return new CursorLoader(this,
+                        CumulativeGpaEntry.CONTENT_URI,
+                        null,
+                        null,
+                        null,
+                        null);
 
             default:
                 return null;
@@ -566,12 +619,29 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     /**
      * Add the Cursor that get from the database to the adapter to display the items with the
-     * semester info stored inside that cursor.
+     * data stored inside that cursor.
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-        mSemesterCursorAdapter.swapCursor(cursor);
+        // handle each loader.
+        switch (loader.getId()) {
+
+            // for semester loader.
+            case SEMESTER_LOADER:
+
+                mSemesterCursorAdapter.swapCursor(cursor);
+                break;
+
+
+            // for cumulative loader.
+            case CUMULATIVE_LOADER:
+
+                mCumulativeCursorAdapter.swapCursor(cursor);
+                break;
+
+        }
+
 
     }
 
@@ -583,6 +653,8 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     public void onLoaderReset(Loader<Cursor> loader) {
 
         mSemesterCursorAdapter.swapCursor(null);
+
+        mCumulativeCursorAdapter.swapCursor(null);
 
     }
 
