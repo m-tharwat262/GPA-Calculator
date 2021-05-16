@@ -181,6 +181,7 @@
     //////////////////////////////// For SemesterCursorAdapter.java ////////////////////////////////
 
     <string name="gpa_statement_for_semester_item">Semester(%1$d) / GPA = %2$s</string>
+    <string name="gpa_statement_for_cumulative_item">THE CUMULATIVE GPA = %1$s</string>
 
 
 
