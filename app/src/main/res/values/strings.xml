@@ -156,7 +156,7 @@
     <string name="dialog_message_delete_semester">Delete this semester?</string>"
 
     <!-- changing degrees in edit semester dialog message -->
-    <string name="dialog_message_unsaved_changes">Discard your changes and quit editing?</string>
+    <string name="dialog_message_unsaved_changes">Discard your changes and exit?</string>
 
 
     <!-- for the activity title name -->
@@ -190,14 +190,17 @@
 
 
 
-    //////////////////////////////// For CumulativeGpa.java ////////////////////////////////
+    //////////////////////////////// For CumulativeGpaActivity.java ////////////////////////////////
 
 
+    <!-- text on the details button in the short part in the year item -->
     <string name="display_more_details">(click for more details)</string>
     <string name="display_less_details">(click for less details)</string>
 
+    <!-- term and the semester number -->
     <string name="term_word_in_year_item">Term(%1$d) / S.%2$d</string>
 
+    <!-- display statement with the cumulative gpa number -->
     <string name="term_gpa">Term GPA = %1$s</string>
 
 
@@ -205,9 +208,13 @@
     <string name="insert_cumulative_inside_database_successful">Cumulative gpa saved</string>
     <string name="insert_cumulative_inside_database_failed">Error with saving the cumulative gpa</string>
 
+    <!-- for delete a cumulative item from the database -->
+    <string name="delete_cumulative_from_database_successful">Cumulative item deleted</string>
+    <string name="delete_cumulative_from_database_failed">Error with deleting cumulative item</string>
 
 
-
+    <!-- delete dialog messages -->
+    <string name="dialog_message_delete_cumulative">Delete this cumulative item?</string>"
 
 
 

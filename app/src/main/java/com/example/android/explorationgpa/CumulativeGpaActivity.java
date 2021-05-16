@@ -1,11 +1,13 @@
 package com.example.android.explorationgpa;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
@@ -55,6 +57,9 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     public static final int MODE_DISPLAYING = 1; // when the activity opens to display a cumulative item stored inside the database.
     private int mMode = MODE_CALCULATING; // the mode used across the activity.
 
+    private Intent mIntent;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +73,13 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
         // get data (semester uris) from the last activity (GpaActivity).
-        Intent intent = getIntent();
+        mIntent = getIntent();
 
         // get semester uris.
-        mSemesterUris = intent.getParcelableArrayListExtra("semester_uris");
+        mSemesterUris = mIntent.getParcelableArrayListExtra("semester_uris");
 
         // get the mode number.
-        mMode = intent.getIntExtra("activity_mode", MODE_CALCULATING);
+        mMode = mIntent.getIntExtra("activity_mode", MODE_CALCULATING);
 
 
         // fix the overlap between the views in the layout.
@@ -889,7 +894,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
 
     /**
-     * insert a cumulative item data inside the cumulative database.
+     * Insert a cumulative item data inside the cumulative database.
      */
     private void insertData(ContentValues values) {
 
@@ -905,6 +910,74 @@ public class CumulativeGpaActivity extends AppCompatActivity {
             // show a toast message to the user says that "Cumulative gpa saved".
             Toast.makeText(this, R.string.insert_cumulative_inside_database_successful, Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+    /**
+     * Delete the cumulative item data from the cumulative database.
+     */
+    private void deleteCumulativeItem() {
+
+        // get the uri id for the cumulative item place inside the database
+        // that comes from the previous activity(GpaActivity).
+        long uriId = mIntent.getLongExtra("cumulative_uri_id", -1);
+
+        // build a cumulative item uri using the uri id above
+        Uri cumulativeUri = new ContentUris().withAppendedId(CumulativeGpaEntry.CONTENT_URI, uriId);
+
+
+        // delete the cumulative item data from the database.
+        // this process return number of the rows that deleted from the database.
+        int rows = getContentResolver().delete(cumulativeUri, null,null);
+
+        // check if the delete process has done successfully or failed.
+        if (rows == 0) {
+            // show a toast message to the user says that "Error with deleting semester".
+            Toast.makeText(this, R.string.delete_cumulative_from_database_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            // show a toast message to the user says that "Semester deleted".
+            Toast.makeText(this, R.string.delete_cumulative_from_database_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * Show Dialog with alert message to the user that he up to delete the cumulative item from the
+     * database, and take his confirm for that or dismiss the dialog and close it.
+     */
+    private void showDeleteConfirmationDialog() {
+
+        // Create an AlertDialog.Builder.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set the dialog message text says "Delete this cumulative item?".
+        builder.setMessage(R.string.dialog_message_delete_cumulative);
+
+        // set the click listeners for the positive button (DELETE) on the dialog.
+        builder.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the semester.
+                deleteCumulativeItem();
+                // close the activity and return the user to GpaActivity.
+                finish();
+            }
+        });
+
+        // set the click listener for the negative (CANCEL) button on the dialog.
+        builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so close the dialog.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 
@@ -1056,6 +1129,14 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
                 return true;
 
+            // for delete icon.
+            case R.id.menu_database_action_delete:
+
+                // show alert message in a dialog to the user, note him that he up to delete
+                // the cumulative item data from the database.
+                showDeleteConfirmationDialog();
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
