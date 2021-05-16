@@ -638,6 +638,17 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
             case CUMULATIVE_LOADER:
 
                 mCumulativeCursorAdapter.swapCursor(cursor);
+
+                // get items in the adapter.
+                int itemNumbers = mCumulativeCursorAdapter.getCount();
+
+                // if the adapter has one or more item a vertical line will appear to separate
+                // between semester items and cumulative items.
+                if (itemNumbers > 0) {
+                    View verticalLine = findViewById(R.id.activity_gpa_vertical_line_between_list_views);
+                    verticalLine.setVisibility(View.VISIBLE);
+                }
+
                 break;
 
         }

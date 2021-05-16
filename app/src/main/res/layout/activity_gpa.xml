@@ -25,6 +25,16 @@
                 android:layout_height="wrap_content" />
 
 
+            <!-- make a vertical line between items -->
+            <View
+                android:id="@+id/activity_gpa_vertical_line_between_list_views"
+                style="@style/Divider_vertical"
+                android:layout_height="12dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+
             <!-- that list contains semester items -->
             <com.example.android.explorationgpa.ListViewNoScroll
                 android:id="@+id/activity_gpa_listView_for_semesters"
