@@ -11,7 +11,8 @@
     <color name="hint_color">#9E9E9E</color>
 
 
-    <!-- for SemesterCursorAdapter.java -->
+
+    <!-- for CalculatorForTotalGpa.java -->
     <color name="gpa_a">#008b00</color>
     <color name="gpa_b">#4A7BA7</color>
     <color name="gpa_c">#F5A623</color>
@@ -19,10 +20,17 @@
     <color name="gpa_f">#D93218</color>
 
 
-    <!-- for the semester item -->
+
+    <!-- for CumulativeCursorAdapter.java -->
+    <color name="background_cumulative_item">#E57373</color>
+
+
+
+
+    <!-- for the cursor_item.xml -->
 
     <!-- Text color for the details of the semester -->
-    <color name="details_of_semester_item">#B4BAC0</color>
+    <color name="details_of_cursor_item">#B4BAC0</color>
 
 
 

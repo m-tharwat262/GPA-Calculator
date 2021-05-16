@@ -114,6 +114,12 @@ public class CumulativeCursorAdapter extends CursorAdapter {
         circleBackground.setColor(color);
 
 
+        // change the item background color to show some difference between
+        // cumulative items and semester items.
+        int background = ContextCompat.getColor(context, R.color.background_cumulative_item);
+        itemLinearLayout.setBackgroundColor(background);
+
+
     }
 
 

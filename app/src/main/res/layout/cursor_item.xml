@@ -46,7 +46,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
-            android:textColor="@color/details_of_semester_item"
+            android:textColor="@color/details_of_cursor_item"
             android:textSize="12sp"
             tools:text="Mahmoud Tharwat Mohamed" />
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/details_of_semester_item"
+            android:textColor="@color/details_of_cursor_item"
             android:textSize="12sp"
             android:textStyle="bold"
             tools:text="17136" />
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/details_of_semester_item"
+            android:textColor="@color/details_of_cursor_item"
             android:textSize="12sp"
             tools:text="Mar 6, 2020" />
 
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/details_of_semester_item"
+            android:textColor="@color/details_of_cursor_item"
             android:textSize="12sp"
             tools:text="3:00 AM" />
 
