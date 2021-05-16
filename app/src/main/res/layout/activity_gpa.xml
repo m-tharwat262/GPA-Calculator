@@ -8,12 +8,33 @@
     tools:context=".GpaActivity">
 
 
-    <!-- that list contains the semesters -->
-    <ListView
-        android:id="@+id/activity_gpa_listView_for_semesters"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!-- that list contains cumulative items -->
+            <com.example.android.explorationgpa.ListViewNoScroll
+                android:id="@+id/activity_gpa_listView_for_cumulative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <!-- that list contains semester items -->
+            <com.example.android.explorationgpa.ListViewNoScroll
+                android:id="@+id/activity_gpa_listView_for_semesters"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
     <!-- contain the views that appear when there is no semester inserted yet -->
