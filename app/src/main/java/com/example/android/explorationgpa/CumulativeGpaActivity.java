@@ -1069,11 +1069,20 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        // initialize the save icon in the menu.
+        // initialize icons in the menu.
         MenuItem saveIcon = menu.findItem(R.id.menu_database_action_save);
+        MenuItem deleteIcon = menu.findItem(R.id.menu_database_action_delete);
 
-        // show the save icon.
-        saveIcon.setVisible(true);
+
+        // show the menu icons depend on the activity mode (calculating - displaying).
+        if (mMode == MODE_DISPLAYING) {
+            // show the delete icon.
+            deleteIcon.setVisible(true);
+        } else {
+            // show the save icon.
+            saveIcon.setVisible(true);
+        }
+
 
         return true;
 
