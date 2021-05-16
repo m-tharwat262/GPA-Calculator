@@ -48,8 +48,12 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
     private static final int SEMESTER_ADAPTER_MODE = 4; // use to set the semester adapter to display the subject item in year items.
 
-    private double mCumulativeGpaNumber;
-    private String mCumulativeGpaLetter;
+    private double mCumulativeGpaNumber; // the cumulative gpa as a double number.
+    private String mCumulativeGpaLetter; // the cumulative gpa as a letter.
+
+    public static final int MODE_CALCULATING = 0; // when the activity open to calculate the cumulative gpa for semesters selected in the GpaActivity.
+    public static final int MODE_DISPLAYING = 1; // when the activity opens to display a cumulative item stored inside the database.
+    private int mMode = MODE_CALCULATING; // the mode used across the activity.
 
 
     @Override
@@ -65,8 +69,12 @@ public class CumulativeGpaActivity extends AppCompatActivity {
 
         // get data (semester uris) from the last activity (GpaActivity).
         Intent intent = getIntent();
+
+        // get semester uris.
         mSemesterUris = intent.getParcelableArrayListExtra("semester_uris");
 
+        // get the mode number.
+        mMode = intent.getIntExtra("activity_mode", MODE_CALCULATING);
 
 
         // fix the overlap between the views in the layout.
