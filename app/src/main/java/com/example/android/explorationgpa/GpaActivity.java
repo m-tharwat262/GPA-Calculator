@@ -29,6 +29,8 @@ import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpa
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -219,6 +221,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
                 startActivity(intent);
 
             }
+
         });
 
 
@@ -239,13 +242,83 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // TODO: handle clicks on the items.
+                // put the cursor in the position that the cumulative item at.
+                Cursor cursor = (Cursor) mCumulativeCursorAdapter.getItem(position);
+
+                // get the semester uris that stored in the cursor above.
+                ArrayList<Uri> semesterUris = getSemesterUris(cursor);
+
+
+                // open CumulativeGpaActivity by intent contain :
+                // uris refer to semester uris for its location inside the database.
+                // activity mode refer to the mode that the CumulativeGpaActivity will use.
+                Intent intent = new Intent(GpaActivity.this, CumulativeGpaActivity.class);
+                intent.putExtra("semester_uris", semesterUris);
+                intent.putExtra("cumulative_uri_id", id);
+                intent.putExtra("activity_mode", CumulativeGpaActivity.MODE_DISPLAYING);
+                startActivity(intent);
 
             }
+
         });
 
 
     }
+
+
+    /**
+     * Get the semester uris (as strings) from the cursor contain the cumulative item data.
+     *
+     * @param cursor contains the cumulative data and it is on the position we want extract data from.
+     *
+     * @return ArrayList contain the semesters uris as Strings.
+     */
+    private ArrayList<Uri> getSemesterUris(Cursor cursor) {
+
+        // initialize the ArrayList that will contain the semester uris (as strings).
+        ArrayList<String> semesterUrisAsString = new ArrayList<>();
+
+        // get the position that the uris stored at inside the cursor.
+        int semesterUrisIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_SEMESTER_URIS);
+
+        // extract the semester uris from the cursor
+        byte[] blob = cursor.getBlob(semesterUrisIndex); // uris as BLOB.
+        String json = new String(blob); // convert BLOB above to String object.
+        Gson gson = new Gson(); // initialize the Gson Object.
+        semesterUrisAsString = gson.fromJson(json, new TypeToken< ArrayList<String>>(){}.getType()); // convert the json String to ArrayList<Uri>.
+
+
+        // convert the ArrayList<String> uris to ArrayList<Uri>.
+        ArrayList<Uri> semesterUris = convertStringsToUris(semesterUrisAsString);
+
+        // return semester uris as ArrayList of type Uri.
+        return semesterUris;
+    }
+
+
+    /**
+     * Convert all semester uris() from type String to Uri (ArrayList<String> to ArrayList<Uri>).
+     *
+     * @return ArrayList contain the semester uris as type Uri.
+     */
+    private ArrayList<Uri> convertStringsToUris(ArrayList<String> stringUris) {
+
+        // create the ArrayList that will store the uris inside it.
+        ArrayList<Uri> uris = new ArrayList<>();
+
+        // convert each String Uri in stringUris and put it inside uris ArrayList.
+        for (int i = 0 ; i < stringUris.size() ; i++) {
+
+            Uri stringUri = Uri.parse(stringUris.get(i));
+            uris.add(stringUri);
+
+        }
+
+        // return ArrayList contain the uris.
+        return uris;
+
+    }
+
 
 
     /**
