@@ -18,6 +18,12 @@
         android:title="@string/action_delete_all_semesters"
         app:showAsAction="never" />
 
+    <!-- delete all cumulative items data from the database -->
+    <item
+        android:id="@+id/menu_gpa_delete_all_cumulative"
+        android:title="@string/action_delete_all_cumulative"
+        app:showAsAction="never" />
+
     <!-- open the Settings Activity -->
     <item
         android:id="@+id/menu_gpa_settings"

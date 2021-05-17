@@ -388,6 +388,9 @@
     <!-- delete all semester items button -->
     <string name="action_delete_all_semesters">Delete All Semesters</string>
 
+    <!-- delete all cumulative items button -->
+    <string name="action_delete_all_cumulative">Delete All Cumulative</string>
+
     <!-- setting button -->
     <string name="action_settings">Settings</string>
 
