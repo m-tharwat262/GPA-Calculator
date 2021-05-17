@@ -3,19 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".CatalogActivity">
+    tools:context=".GpaActivity">
 
 
+    <!-- start the calculating mode in GpaActivity -->
     <item
         android:id="@+id/menu_gpa_calculate_total_gpa"
         android:title="@string/action_calculate_total_gpa"
         app:showAsAction="never" />
 
+    <!-- delete all semesters items data from the database -->
     <item
         android:id="@+id/menu_gpa_delete_all_semesters"
         android:title="@string/action_delete_all_semesters"
         app:showAsAction="never" />
 
+    <!-- open the Settings Activity -->
     <item
         android:id="@+id/menu_gpa_settings"
         android:title="@string/action_settings"
