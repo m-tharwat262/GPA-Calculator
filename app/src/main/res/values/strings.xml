@@ -59,11 +59,16 @@
     <string name="semester_repeated">don\'t repeat semesters</string>
 
 
-    <string name="dialog_message_delete_all_semesters_data">Delete all semesters?</string>
+    <!-- using in the alert dialog message before delete all (semester - cumulative) items data from the database -->
+    <string name="dialog_message_delete_all_items_from_database">Delete all %1$s?</string>
 
     <!-- for delete all semesters data from the semester database -->
     <string name="delete_all_semesters_data_successful">All semesters deleted</string>
     <string name="delete_all_semesters_data_failed">Error with deleting all semesters</string>
+
+    <!-- for delete all cumulative items data from the cumulative database -->
+    <string name="delete_all_cumulative_data_successful">All cumulative items deleted</string>
+    <string name="delete_all_cumulative_data_failed">Error with deleting all cumulative items</string>
 
 
 

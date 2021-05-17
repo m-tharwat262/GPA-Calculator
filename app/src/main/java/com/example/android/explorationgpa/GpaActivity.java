@@ -62,6 +62,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     private static final int CALCULATE_TOTAL_GPA = 1; // the layout display two buttons responsible to calculate total gpa.
     private int mMode = DISPLAY_ITEMS; // the mode that the activity uses from above.
 
+    private static final String SEMESTER_ITEMS = "semesters"; // using in the alert dialog message for delete all semester items from database.
+    private static final String CUMULATIVE_ITEM = "cumulative items"; // using in the alert dialog message for delete all cumulative items from database.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -583,22 +586,53 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
-     * Show Dialog with alert message to the user that he up to delete all the semester items data
-     * from the database, and take his confirm for that or dismiss the dialog and close it.
+     * Delete all cumulative items data from the cumulative database.
      */
-    private void showDeleteConfirmationDialog() {
+    private void deleteAllCumulative() {
+
+        // delete all cumulative items data from the database.
+        // this process return number of rows that deleted from the database.
+        int rowsDeleted = getContentResolver().delete(CumulativeGpaEntry.CONTENT_URI, null, null);
+
+        // check if all cumulative items data deleted successfully or failed.
+        if (rowsDeleted == 0) {
+            // show a toast message to the user says that "Error with deleting all cumulative items".
+            Toast.makeText(this, R.string.delete_all_cumulative_data_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            // show a toast message to the user says that "All cumulative items deleted".
+            Toast.makeText(this, R.string.delete_all_cumulative_data_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * Show Dialog with alert message to the user that he up to delete all
+     * the (semester or cumulative) items data from the database,
+     * and take his confirm for that or dismiss the dialog and close it.
+     */
+    private void showDeleteConfirmationDialog(String itemType) {
 
         // Create an AlertDialog.Builder.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // set the dialog message text says "Delete all semesters?".
-        builder.setMessage(R.string.dialog_message_delete_all_semesters_data);
+        // set the dialog message text says "Delete all itemType?".
+        builder.setMessage(String.format(getString(R.string.dialog_message_delete_all_items_from_database), itemType));
 
         // set the click listeners for the positive button (DELETE) on the dialog.
         builder.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete all semesters.
-                deleteAllSemesters();
+
+                // User clicked the "Delete" button, so delete all items.
+
+                // determine which item (semester or cumulative) that will delete from the database.
+                if (itemType.equals(SEMESTER_ITEMS)) {
+                    // delete all semester items from the database.
+                    deleteAllSemesters();
+                } else {
+                    // delete all cumulative items from the database.
+                    deleteAllCumulative();
+                }
 
             }
         });
@@ -682,14 +716,24 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
                 return true;
 
-
+            // for delete all semesters button.
             case R.id.menu_gpa_delete_all_semesters:
 
-                // show dialog message to alert the user that he up to delete all the semesters data
+                // show dialog message to alert the user that he up to delete all semesters data
                 // from the semester database.
-                showDeleteConfirmationDialog();
+                showDeleteConfirmationDialog(SEMESTER_ITEMS);
 
                 return true;
+
+            // for delete all cumulative button.
+            case R.id.menu_gpa_delete_all_cumulative:
+
+                // show dialog message to alert the user that he up to delete all cumulative items
+                // data from the semester database.
+                showDeleteConfirmationDialog(CUMULATIVE_ITEM);
+
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
