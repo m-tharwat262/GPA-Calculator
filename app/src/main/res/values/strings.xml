@@ -59,6 +59,13 @@
     <string name="semester_repeated">don\'t repeat semesters</string>
 
 
+    <string name="dialog_message_delete_all_semesters_data">Delete all semesters?</string>
+
+    <!-- for delete all semesters data from the semester database -->
+    <string name="delete_all_semesters_data_successful">All semesters deleted</string>
+    <string name="delete_all_semesters_data_failed">Error with deleting all semesters</string>
+
+
 
 
 

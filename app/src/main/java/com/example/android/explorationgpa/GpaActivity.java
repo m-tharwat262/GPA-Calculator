@@ -1,12 +1,14 @@
 package com.example.android.explorationgpa;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -328,74 +330,6 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
     }
 
 
-
-    /**
-     * Override method to inflate our custom menu.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // for inflate the menu that we made for GpaActivity.
-        getMenuInflater().inflate(R.menu.menu_gpa, menu);
-
-        return true;
-    }
-
-
-    /**
-     * Override method to handle the clicks on the menu icons.
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // handle clicks on any menu icons.
-        switch (item.getItemId()) {
-
-            // for settings button.
-            case R.id.menu_gpa_settings:
-
-                // start SettingActivity.
-                Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
-                startActivity(intent);
-
-                return true;
-
-            // for calculate total gpa button.
-            case R.id.menu_gpa_calculate_total_gpa:
-
-                // start the calculate mode that hide the floating action button and display
-                // the calculate button layout that contain buttons (calculate - cancel).
-                displayCalculateLayout();
-
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    /**
-     * Control showing or hiding menu part depend on the layout mode (calculate - display).
-     */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        // when the mode is selecting items to calculate gap, no need to show the menu icons.
-        if (mMode == CALCULATE_TOTAL_GPA) {
-
-            // remove all the menu icons from the layout.
-            menu.clear();
-
-        } else {
-            // execute the super method as it.
-            super.onPrepareOptionsMenu(menu);
-
-        }
-
-        return true;
-    }
-
-
     /**
      * Check if the user logged in or not when the app open.
      * Make the user log in when he open the app for the first time.
@@ -628,6 +562,67 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
 
     /**
+     * Delete all semesters items data from the semester database.
+     */
+    private void deleteAllSemesters() {
+
+        // delete all semester items data from the database.
+        // this process return number of rows that deleted from the database.
+        int rowsDeleted = getContentResolver().delete(SemesterGpaEntry.CONTENT_URI, null, null);
+
+        // check if all semester items data deleted successfully or failed.
+        if (rowsDeleted == 0) {
+            // show a toast message to the user says that "Error with deleting all semesters".
+            Toast.makeText(this, R.string.delete_all_semesters_data_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            // show a toast message to the user says that "All semesters deleted".
+            Toast.makeText(this, R.string.delete_all_semesters_data_successful, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     * Show Dialog with alert message to the user that he up to delete all the semester items data
+     * from the database, and take his confirm for that or dismiss the dialog and close it.
+     */
+    private void showDeleteConfirmationDialog() {
+
+        // Create an AlertDialog.Builder.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set the dialog message text says "Delete all semesters?".
+        builder.setMessage(R.string.dialog_message_delete_all_semesters_data);
+
+        // set the click listeners for the positive button (DELETE) on the dialog.
+        builder.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete all semesters.
+                deleteAllSemesters();
+
+            }
+        });
+
+        // set the click listener for the negative (CANCEL) button on the dialog.
+        builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so close the dialog.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+
+
+
+    /**
      * Handle clicking on the back button depend on the layout mode (calculate - display).
      */
     @Override
@@ -646,6 +641,81 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     }
 
+
+    /**
+     * Override method to inflate our custom menu.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // for inflate the menu that we made for GpaActivity.
+        getMenuInflater().inflate(R.menu.menu_gpa, menu);
+
+        return true;
+    }
+
+
+    /**
+     * Override method to handle the clicks on the menu icons.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // handle clicks on any menu icons.
+        switch (item.getItemId()) {
+
+            // for settings button.
+            case R.id.menu_gpa_settings:
+
+                // start SettingActivity.
+                Intent intent = new Intent(GpaActivity.this , SettingsActivity.class);
+                startActivity(intent);
+
+                return true;
+
+            // for calculate total gpa button.
+            case R.id.menu_gpa_calculate_total_gpa:
+
+                // start the calculate mode that hide the floating action button and display
+                // the calculate button layout that contain buttons (calculate - cancel).
+                displayCalculateLayout();
+
+                return true;
+
+
+            case R.id.menu_gpa_delete_all_semesters:
+
+                // show dialog message to alert the user that he up to delete all the semesters data
+                // from the semester database.
+                showDeleteConfirmationDialog();
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * Control showing or hiding menu part depend on the layout mode (calculate - display).
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // when the mode is selecting items to calculate gap, no need to show the menu icons.
+        if (mMode == CALCULATE_TOTAL_GPA) {
+
+            // remove all the menu icons from the layout.
+            menu.clear();
+
+        } else {
+            // execute the super method as it.
+            super.onPrepareOptionsMenu(menu);
+
+        }
+
+        return true;
+    }
 
 
     /**
