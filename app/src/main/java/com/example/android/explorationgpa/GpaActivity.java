@@ -31,8 +31,6 @@ import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpa
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.example.android.explorationgpa.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -255,19 +253,14 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // put the cursor in the position that the cumulative item at.
-                Cursor cursor = (Cursor) mCumulativeCursorAdapter.getItem(position);
-
-                // get the semester uris that stored in the cursor above.
-                ArrayList<Uri> semesterUris = getSemesterUris(cursor);
-
+                // get the cumulative uri for the item that the user clicked on.
+                Uri cumulativeItemUri = ContentUris.withAppendedId(CumulativeGpaEntry.CONTENT_URI, id);
 
                 // open CumulativeGpaActivity by intent contain :
-                // uris refer to semester uris for its location inside the database.
+                // uri refer to cumulative item uri for his location inside the database.
                 // activity mode refer to the mode that the CumulativeGpaActivity will use.
                 Intent intent = new Intent(GpaActivity.this, CumulativeGpaActivity.class);
-                intent.putExtra("semester_uris", semesterUris);
-                intent.putExtra("cumulative_uri_id", id);
+                intent.setData(cumulativeItemUri);
                 intent.putExtra("activity_mode", CumulativeGpaActivity.MODE_DISPLAYING);
                 startActivity(intent);
 
@@ -276,36 +269,6 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         });
 
 
-    }
-
-
-    /**
-     * Get the semester uris (as strings) from the cursor contain the cumulative item data.
-     *
-     * @param cursor contains the cumulative data and it is on the position we want extract data from.
-     *
-     * @return ArrayList contain the semesters uris as Strings.
-     */
-    private ArrayList<Uri> getSemesterUris(Cursor cursor) {
-
-        // initialize the ArrayList that will contain the semester uris (as strings).
-        ArrayList<String> semesterUrisAsString = new ArrayList<>();
-
-        // get the position that the uris stored at inside the cursor.
-        int semesterUrisIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_SEMESTER_URIS);
-
-        // extract the semester uris from the cursor
-        byte[] blob = cursor.getBlob(semesterUrisIndex); // uris as BLOB.
-        String json = new String(blob); // convert BLOB above to String object.
-        Gson gson = new Gson(); // initialize the Gson Object.
-        semesterUrisAsString = gson.fromJson(json, new TypeToken< ArrayList<String>>(){}.getType()); // convert the json String to ArrayList<Uri>.
-
-
-        // convert the ArrayList<String> uris to ArrayList<Uri>.
-        ArrayList<Uri> semesterUris = convertStringsToUris(semesterUrisAsString);
-
-        // return semester uris as ArrayList of type Uri.
-        return semesterUris;
     }
 
 
