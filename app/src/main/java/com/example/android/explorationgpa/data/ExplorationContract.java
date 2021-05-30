@@ -104,6 +104,8 @@ public final class ExplorationContract {
         public final static String _ID = BaseColumns._ID; // unique id for each column.
         public final static String COLUMN_STUDENT_NAME = "name"; // student name.
         public final static String COLUMN_STUDENT_ID = "id"; // student id.
+        public final static String COLUMN_SEMESTER_NUMBERS = "semester_numbers"; // all semester numbers.
+        public final static String COLUMN_SEMESTER_DEGREES = "semester_degrees"; // all degrees in each semester.
         public final static String COLUMN_SEMESTER_URIS = "uris"; // semester uris refer to location (inside semester database).
         public final static String COLUMN_GPA_NUMBER = "gpa_number"; // the cumulative gpa as number.
         public final static String COLUMN_GPA_LETTER = "gpa_letter"; // the cumulative gpa as letter.
