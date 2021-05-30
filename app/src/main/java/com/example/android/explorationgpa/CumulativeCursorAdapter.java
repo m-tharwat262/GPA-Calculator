@@ -15,8 +15,12 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpaEntry;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -63,8 +67,8 @@ public class CumulativeCursorAdapter extends CursorAdapter {
         // get the column position inside the table in cumulative database.
         int studentNameIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_STUDENT_NAME);
         int studentIdIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_STUDENT_ID);
-        int gpaNumberIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_GPA_NUMBER);
-        int gpaLetterIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_GPA_LETTER);
+        int semesterNumbersIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_SEMESTER_NUMBERS);
+        int semesterDegreesIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_SEMESTER_DEGREES);
         int unixNumberIndex = cursor.getColumnIndexOrThrow(CumulativeGpaEntry.COLUMN_UNIX);
 
 
@@ -79,16 +83,39 @@ public class CumulativeCursorAdapter extends CursorAdapter {
         studentIdTextView.setText(studentIdAsString);
 
 
+
+        // create a Gson object.
+        Gson gson = new Gson();
+
+        // get the semester numbers from the cursor.
+        byte[] semesterNumbersBlob = cursor.getBlob(semesterNumbersIndex); // get the BLOB from the cursor.
+        String semesterNumbersJson = new String(semesterNumbersBlob); // convert the BLOB to a String.
+        Type semesterNumbersType = new TypeToken<int[]>(){}.getType(); // create a Type object by type int[].
+        int[] semesterNumbers = gson.fromJson(semesterNumbersJson, semesterNumbersType); // get the semester numbers as int[] Array.
+
+
+        // get the semester degrees from the cursor.
+        byte[] semesterDegreesBlob = cursor.getBlob(semesterDegreesIndex); // get the BLOB from the cursor.
+        String semesterDegreesJson = new String(semesterDegreesBlob); // convert the BLOB to a String.
+        Type semesterDegreesType = new TypeToken<ArrayList<double[]>>(){}.getType(); // create a Type object by type int[].
+        ArrayList<double[]> semesterDegrees = gson.fromJson(semesterDegreesJson, semesterDegreesType); // get the semester degrees as int[] Array.
+
+
+        // get all subject (hours & degrees) from semesters data stored in the cursor.
+        double[] allHours = getHours(semesterNumbers);
+        double[] allDegrees = getDegrees(semesterDegrees);
+
+
         // get the cumulative gpa number from the database and display it on the screen.
-        double cumulativeGpaNumber = cursor.getDouble(gpaNumberIndex);
-        String gpaNumberAfterFormat = String.format("%.2f", cumulativeGpaNumber);
+        double cumulativeGpaNumber = CalculatorForTotalGpa.getCumulativeGpaForFourScale(allHours, allDegrees);
+        String cumGpaNumberAfterFormat = String.format("%.2f", cumulativeGpaNumber);
         Resources resources = context.getResources();
-        String gpaStatement = String.format(resources.getString(R.string.gpa_statement_for_cumulative_item), gpaNumberAfterFormat);
+        String gpaStatement = String.format(resources.getString(R.string.gpa_statement_for_cumulative_item), cumGpaNumberAfterFormat);
         gpaStatementTextView.setText(gpaStatement);
 
 
         // get the cumulative gpa letter from the database and display it on the screen.
-        String cumulativeGpaLetter = cursor.getString(gpaLetterIndex);
+        String cumulativeGpaLetter = CalculatorForTotalGpa.getCumulativeGpaAsLetter(allHours,allDegrees);
         circleTextView.setText(cumulativeGpaLetter);
 
 
@@ -122,6 +149,91 @@ public class CumulativeCursorAdapter extends CursorAdapter {
 
     }
 
+
+
+    /**
+     * Get all subject hours in all semesters that inside the integer Array inserted.
+     *
+     * @return Array contain all subject hours.
+     */
+    private double[] getHours(int[] semesterNumbers) {
+
+        // create ArrayList to contain all subject hours.
+        ArrayList<Double> allSemesterHours = new ArrayList<>();
+
+        // size of the semesterNumbers ArrayList.
+        int arraySize = semesterNumbers.length;
+
+
+        // put each semester hours in the allSemesterHours ArrayList.
+        for (int i = 0 ; i < arraySize ; i++) {
+
+            int semesterNumber = semesterNumbers[i];
+            // get the semester hours.
+            double[] hours = SemesterInfo.getHoursForSemester(semesterNumber);
+
+            // put the array above in the ArrayList.
+            for (int j = 0 ; j < hours.length ; j++) {
+                allSemesterHours.add(hours[j]);
+            }
+
+        }
+
+
+        // convert the ArrayList that contain all subject hours to a constant Array.
+        double[] finalArrayForHours = new double[allSemesterHours.size()];
+        for (int k = 0 ; k < allSemesterHours.size() ; k++) {
+            finalArrayForHours[k] = allSemesterHours.get(k);
+        }
+
+
+        // return all the subject hours in all semesters inserted.
+        return finalArrayForHours;
+
+    }
+
+
+    /**
+     * Get all subject degrees in all semesters that inside the integer Array inserted.
+     *
+     * @return Array contain all subject degrees.
+     */
+    private double[] getDegrees(ArrayList<double[]> semesterDegrees) {
+
+        // create ArrayList to contain all subject degrees.
+        ArrayList<Double> allSemesterDegrees = new ArrayList<>();
+
+        // size of the semesterDegrees ArrayList.
+        int arraySize = semesterDegrees.size();
+
+
+        // put each semester degrees in the allSemesterDegrees ArrayList.
+        for (int i = 0 ; i < arraySize ; i++) {
+
+            // subject degrees in one semester from the mSemesterDegrees ArrayList
+            double[] degrees = semesterDegrees.get(i);
+
+
+            // put the array above in the ArrayList.
+            for (int j = 0 ; j < degrees.length ; j++) {
+                allSemesterDegrees.add(degrees[j]);
+            }
+
+        }
+
+
+
+        // convert the ArrayList that contain all subject degrees to a constant Array.
+        double[] finalArrayForDegrees = new double[allSemesterDegrees.size()];
+        for (int j = 0 ; j < allSemesterDegrees.size() ; j++) {
+            finalArrayForDegrees[j] = allSemesterDegrees.get(j);
+        }
+
+
+        // return all the subject degrees in all semesters.
+        return finalArrayForDegrees;
+
+    }
 
 
     /**
