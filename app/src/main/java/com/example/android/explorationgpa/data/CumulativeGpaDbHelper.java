@@ -45,6 +45,8 @@ public class CumulativeGpaDbHelper extends SQLiteOpenHelper {
                 + CumulativeGpaEntry.COLUMN_STUDENT_ID            + " INTEGER NOT NULL, "                  // for semester number.
                 + CumulativeGpaEntry.COLUMN_GPA_NUMBER            + " REAL NOT NULL, "                     // for cumulative gpa as double number.
                 + CumulativeGpaEntry.COLUMN_GPA_LETTER            + " TEXT NOT NULL, "                     // for cumulative gpa as letter.
+                + CumulativeGpaEntry.COLUMN_SEMESTER_NUMBERS      + " BLOB NOT NULL, "
+                + CumulativeGpaEntry.COLUMN_SEMESTER_DEGREES      + " BLOB NOT NULL, "
                 + CumulativeGpaEntry.COLUMN_SEMESTER_URIS         + " BLOB NOT NULL, "                     // semester uris (refer to the location in the semester database).
                 + CumulativeGpaEntry.COLUMN_UNIX                  + " INTEGER NOT NULL DEFAULT 0);";       // for the date and time.
 
