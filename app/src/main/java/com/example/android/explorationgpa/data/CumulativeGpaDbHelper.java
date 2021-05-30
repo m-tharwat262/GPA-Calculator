@@ -40,15 +40,12 @@ public class CumulativeGpaDbHelper extends SQLiteOpenHelper {
         // determine the data that store in each of the rows.
         String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + CumulativeGpaEntry.TABLE_NAME + " ("
 
-                + CumulativeGpaEntry._ID                          + " INTEGER PRIMARY KEY AUTOINCREMENT, " // for unique id for each row.
-                + CumulativeGpaEntry.COLUMN_STUDENT_NAME          + " TEXT NOT NULL, "                     // for student name.
-                + CumulativeGpaEntry.COLUMN_STUDENT_ID            + " INTEGER NOT NULL, "                  // for semester number.
-                + CumulativeGpaEntry.COLUMN_GPA_NUMBER            + " REAL NOT NULL, "                     // for cumulative gpa as double number.
-                + CumulativeGpaEntry.COLUMN_GPA_LETTER            + " TEXT NOT NULL, "                     // for cumulative gpa as letter.
-                + CumulativeGpaEntry.COLUMN_SEMESTER_NUMBERS      + " BLOB NOT NULL, "
-                + CumulativeGpaEntry.COLUMN_SEMESTER_DEGREES      + " BLOB NOT NULL, "
-                + CumulativeGpaEntry.COLUMN_SEMESTER_URIS         + " BLOB NOT NULL, "                     // semester uris (refer to the location in the semester database).
-                + CumulativeGpaEntry.COLUMN_UNIX                  + " INTEGER NOT NULL DEFAULT 0);";       // for the date and time.
+                + CumulativeGpaEntry._ID                          + " INTEGER PRIMARY KEY AUTOINCREMENT, "  // for unique id for each row.
+                + CumulativeGpaEntry.COLUMN_STUDENT_NAME          + " TEXT NOT NULL, "                      // for student name.
+                + CumulativeGpaEntry.COLUMN_STUDENT_ID            + " INTEGER NOT NULL, "                   // for cumulative gpa as letter.
+                + CumulativeGpaEntry.COLUMN_SEMESTER_NUMBERS      + " BLOB NOT NULL, "                      // for all semester number.
+                + CumulativeGpaEntry.COLUMN_SEMESTER_DEGREES      + " BLOB NOT NULL, "                      // for all semester degrees.
+                + CumulativeGpaEntry.COLUMN_UNIX                  + " INTEGER NOT NULL DEFAULT 0);";        // for the date and time.
 
 
         // Result of the string above look like this :
@@ -56,9 +53,8 @@ public class CumulativeGpaDbHelper extends SQLiteOpenHelper {
         // _id INTEGER PRIMARY KEY AUTOINCREMENT ,
         // name TEXT NOT NULL ,
         // id INTEGER NOT NULL ,
-        // gpa_number NOT NULL ,
-        // gpa_letter NOT NULL,
-        // uris BLOB NOT NULL,
+        // semester_numbers NOT NULL,
+        // semester_degrees NOT NULL,
         // unix INTEGER NOT NULL DEFAULT 0);"
 
 
