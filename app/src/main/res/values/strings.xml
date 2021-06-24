@@ -42,6 +42,7 @@
     <string name="title_activity_settings_calculate_gpa">Calculation</string>
     <string name="title_activity_settings_subject_hours">Hours</string>
     <string name="title_activity_settings_subject_success">Success</string>
+    <string name="title_activity_setting_subject_info">Subject Info</string>
     <string name="title_activity_settings_subjects_order">Order</string>
     <string name="title_activity_add_semester">Add Semester</string>
     <string name="title_activity_cumulative_gpa">Cumulative GPA</string>
@@ -234,11 +235,12 @@
     ///////////////////////////////// For activities xml files /////////////////////////////////
 
 
-    <string name="name">Name</string> // activity_info.xml - activity_add_semester.xml
-    <string name="id">ID</string> // activity_info.xml - activity_add_semester.xml
-    <string name="subject_hint_degree">000</string> // activity_add_semester.xml - subject_item_for_arabic_language.xml
-
-
+    <string name="name">Name</string>
+    // activity_info.xml - activity_add_semester.xml
+    <string name="id">ID</string>
+    // activity_info.xml - activity_add_semester.xml
+    <string name="subject_hint_degree">000</string>
+    // activity_add_semester.xml - subject_item_for_arabic_language.xml
 
 
     <!-- for activity_info.xml  -->
