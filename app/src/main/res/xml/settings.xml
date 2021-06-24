@@ -47,17 +47,6 @@
 
 
         <Preference
-            android:key="@string/settings_subject_success_key"
-            android:title="@string/settings_subject_success_label">
-
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.settings.SuccessActivity"
-                android:targetPackage="com.example.android.explorationgpa" />
-        </Preference>
-
-
-        <Preference
             android:key="@string/settings_subject_info_name_key"
             android:title="@string/settings_subject_info_name_label">
 

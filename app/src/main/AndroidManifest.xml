@@ -23,9 +23,6 @@
             android:name=".settings.OrderActivity"
             android:label="@string/title_activity_settings_subjects_order" />
         <activity
-            android:name=".settings.SuccessActivity"
-            android:label="@string/title_activity_settings_subject_success" />
-        <activity
             android:name=".settings.SubjectInfoActivity"
             android:label="@string/title_activity_setting_subject_info" />
         <activity
