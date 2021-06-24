@@ -121,6 +121,10 @@
     <string name="settings_subject_success_label">Subject Success</string>
     <string name="settings_subject_success_key" translatable="false">subject_success</string>
 
+    <!-- for notes category => subject info(subject hours & success degree) -->
+    <string name="settings_subject_info_name_label">Subject Info</string>
+    <string name="settings_subject_info_name_key" translatable="false">subject_info</string>
+
     <!-- for notes category => subject success -->
     <string name="settings_subjects_order_label">Subjects Order</string>
     <string name="settings_subjects_order_key" translatable="false">subjects_order</string>

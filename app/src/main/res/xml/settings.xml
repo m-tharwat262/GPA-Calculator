@@ -69,6 +69,17 @@
 
 
         <Preference
+            android:key="@string/settings_subject_info_name_key"
+            android:title="@string/settings_subject_info_name_label">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.example.android.explorationgpa.settings.SubjectInfoActivity"
+                android:targetPackage="com.example.android.explorationgpa" />
+        </Preference>
+
+
+        <Preference
             android:key="@string/settings_subjects_order_key"
             android:title="@string/settings_subjects_order_label">
 
