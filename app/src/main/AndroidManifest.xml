@@ -26,11 +26,8 @@
             android:name=".settings.SuccessActivity"
             android:label="@string/title_activity_settings_subject_success" />
         <activity
-            android:name=".settings.HoursActivity"
-            android:label="@string/title_activity_settings_subject_hours" />
-        <activity
             android:name=".settings.SubjectInfoActivity"
-            android:label="@string/title_activity_setting_subject_info"/>
+            android:label="@string/title_activity_setting_subject_info" />
         <activity
             android:name=".settings.CalculationActivity"
             android:label="@string/title_activity_settings_calculate_gpa" />
