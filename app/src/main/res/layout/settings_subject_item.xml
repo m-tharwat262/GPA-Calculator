@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".settings.SubjectInfoActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- the subject name -->
+    <TextView
+        style="@style/subject_details_for_subject_item"
+        android:id="@+id/settings_subject_item_subject_name"
+        android:layout_weight="4"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="Reservoir Rock Properties" />
+
+
+    <!-- horizontal line to separate between the heads -->
+    <View
+        style="@style/Divider_horizontal"
+        android:layout_width="3dp" />
+
+
+    <!-- the subject hours -->
+    <TextView
+        style="@style/subject_details_for_subject_item"
+        android:id="@+id/settings_subject_item_subject_hours"
+        android:layout_weight="1"
+        android:gravity="center"
+        tools:text="60" />
+
+    <!-- horizontal line to separate between the heads -->
+    <View
+        style="@style/Divider_horizontal"
+        android:layout_width="3dp" />
+
+
+    <!-- subject success degree to pass in it -->
+    <TextView
+        style="@style/subject_details_for_subject_item"
+        android:id="@+id/settings_subject_item_subject_success_degree"
+        android:layout_weight="1"
+        android:gravity="center"
+        tools:text="3" />
+
+
+</LinearLayout>
