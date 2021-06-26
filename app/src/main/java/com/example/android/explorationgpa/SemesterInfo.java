@@ -86,6 +86,8 @@ public class SemesterInfo {
     }
 
 
+
+
     /**
      * Determine the semester by the year & term and get the resources id for subjects string for
      * that semester in an array.
@@ -186,6 +188,8 @@ public class SemesterInfo {
     }
 
 
+
+
     /**
      * Determine the semester by the year & term and get the hours for the subjects in that semester
      * in an array.
@@ -239,8 +243,7 @@ public class SemesterInfo {
 
 
     /**
-     * Determine the semester by the year & term and get the hours for the subjects in that semester
-     * in an array.
+     * Get the hours for the subjects in the semester that inserted to the method.
      *
      * @param semesterNumber exact semester we want get the subject hours from it.
      *
@@ -280,6 +283,109 @@ public class SemesterInfo {
                 break;
             case 10:
                 hours = getHoursForSemester_10();
+                break;
+        }
+
+        return hours;
+    }
+
+
+
+
+    /**
+     * Determine the semester by the year & term and get the success degree required to pass in
+     * each subject in that semester in an array.
+     *
+     * @param yearNumber the year which the user select (0-1-2-3-4-5).
+     * @param termNumber the term which the user select (1-2).
+     *
+     * @return array with success degree for the subjects in the semester.
+     */
+    public static double[] getSuccessDegreeForSemester(int yearNumber, int termNumber) {
+
+        int numOfSemester = getNumberOfSemester(yearNumber, termNumber); // determine the semester (1:10)
+
+        double[] hours = null;
+
+        switch (numOfSemester) {
+            case 1:
+                hours = getSuccessDegreeForSemester_1();
+                break;
+            case 2:
+                hours = getSuccessDegreeForSemester_2();
+                break;
+            case 3:
+                hours = getSuccessDegreeForSemester_3();
+                break;
+            case 4:
+                hours = getSuccessDegreeForSemester_4();
+                break;
+            case 5:
+                hours = getSuccessDegreeForSemester_5();
+                break;
+            case 6:
+                hours = getSuccessDegreeForSemester_6();
+                break;
+            case 7:
+                hours = getSuccessDegreeForSemester_7();
+                break;
+            case 8:
+                hours = getSuccessDegreeForSemester_8();
+                break;
+            case 9:
+                hours = getSuccessDegreeForSemester_9();
+                break;
+            case 10:
+                hours = getSuccessDegreeForSemester_10();
+                break;
+        }
+
+        return hours;
+    }
+
+
+    /**
+     * Get the success degree required to pass in each subject in the semester inserted to the
+     * method in an array.
+     *
+     * @param semesterNumber exact semester we want get the subject success degree from it.
+     *
+     * @return array with success degree for the subjects in the semester.
+     */
+    public static double[] getSuccessDegreeForSemester(int semesterNumber) {
+
+        double[] hours = null;
+
+        switch (semesterNumber) {
+            case 1:
+                hours = getSuccessDegreeForSemester_1();
+                break;
+            case 2:
+                hours = getSuccessDegreeForSemester_2();
+                break;
+            case 3:
+                hours = getSuccessDegreeForSemester_3();
+                break;
+            case 4:
+                hours = getSuccessDegreeForSemester_4();
+                break;
+            case 5:
+                hours = getSuccessDegreeForSemester_5();
+                break;
+            case 6:
+                hours = getSuccessDegreeForSemester_6();
+                break;
+            case 7:
+                hours = getSuccessDegreeForSemester_7();
+                break;
+            case 8:
+                hours = getSuccessDegreeForSemester_8();
+                break;
+            case 9:
+                hours = getSuccessDegreeForSemester_9();
+                break;
+            case 10:
+                hours = getSuccessDegreeForSemester_10();
                 break;
         }
 
@@ -679,6 +785,204 @@ public class SemesterInfo {
         hours[4] = 3.0;
         hours[5] = 2.0;
         hours[6] = 2.0;
+
+        return hours;
+    }
+
+
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (1).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_1() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (2).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_2() {
+
+        double[] hours = new double[6];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (3).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_3() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (4).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_4() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (5).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_5() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (6).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_6() {
+
+        double[] hours = new double[6];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (7).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_7() {
+
+        double[] hours = new double[6];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (8).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_8() {
+
+        double[] hours = new double[6];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (9).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_9() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
+
+        return hours;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain success degree required to pass in
+     * each subject in the semester (10).
+     *
+     * @return array with success degree for subjects.
+     */
+    private static double[] getSuccessDegreeForSemester_10() {
+
+        double[] hours = new double[7];
+        hours[0] = 50.0;
+        hours[1] = 50.0;
+        hours[2] = 50.0;
+        hours[3] = 50.0;
+        hours[4] = 50.0;
+        hours[5] = 50.0;
+        hours[6] = 50.0;
 
         return hours;
     }
