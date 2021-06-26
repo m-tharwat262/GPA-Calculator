@@ -132,6 +132,17 @@
 
 
 
+    ///////////////////////////////// For SubjectInfoActivity.java /////////////////////////////////
+
+    <!-- semester word and the its number in brackets -->
+    <string name="semester_number_between_brackets">Semester(%1$d)</string>
+
+
+
+
+
+
+
 
 
     ///////////////////////////////// For AddSemesterActivity.java /////////////////////////////////
