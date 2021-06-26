@@ -1,7 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".settings.SubjectInfoActivity" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- the semester number -->
+    <TextView
+        android:id="@+id/settings_semester_item_semester_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="4dp"
+        tools:text="Semester (7)" />
+
+
+    <!-- linear contain the heads name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" >
+
+
+        <!-- column heads for the subject name -->
+        <TextView
+            style="@style/subject_info_column_heads"
+            android:text="@string/subject_name"
+            android:layout_weight="4"
+            android:textSize="16sp" />
+
+
+        <!-- horizontal line to separate between the heads -->
+        <View
+            style="@style/Divider_horizontal"
+            android:layout_width="3dp" />
+
+
+        <!-- column heads for the subject hours -->
+        <TextView
+            style="@style/subject_info_column_heads"
+            android:text="@string/subject_hours"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+
+        <!-- horizontal line to separate between the heads -->
+        <View
+            style="@style/Divider_horizontal"
+            android:layout_width="3dp" />
+
+
+        <!-- column heads for the subject success degree -->
+        <TextView
+            style="@style/subject_info_column_heads"
+            android:text="@string/subject_success_degree"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+
+    </LinearLayout>
+
+
+    <!-- vertical line to separate between the heads column and the listView below -->
+    <View
+        style="@style/Divider_vertical"
+        android:layout_height="3dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" />
+
+
+    <!-- list contain the subjects details in the semester -->
+    <com.example.android.explorationgpa.ListViewNoScroll
+        android:id="@+id/settings_semester_item_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+
+</LinearLayout>

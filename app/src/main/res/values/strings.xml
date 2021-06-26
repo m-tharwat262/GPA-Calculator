@@ -281,6 +281,14 @@
 
 
 
+    <!-- for settings_semester_item.xml -->
+    <string name="subject_name">Subject Name</string>
+    <string name="subject_hours">Subject\nHours</string>
+    <string name="subject_success_degree">Success\nDegree</string>
+
+
+
+
 
 
 
