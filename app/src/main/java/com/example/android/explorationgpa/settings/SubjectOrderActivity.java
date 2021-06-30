@@ -381,9 +381,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         setMathematicsIIILayout();
         setPhysicsIIILayout();
         setPhysicalChemistryLayout();
+        setEnglishIILayout();
         setSedimentologyLayout();
         setComputerProgrammingLayout();
-        setEnglishIILayout();
 
     }
 
@@ -402,8 +402,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(4).
-        setStructureGeologyLayout();
         setOrganicChemistryLayout();
+        setStructureGeologyLayout();
         setDrawingAndAutoCadLayout();
 
     }
@@ -422,9 +422,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(5).
-        setCorrosionLayout();
-        setRockPropertiesLayout();
         setEnglishIIILayout();
+        setRockPropertiesLayout();
+        setCorrosionLayout();
 
     }
 
@@ -442,9 +442,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(6).
-        setDrillingILayout();
         setFluidPropertiesLayout();
         setCrudeOilLayout();
+        setDrillingILayout();
 
     }
 
@@ -462,10 +462,10 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(7).
+        setNaturalGasILayout();
         setComputerApplicationLayout();
         setPetroleumGeologyLayout();
         setGeophysicsILayout();
-        setNaturalGasILayout();
         setHorizontalDrillingLayout();
 
     }
@@ -484,9 +484,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(8).
+        setProductionILayout();
         setEquipmentsLayout();
         setGeophysicsIILayout();
-        setProductionILayout();
         setWellCompletionLayout();
         setAppliedLayout();
 
@@ -507,8 +507,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // display subject that required studying other subject(s) before start study it
         // in the semester(9).
         setProductionIILayout();
-        setWellLoggingLayout();
         setDrillingIILayout();
+        setWellLoggingLayout();
         setFormationStimulationLayout();
 
     }
@@ -527,8 +527,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
         // display subject that required studying other subject(s) before start study it
         // in the semester(10).
-        setWellDesignLayout();
         setReservoirSimulationLayout();
+        setWellDesignLayout();
         setFormationEvaluationLayout();
 
 
