@@ -1,10 +1,6 @@
 package com.example.android.explorationgpa;
 
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -23,6 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpaEntry;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
@@ -1223,17 +1223,13 @@ public class CumulativeGpaActivity extends AppCompatActivity {
      */
     private void deleteCumulativeItem() {
 
-        // get the uri id for the cumulative item place inside the database
+        // get the uri for the cumulative item place inside the database
         // that comes from the previous activity(GpaActivity).
-        long uriId = mIntent.getLongExtra("cumulative_uri_id", -1);
-
-        // build a cumulative item uri using the uri id above
-        Uri cumulativeUri = new ContentUris().withAppendedId(CumulativeGpaEntry.CONTENT_URI, uriId);
-
+        Uri cumulativeItemUri = mIntent.getData();
 
         // delete the cumulative item data from the database.
         // this process return number of the rows that deleted from the database.
-        int rows = getContentResolver().delete(cumulativeUri, null,null);
+        int rows = getContentResolver().delete(cumulativeItemUri, null,null);
 
         // check if the delete process has done successfully or failed.
         if (rows == 0) {
