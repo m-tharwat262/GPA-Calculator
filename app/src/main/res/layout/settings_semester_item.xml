@@ -11,14 +11,7 @@
     <!-- the semester number -->
     <TextView
         android:id="@+id/settings_semester_item_semester_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:padding="4dp"
+        style="@style/settings_semester_word_with_number_in_brackets"
         tools:text="Semester (7)" />
 
 

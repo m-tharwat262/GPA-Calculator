@@ -1,5 +1,6 @@
 package com.example.android.explorationgpa.settings;
 
+
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,9 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
 
 import com.example.android.explorationgpa.R;
+
 
 public class SubjectOrderActivity extends AppCompatActivity {
 
@@ -29,82 +32,79 @@ public class SubjectOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings_subject_order);
 
 
-
         // initialize the main linear layout that we will put inside it
         // the rest of the views in the activity.
         mMainLinearLayout = findViewById(R.id.activity_setting_subject_order_main_linear_layout);
 
 
-        // display all subject ordering in each semester on the screen.
-        displayAllSubjectOrdering();
+        // display all semesters details (the subject order on the semesters).
+        displayAllSemestersDetails();
 
 
+    }
+
+
+
+    /**
+     * Display all semesters details (how the subject in each semester ordering).
+     */
+    private void displayAllSemestersDetails() {
+
+        // Semester (2)
+        displaySemester_2();
+
+        // Semester (3)
+        displaySemester_3();
+
+        // Semester (4)
+        displaySemester_4();
+
+        // Semester (5)
+        displaySemester_5();
+
+        // Semester (6)
+        displaySemester_6();
+
+        // Semester (7)
+        displaySemester_7();
+
+        // Semester (8)
+        displaySemester_8();
+
+        // Semester (9)
+        displaySemester_9();
+
+        // Semester (10)
+        displaySemester_10();
 
     }
 
 
     /**
-     * Display all subject ordering in each semester on the screen.
+     * Create a TextView contain the semester number.
+     *
+     *@param semesterNumber number of the semester.
+     *
+     *  @return TextView contain a word (Semester) with the semester number in brackets.
      */
-    private void displayAllSubjectOrdering() {
+    private TextView getSemesterNumberTextView(int semesterNumber) {
+
+        // create ContextThemeWrapper with a specific style.
+        ContextThemeWrapper themeWrapper = new ContextThemeWrapper(
+                this, R.style.settings_semester_word_with_number_in_brackets);
 
 
-        // in the semester(2).
-        setMechanicsIILayout();
-        setMathematicsIILayout();
-        setPhysicsIILayout();
+        // create a TextView with the style above.
+        TextView textView = new TextView(themeWrapper, null , 0);
 
-        // in the semester(3).
-        setMathematicsIIILayout();
-        setPhysicsIIILayout();
-        setPhysicalChemistryLayout();
-        setSedimentologyLayout();
-        setComputerProgrammingLayout();
-        setEnglishIILayout();
+        // display a word (Semester) with the semester number in brackets.
+        String semesterWord = getString(R.string.semester_number_between_brackets, semesterNumber);
+        textView.setText(semesterWord);
 
-        // in the semester(4).
-        setStructureGeologyLayout();
-        setOrganicChemistryLayout();
-        setDrawingAndAutoCadLayout();
 
-        // in the semester(5).
-        setCorrosionLayout();
-        setRockPropertiesLayout();
-        setEnglishIIILayout();
-
-        // in the semester(6).
-        setDrillingILayout();
-        setFluidPropertiesLayout();
-        setCrudeOilLayout();
-
-        // in the semester(7).
-        setComputerApplicationLayout();
-        setPetroleumGeologyLayout();
-        setGeophysicsILayout();
-        setNaturalGasILayout();
-        setHorizontalDrillingLayout();
-
-        // in the semester(8).
-        setEquipmentsLayout();
-        setGeophysicsIILayout();
-        setProductionILayout();
-        setWellCompletionLayout();
-        setAppliedLayout();
-
-        // in the semester(9).
-        setProductionIILayout();
-        setWellLoggingLayout();
-        setDrillingIILayout();
-        setFormationStimulationLayout();
-
-        // in the semester(10).
-        setWellDesignLayout();
-        setReservoirSimulationLayout();
-        setFormationEvaluationLayout();
-
+        return textView;
 
     }
-
 
 
     /**
@@ -343,6 +343,196 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
 
 
+
+
+    /**
+     * Display subjects ordering in the semester(2).
+     */
+    private void displaySemester_2() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(2).
+        TextView semesterWordTextView = getSemesterNumberTextView(2);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(2).
+        setMechanicsIILayout();
+        setMathematicsIILayout();
+        setPhysicsIILayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(3).
+     */
+    private void displaySemester_3() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(3).
+        TextView semesterWordTextView = getSemesterNumberTextView(3);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(3).
+        setMathematicsIIILayout();
+        setPhysicsIIILayout();
+        setPhysicalChemistryLayout();
+        setSedimentologyLayout();
+        setComputerProgrammingLayout();
+        setEnglishIILayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(4).
+     */
+    private void displaySemester_4() {
+
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(4).
+        TextView semesterWordTextView = getSemesterNumberTextView(4);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(4).
+        setStructureGeologyLayout();
+        setOrganicChemistryLayout();
+        setDrawingAndAutoCadLayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(5).
+     */
+    private void displaySemester_5() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(7).
+        TextView semesterWordTextView = getSemesterNumberTextView(5);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(5).
+        setCorrosionLayout();
+        setRockPropertiesLayout();
+        setEnglishIIILayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(6).
+     */
+    private void displaySemester_6() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(6).
+        TextView semesterWordTextView = getSemesterNumberTextView(6);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(6).
+        setDrillingILayout();
+        setFluidPropertiesLayout();
+        setCrudeOilLayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(7).
+     */
+    private void displaySemester_7() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(7).
+        TextView semesterWordTextView = getSemesterNumberTextView(7);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(7).
+        setComputerApplicationLayout();
+        setPetroleumGeologyLayout();
+        setGeophysicsILayout();
+        setNaturalGasILayout();
+        setHorizontalDrillingLayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(8).
+     */
+    private void displaySemester_8() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(8).
+        TextView semesterWordTextView = getSemesterNumberTextView(8);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(8).
+        setEquipmentsLayout();
+        setGeophysicsIILayout();
+        setProductionILayout();
+        setWellCompletionLayout();
+        setAppliedLayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(9).
+     */
+    private void displaySemester_9() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(9).
+        TextView semesterWordTextView = getSemesterNumberTextView(9);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(9).
+        setProductionIILayout();
+        setWellLoggingLayout();
+        setDrillingIILayout();
+        setFormationStimulationLayout();
+
+    }
+
+
+    /**
+     * Display subjects ordering in the semester(10).
+     */
+    private void displaySemester_10() {
+
+        // create a TextView contain a word (Semester) with brackets contain the semester number(10).
+        TextView semesterWordTextView = getSemesterNumberTextView(10);
+
+        // add the TextView above to the main LinearLayout.
+        mMainLinearLayout.addView(semesterWordTextView);
+
+        // display subject that required studying other subject(s) before start study it
+        // in the semester(10).
+        setWellDesignLayout();
+        setReservoirSimulationLayout();
+        setFormationEvaluationLayout();
+
+
+    }
 
 
 
