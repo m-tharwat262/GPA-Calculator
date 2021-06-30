@@ -318,7 +318,7 @@
     <string name="semester_2_subject_1">Mathematics II</string>
     <string name="semester_2_subject_2">Mechanics II</string>
     <string name="semester_2_subject_3">Physics II</string>
-    <string name="semester_2_subject_4">Production Engineering</string>
+    <string name="semester_2_subject_4">Introduction to Production Engineering</string>
     <string name="semester_2_subject_5">History of Engineering</string>
     <string name="semester_2_subject_6">Technical English I</string>
 
@@ -336,7 +336,7 @@
     <string name="semester_4_subject_2">Structure Geology</string>
     <string name="semester_4_subject_3">Plan Surveying &amp; Topography</string>
     <string name="semester_4_subject_4">Introduction to Material</string>
-    <string name="semester_4_subject_5">Introduction to Production Engineering</string>
+    <string name="semester_4_subject_5">Introduction to Petroleum Engineering</string>
     <string name="semester_4_subject_6">Engineering Drawing &amp; AutoCAD</string>
     <string name="semester_4_subject_7">Human Rights</string>
 
@@ -347,13 +347,13 @@
     <string name="semester_5_subject_4">Fundamental of Electrical Engineering</string>
     <string name="semester_5_subject_5">Automatic Control</string>
     <string name="semester_5_subject_6">Gas Treatment</string>
-    <string name="semester_5_subject_7">Technical III</string>
+    <string name="semester_5_subject_7">Technical English III</string>
 
     <!-- subjects name for semester 6 -->
     <string name="semester_6_subject_1">Drilling Engineering I</string>
     <string name="semester_6_subject_2">Rock Mechanics</string>
     <string name="semester_6_subject_3">Thermodynamics</string>
-    <string name="semester_6_subject_4">Reservoir Fluids</string>
+    <string name="semester_6_subject_4">Reservoir Fluids Properties</string>
     <string name="semester_6_subject_5">Crude Oil Evaluation</string>
     <string name="semester_6_subject_6">Economics &amp; Management</string>
 
@@ -385,11 +385,16 @@
     <!-- subjects name for semester 10 -->
     <string name="semester_10_subject_1">Well Design &amp; Construction Engineering</string>
     <string name="semester_10_subject_2">Formation Evaluation</string>
-    <string name="semester_10_subject_3">Transporting &amp; Storage of Oil/Gas</string>
+    <string name="semester_10_subject_3">Transporting &amp; Storage of Oil &amp; Gas</string>
     <string name="semester_10_subject_4">Reservoir Simulation</string>
     <string name="semester_10_subject_5">Formation Stimulation</string>
     <string name="semester_10_subject_6">Management Science &amp; Determination Decision Models</string>
     <string name="semester_10_subject_7">Senior Project</string>
+
+
+
+
+    <string name="semester_0_subject_1">Corrosion</string>
 
 
 
