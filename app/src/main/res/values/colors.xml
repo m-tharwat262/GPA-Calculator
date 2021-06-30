@@ -6,6 +6,10 @@
 
 
 
+    <!-- black color -->
+    <color name="black_color">@android:color/black</color>
+
+
 
     <!-- for SemesterAdapter.java -->
     <color name="hint_color">#9E9E9E</color>

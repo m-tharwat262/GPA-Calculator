@@ -1,12 +1,26 @@
 package com.example.android.explorationgpa.settings;
 
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.android.explorationgpa.R;
 
 public class SubjectOrderActivity extends AppCompatActivity {
+
+
+    private static final String LOG_TAG = SubjectOrderActivity.class.getSimpleName(); // class name.
+
+    private LinearLayout mMainLinearLayout; // the main layout of the activity.
 
 
     @Override
@@ -14,7 +28,1108 @@ public class SubjectOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_subject_order);
 
+
+
+        // initialize the main linear layout that we will put inside it
+        // the rest of the views in the activity.
+        mMainLinearLayout = findViewById(R.id.activity_setting_subject_order_main_linear_layout);
+
+
+        // display all subject ordering in each semester on the screen.
+        displayAllSubjectOrdering();
+
+
+
     }
+
+
+    /**
+     * Display all subject ordering in each semester on the screen.
+     */
+    private void displayAllSubjectOrdering() {
+
+
+        // in the semester(2).
+        setMechanicsIILayout();
+        setMathematicsIILayout();
+        setPhysicsIILayout();
+
+        // in the semester(3).
+        setMathematicsIIILayout();
+        setPhysicsIIILayout();
+        setPhysicalChemistryLayout();
+        setSedimentologyLayout();
+        setComputerProgrammingLayout();
+        setEnglishIILayout();
+
+        // in the semester(4).
+        setStructureGeologyLayout();
+        setOrganicChemistryLayout();
+        setDrawingAndAutoCadLayout();
+
+        // in the semester(5).
+        setCorrosionLayout();
+        setRockPropertiesLayout();
+        setEnglishIIILayout();
+
+        // in the semester(6).
+        setDrillingILayout();
+        setFluidPropertiesLayout();
+        setCrudeOilLayout();
+
+        // in the semester(7).
+        setComputerApplicationLayout();
+        setPetroleumGeologyLayout();
+        setGeophysicsILayout();
+        setNaturalGasILayout();
+        setHorizontalDrillingLayout();
+
+        // in the semester(8).
+        setEquipmentsLayout();
+        setGeophysicsIILayout();
+        setProductionILayout();
+        setWellCompletionLayout();
+        setAppliedLayout();
+
+        // in the semester(9).
+        setProductionIILayout();
+        setWellLoggingLayout();
+        setDrillingIILayout();
+        setFormationStimulationLayout();
+
+        // in the semester(10).
+        setWellDesignLayout();
+        setReservoirSimulationLayout();
+        setFormationEvaluationLayout();
+
+
+    }
+
+
+
+    /**
+     * Make a horizontal Linear Layout contain two parts :
+     * the first part is the required subject that must student study first before stat studying
+     * the subject in the second part.
+     *
+     * @param subjectResourceIds array contain all subject will be put in the linear layout
+     *
+     * @return LinearLayout contain two horizontal parts.
+     */
+    private LinearLayout getSubjectsLayout(int... subjectResourceIds) {
+
+
+        // determine the subjectResourceIds array size.
+        int arraySize = subjectResourceIds.length;
+
+        // create a vertical layout to be a container to a TextView(s) that wil be in the left side
+        // in the main LinearLayout.
+        LinearLayout leftLayout = getVerticalLinearLayout();
+
+        // determine the params (width - height) to a TextView(s) that will be in the left side.
+        LinearLayout.LayoutParams leftTextViewParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        // add the TextView(s) with the subject names to the vertical LinearLayout above.
+        for (int i = 0 ; i < (arraySize-1) ; i++) {
+
+            // get the subject name resource id.
+            int subjectName = subjectResourceIds[i];
+
+            // create a TextView contain the subject name above.
+            TextView leftTextView = getSubjectTextView(subjectName);
+
+            // set the params to the TextView.
+            leftTextView.setLayoutParams(leftTextViewParams);
+
+            // put the TextView to the vertical LinearLayout.
+            leftLayout.addView(leftTextView);
+
+        }
+
+
+
+        // get the last subject name resource id that will be in the right side in the main
+        // LinearLayout.
+        int LastSubjectName = subjectResourceIds[(arraySize-1)];
+
+        // create a TextView contain the subject name above.
+        TextView RightTextView = getSubjectTextView(LastSubjectName);
+
+        // determine the params (width - height - weight) to a TextView that will be in the right side.
+        LinearLayout.LayoutParams rightTextViewParams = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+
+        // set the params to the TextView.
+        RightTextView.setLayoutParams(rightTextViewParams);
+
+
+        // the final LinearLayout will contain a two parts the first part is the required subject
+        // that must student study first before stat studying the subject in the second part.
+        LinearLayout finalLinearLayout = getHorizontalLinearLayout();
+
+
+        // add the (right - left) side to the main LinearLayout.
+        finalLinearLayout.addView(leftLayout);
+        finalLinearLayout.addView(RightTextView);
+
+
+        // return the main LinearLayout contains the (right - left) side.
+        return finalLinearLayout;
+
+    }
+
+
+    /**
+     * Create a horizontal linear layout with a specific states.
+     *
+     * @return LinearLayout with horizontal orientation.
+     */
+    private LinearLayout getHorizontalLinearLayout() {
+
+        // initialize a new LinearLayout.
+        LinearLayout linearLayout = new LinearLayout(this);
+
+
+        // set the LinearLayout orientation to be horizontal.
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+
+        // set the LinearLayout params (width - height).
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        // set the Linear Layout margin.
+        int marginPx = convertDpToPx(16);
+        layoutParams.setMargins(marginPx, marginPx, marginPx, marginPx);
+
+        // set params (width - height - margin) above to the LinearLayout.
+        linearLayout.setLayoutParams(layoutParams);
+
+
+
+        // return a LinearLayout with a required states.
+        return linearLayout;
+
+    }
+
+
+    /**
+     * Create a vertical linear layout with a specific states.
+     *
+     * @return LinearLayout with vertical orientation.
+     */
+    private LinearLayout getVerticalLinearLayout() {
+
+        // initialize a new LinearLayout.
+        LinearLayout linearLayout = new LinearLayout(this);
+
+
+        // set the LinearLayout orientation to be vertical.
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+
+        // set the LinearLayout params (width - height - weight).
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+
+        // set params (width - height - weight) above to the LinearLayout.
+        linearLayout.setLayoutParams(layoutParams);
+
+
+        // return a LinearLayout with a required states.
+        return linearLayout;
+
+    }
+
+
+    /**
+     * Create a TextView with a specific states to be more flexible to display the subject name.
+     *
+     * @param stringResourceId the subject name resource id.
+     *
+     *  @return a TextViw with subject name inserted to the method.
+     */
+    private TextView getSubjectTextView(int stringResourceId) {
+
+        // initialize a new TextViw.
+        TextView textView = new TextView(this);
+
+        // set the subject name to the TextView.
+        textView.setText(stringResourceId);
+
+        // set params (width - height - gravity) to the TextView.
+        // the (width - height) will be changed outside the method so we make it (0 - 0) just to
+        // initialize the LayoutParams.
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+        layoutParams.gravity = Gravity.CENTER; // layout_gravity
+
+        // set params (width - height - gravity) above to the TextView.
+        textView.setLayoutParams(layoutParams);
+
+        // make the TextView hint the user that the view not able to display all the subject name
+        // by add three dots (...) at the end of the subject name.
+        textView.setEllipsize(TextUtils.TruncateAt.END);
+
+        // make the max line is (1) to the TextView.
+        textView.setMaxLines(1);
+
+        // add padding equal (4dp) to the TextView.
+        int paddingPx = convertDpToPx(4);
+        textView.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
+
+        // set the gravity to the text to be (center_vertical) to the TextView.
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+
+        // set text size (16sp)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+        // set text color (Black).
+        int textColor = getResources().getColor(R.color.black_color);
+        textView.setTextColor(textColor);
+
+        // set text style appear (Bold).
+        textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+
+        // make the TextViw has a border around it (look like a rectangle).
+        Drawable backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.border);
+        textView.setBackground(backgroundDrawable);
+
+
+
+        // if the phone that run the app use (Oreo-Android.8) or above the code below will execute.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            // make the text size changes depend on the width of the TextViw:
+            // - if the width not able to display all the subject name make the text size
+            // decrease until fit the TextViw.
+            // - max text size can be is (16sp).
+            // - min text size can be is (8sp).
+            // - the text size gradually decreases by (1sp).
+            // - if that not enough to display the all the subject name then the Ellipsize features
+            // will execute to crop the text and add a (...) in the end of the subject name.
+            textView.setAutoSizeTextTypeUniformWithConfiguration(
+                    8,
+                    16,
+                    1,
+                    TypedValue.COMPLEX_UNIT_SP);
+
+        }
+
+
+        // return a TextView with a required states.
+        return textView;
+
+    }
+
+
+    /**
+     * Convert the dp value to the pixel value.
+     *
+     * @param dp the number we want convert it to px.
+     *
+     * @return the px value from the dp value inserted to the method.
+     */
+    private int convertDpToPx(int dp) {
+
+        float pxFloat = ( dp * getResources().getDisplayMetrics().density );
+
+        return Math.round(pxFloat);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Mathematics II).
+     */
+    private void setMathematicsIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.MECHANICS_I,
+                SubjectNames.MECHANICS_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Mechanics II).
+     */
+    private void setMechanicsIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.MATHEMATICS_I,
+                SubjectNames.MATHEMATICS_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Physics II).
+     */
+    private void setPhysicsIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.PHYSICS_I,
+                SubjectNames.PHYSICS_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Mathematics III).
+     */
+    private void setMathematicsIIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.MATHEMATICS_I,
+                SubjectNames.MATHEMATICS_II,
+                SubjectNames.MATHEMATICS_III);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Physics III).
+     */
+    private void setPhysicsIIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.PHYSICS_I,
+                SubjectNames.PHYSICS_II,
+                SubjectNames.PHYSICS_III);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Physical Chemistry).
+     */
+    private void setPhysicalChemistryLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.GENERAL_CHEMISTRY,
+                SubjectNames.PHYSICAL_CHEMISTRY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Sedimentology & Stratigraphy - Structure Geology).
+     */
+    private void setSedimentologyLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Computer Programming).
+     */
+    private void setComputerProgrammingLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_COMPUTER,
+                SubjectNames.COMPUTER_PROGRAMMING);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (English II).
+     */
+    private void setEnglishIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.TECHNICAL_ENGLISH_I,
+                SubjectNames.TECHNICAL_ENGLISH_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Structure Geology).
+     */
+    private void setStructureGeologyLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.STRUCTURE_GEOLOGY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Organic Chemistry).
+     */
+    private void setOrganicChemistryLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.GENERAL_CHEMISTRY,
+                SubjectNames.ORGANIC_CHEMISTRY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Engineering Drawing & AutoCAD).
+     */
+    private void setDrawingAndAutoCadLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.ENGINEERING_DRAWING_AND_PROJECTION,
+                SubjectNames.ENGINEERING_DRAWING_AND_AUTO_CAD);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Reservoir Rock Properties).
+     */
+    private void setRockPropertiesLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Corrosion).
+     */
+    private void setCorrosionLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_MATERIAL,
+                SubjectNames.CORROSION);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (English III).
+     */
+    private void setEnglishIIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.TECHNICAL_ENGLISH_I,
+                SubjectNames.TECHNICAL_ENGLISH_II,
+                SubjectNames.TECHNICAL_ENGLISH_III);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Reservoir Fluid Properties).
+     */
+    private void setFluidPropertiesLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Drilling Engineering).
+     */
+    private void setDrillingILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.DRILLING_ENGINEERING_I);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Crude Oil Evaluation).
+     */
+    private void setCrudeOilLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.CRUDE_OIL_EVALUATION);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Computer Application in petroleum Engineering).
+     */
+    private void setComputerApplicationLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_COMPUTER,
+                SubjectNames.COMPUTER_PROGRAMMING,
+                SubjectNames.COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Petroleum Geology).
+     */
+    private void setPetroleumGeologyLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.PETROLEUM_GEOLOGY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Natural Gas).
+     */
+    private void setNaturalGasILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
+                SubjectNames.NATURAL_GAS_ENGINEERING);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Exploration Geophysics I).
+     */
+    private void setGeophysicsILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.EXPLORATION_GEOPHYSICS_I);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Horizontal Drilling Technology).
+     */
+    private void setHorizontalDrillingLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.DRILLING_ENGINEERING_I,
+                SubjectNames.HORIZONTAL_DRILLING_TECHNOLOGY);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Drilling and Production Equipments).
+     */
+    private void setEquipmentsLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.DRILLING_AND_PRODUCTION_EQUIPMENTS);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Petroleum Production Engineering I).
+     */
+    private void setProductionILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_I);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Exploration Geophysics II).
+     */
+    private void setGeophysicsIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.EXPLORATION_GEOPHYSICS_I,
+                SubjectNames.EXPLORATION_GEOPHYSICS_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (WellCompletion).
+     */
+    private void setWellCompletionLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
+                SubjectNames.DRILLING_ENGINEERING_I,
+                SubjectNames.WELL_COMPLETION_ENGINEERING);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Applied Reservoir Engineering).
+     */
+    private void setAppliedLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
+                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
+                SubjectNames.APPLIED_RESERVOIR_ENGINEERING);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Petroleum Production Engineering II).
+     */
+    private void setProductionIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_I,
+                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (WellLogging).
+     */
+    private void setWellLoggingLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
+                SubjectNames.DRILLING_ENGINEERING_I,
+                SubjectNames.WELL_LOGGING);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Drilling Engineering).
+     */
+    private void setDrillingIILayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.DRILLING_ENGINEERING_I,
+                SubjectNames.DRILLING_ENGINEERING_II);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Computer Programming).
+     */
+    private void setFormationStimulationLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
+                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
+                SubjectNames.APPLIED_RESERVOIR_ENGINEERING,
+                SubjectNames.FORMATION_STIMULATION);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Well Design).
+     */
+    private void setWellDesignLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.DRILLING_AND_PRODUCTION_EQUIPMENTS,
+                SubjectNames.WELL_DESIGN);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Reservoir Simulation).
+     */
+    private void setReservoirSimulationLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_COMPUTER,
+                SubjectNames.COMPUTER_PROGRAMMING,
+                SubjectNames.RESERVOIR_SIMULATION);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+    /**
+     * Display required subjects which the student must be studied before start studying
+     * (Formation Evaluation).
+     */
+    private void setFormationEvaluationLayout() {
+
+        // make a linear layout contain two parts :
+        // first one : the required subjects must be studied.
+        // second one : the subject that finished the part above allow the student to start study it.
+        LinearLayout linearLayout = getSubjectsLayout(
+                SubjectNames.INTRODUCTION_TO_GEOLOGY,
+                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                SubjectNames.STRUCTURE_GEOLOGY,
+                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
+                SubjectNames.CRUDE_OIL_EVALUATION,
+                SubjectNames.WELL_LOGGING,
+                SubjectNames.FORMATION_EVALUATION);
+
+
+        // add the display linear layout above to the main linear layout in the activity to appear
+        // on the screen.
+        mMainLinearLayout.addView(linearLayout);
+
+    }
+
+
+
+
 
 
 
