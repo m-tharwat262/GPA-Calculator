@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings.CalculationActivity">
+    tools:context=".settings.SubjectOrderActivity" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout will used as a container or list to put inside it
+    each semester details as items -->
+    <LinearLayout
+        android:id="@+id/activity_setting_subject_order_main_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+
+</ScrollView>
