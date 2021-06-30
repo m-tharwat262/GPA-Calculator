@@ -41,7 +41,7 @@
     <string name="title_activity_log_in">Log in</string>
     <string name="title_activity_settings_calculate_gpa">Calculation</string>
     <string name="title_activity_setting_subject_info">Subject Info</string>
-    <string name="title_activity_settings_subjects_order">Order</string>
+    <string name="title_activity_settings_subjects_order">Subject Order</string>
     <string name="title_activity_add_semester">Add Semester</string>
     <string name="title_activity_cumulative_gpa">Cumulative GPA</string>
 

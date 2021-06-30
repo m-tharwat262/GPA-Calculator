@@ -63,7 +63,7 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.settings.OrderActivity"
+                android:targetClass="com.example.android.explorationgpa.settings.SubjectOrderActivity"
                 android:targetPackage="com.example.android.explorationgpa" />
         </Preference>
 

@@ -20,7 +20,7 @@
             android:name=".InfoActivity"
             android:label="@string/title_activity_gpa" />
         <activity
-            android:name=".settings.OrderActivity"
+            android:name=".settings.SubjectOrderActivity"
             android:label="@string/title_activity_settings_subjects_order" />
         <activity
             android:name=".settings.SubjectInfoActivity"

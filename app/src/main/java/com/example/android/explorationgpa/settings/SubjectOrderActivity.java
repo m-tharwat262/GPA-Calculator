@@ -1,16 +1,19 @@
 package com.example.android.explorationgpa.settings;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.explorationgpa.R;
 
-public class OrderActivity extends AppCompatActivity {
+public class SubjectOrderActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_order);
+        setContentView(R.layout.activity_settings_subject_order);
+
     }
+
 }
