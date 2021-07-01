@@ -39,7 +39,7 @@
     <string name="title_activity_gpa">GPA</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_log_in">Log in</string>
-    <string name="title_activity_settings_calculate_gpa">Calculation</string>
+    <string name="title_activity_settings_gpa_calculation">GPA Calculation</string>
     <string name="title_activity_setting_subject_info">Subject Info</string>
     <string name="title_activity_settings_subjects_order">Subject Order</string>
     <string name="title_activity_add_semester">Add Semester</string>
@@ -108,8 +108,8 @@
 
 
     <!-- for notes category => calculate gpa -->
-    <string name="settings_calculation_name_label">Calculate GPA</string>
-    <string name="settings_calculation_name_key" translatable="false">calculation</string>
+    <string name="settings_calculation_name_label">GPA Calculate</string>
+    <string name="settings_calculation_name_key" translatable="false">gpa_calculation</string>
 
     <!-- for notes category => subject info(subject hours & success degree) -->
     <string name="settings_subject_info_name_label">Subject Info</string>

@@ -26,8 +26,8 @@
             android:name=".settings.SubjectInfoActivity"
             android:label="@string/title_activity_setting_subject_info" />
         <activity
-            android:name=".settings.CalculationActivity"
-            android:label="@string/title_activity_settings_calculate_gpa" />
+            android:name=".settings.GpaCalculationActivity"
+            android:label="@string/title_activity_settings_gpa_calculation" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />

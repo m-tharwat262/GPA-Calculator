@@ -41,7 +41,7 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetClass="com.example.android.explorationgpa.settings.CalculationActivity"
+                android:targetClass="com.example.android.explorationgpa.settings.GpaCalculationActivity"
                 android:targetPackage="com.example.android.explorationgpa" />
         </Preference>
 

@@ -1,16 +1,22 @@
 package com.example.android.explorationgpa.settings;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.android.explorationgpa.R;
 
-public class CalculationActivity extends AppCompatActivity {
+
+public class GpaCalculationActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_calculation);
+        setContentView(R.layout.activity_settings_gpa_calculation);
     }
+
+
+
 }
