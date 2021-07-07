@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".settings.SubjectInfoActivity">
+
+
+    <!-- vertical line appear on the top of the item -->
+    <View
+        style="@style/Divider_vertical_2dp"/>
+
+
+    <!-- layout contain the views in the item -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+
+    <!-- the subject degree range -->
+        <TextView
+            style="@style/subject_details_for_subject_item"
+            android:id="@+id/settings_table_item_subject_degree_range"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="(100 >= x >= 93)" />
+
+        <!-- horizontal line to separate between views -->
+        <View
+            style="@style/Divider_horizontal"
+            android:layout_width="2dp" />
+
+        <!-- the gpa letter or points for the subject -->
+        <TextView
+            style="@style/subject_details_for_subject_item"
+            android:id="@+id/settings_table_item_subject_gpa_details"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="A+" />
+
+
+    </LinearLayout>
+
+
+    <!-- vertical line appear on the bottom of the item -->
+    <View
+        android:id="@+id/subject_table_item_bottom_vertical_line"
+        style="@style/Divider_vertical_2dp"
+        android:visibility="gone" />
+
+
+</LinearLayout>
