@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".settings.GpaCalculationActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:padding="16dp">
 
 
-        <!-- contain of the hint (1) -->
+        <!-- the hint (1) contain -->
         <TextView
             style="@style/Settings_hint_content_text"
             android:id="@+id/activity_setting_gpa_calculation_hint_1"
@@ -29,6 +29,34 @@
             style="@style/Settings_word_hint"
             android:layout_alignParentTop="true"
             android:text="@string/hint_number_1" />
+
+
+        <!-- layout contain the hint (2) details -->
+        <LinearLayout
+            android:id="@+id/activity_setting_gpa_calculation_layout_for_hint_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_setting_gpa_calculation_hint_1"
+            android:layout_marginTop="28dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/curved_border_transparent"
+            android:orientation="vertical">
+
+            <!-- the hint (2) contain -->
+            <TextView
+                style="@style/Settings_hint_content_text"
+                android:text="@string/gpa_calculation_hint_2"  />
+
+        </LinearLayout>
+
+
+        <!-- the word (Hint) label -->
+        <TextView
+            style="@style/Settings_word_hint"
+            android:layout_below="@+id/activity_setting_gpa_calculation_hint_1"
+            android:layout_marginTop="16dp"
+            android:text="@string/hint_number_2" />
 
 
     </RelativeLayout>

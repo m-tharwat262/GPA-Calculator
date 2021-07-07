@@ -21,4 +21,38 @@
         <item>@string/spinner_year_three</item>
         <item>@string/spinner_year_four</item>
     </string-array>
+
+
+
+
+    <!-- These are the options displayed in the level drop-down Spinner -->
+    <string-array name="array_subject_degree_value">
+        <item>@string/table_value_subject_degree_1</item>
+        <item>@string/table_value_subject_degree_2</item>
+        <item>@string/table_value_subject_degree_3</item>
+        <item>@string/table_value_subject_degree_4</item>
+        <item>@string/table_value_subject_degree_5</item>
+        <item>@string/table_value_subject_degree_6</item>
+        <item>@string/table_value_subject_degree_7</item>
+        <item>@string/table_value_subject_degree_8</item>
+        <item>@string/table_value_subject_degree_9</item>
+        <item>@string/table_value_subject_degree_10</item>
+    </string-array>
+
+    <!-- These are the options displayed in the level drop-down Spinner -->
+    <string-array name="array_gpa_letter_value">
+        <item>@string/table_value_gpa_letter_1</item>
+        <item>@string/table_value_gpa_letter_2</item>
+        <item>@string/table_value_gpa_letter_3</item>
+        <item>@string/table_value_gpa_letter_4</item>
+        <item>@string/table_value_gpa_letter_5</item>
+        <item>@string/table_value_gpa_letter_6</item>
+        <item>@string/table_value_gpa_letter_7</item>
+        <item>@string/table_value_gpa_letter_8</item>
+        <item>@string/table_value_gpa_letter_9</item>
+        <item>@string/table_value_gpa_letter_10</item>
+    </string-array>
+
+
+
 </resources>

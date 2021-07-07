@@ -144,6 +144,36 @@
 
 
 
+    <!-- For GPACalculationActivity.jva -->
+    <string name="table_head_subject_degree">Subject Degree</string>
+    <string name="table_head_gpa_letter">GPA Letter</string>
+    <string name="table_head_gpa_points">GPA Points</string>
+
+    <!-- the degrees in the subject degree range -->
+    <string name="table_value_subject_degree_1">100 &#8805; degree &#8805; 93</string>
+    <string name="table_value_subject_degree_2">93 > degree &#8805; 88</string>
+    <string name="table_value_subject_degree_3">88 > degree &#8805; 82</string>
+    <string name="table_value_subject_degree_4">82 > degree &#8805; 78</string>
+    <string name="table_value_subject_degree_5">78 > degree &#8805; 74</string>
+    <string name="table_value_subject_degree_6">74 > degree &#8805; 70</string>
+    <string name="table_value_subject_degree_7">70 > degree &#8805; 65</string>
+    <string name="table_value_subject_degree_8">65 > degree &#8805; 60</string>
+    <string name="table_value_subject_degree_9">60 > degree &#8805; 55</string>
+    <string name="table_value_subject_degree_10">55 > degree &#8805; 50</string>
+
+    <!-- the gpa letter in the subject -->
+    <string name="table_value_gpa_letter_1">A</string>
+    <string name="table_value_gpa_letter_2">A-</string>
+    <string name="table_value_gpa_letter_3">B+</string>
+    <string name="table_value_gpa_letter_4">B</string>
+    <string name="table_value_gpa_letter_5">B-</string>
+    <string name="table_value_gpa_letter_6">C+</string>
+    <string name="table_value_gpa_letter_7">C</string>
+    <string name="table_value_gpa_letter_8">C-</string>
+    <string name="table_value_gpa_letter_9">D+</string>
+    <string name="table_value_gpa_letter_10">D</string>
+
+
 
 
 
@@ -311,8 +341,9 @@
 
     <!-- for activity_settings_gpa_calculation.xml -->
 
-    <!-- word hint with the number -->
+    <!-- word hint in the layout -->
     <string name="hint_number_1">Hint (1)</string>
+    <string name="hint_number_2">Hint (2)</string>
 
 
     <!-- the hint (1) content about the gpa calculation -->
@@ -320,6 +351,12 @@
         The subjects with degree less than the success degree are not included in the calculation
         (semester gpa or cumulative gpa).
     </string>
+
+    <!-- the hint (2) content about the gpa calculation -->
+    <string name="gpa_calculation_hint_2">
+        The subject gpa letter is based on your degree in the subject as shown in the table
+    </string>
+
 
 
 
