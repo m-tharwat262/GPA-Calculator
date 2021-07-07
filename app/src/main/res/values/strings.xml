@@ -309,6 +309,24 @@
 
 
 
+    <!-- for activity_settings_gpa_calculation.xml -->
+
+    <!-- word hint with the number -->
+    <string name="hint_number_1">Hint (1)</string>
+
+
+    <!-- the hint (1) content about the gpa calculation -->
+    <string name="gpa_calculation_hint_1">
+        The subjects with degree less than the success degree are not included in the calculation
+        (semester gpa or cumulative gpa).
+    </string>
+
+
+
+
+
+
+
 
 
 

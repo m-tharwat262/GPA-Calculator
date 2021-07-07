@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settings.GpaCalculationActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="16dp">
+
+
+        <!-- contain of the hint (1) -->
+        <TextView
+            style="@style/Settings_hint_content_text"
+            android:id="@+id/activity_setting_gpa_calculation_hint_1"
+            android:layout_marginTop="12dp"
+            android:padding="16dp"
+            android:background="@drawable/curved_border_transparent"
+            android:text="@string/gpa_calculation_hint_1" />
+
+
+        <!-- the word (Hint) label -->
+        <TextView
+            style="@style/Settings_word_hint"
+            android:layout_alignParentTop="true"
+            android:text="@string/hint_number_1" />
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
