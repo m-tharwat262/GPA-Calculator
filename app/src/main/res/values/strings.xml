@@ -173,9 +173,17 @@
     <string name="table_value_gpa_letter_9">D+</string>
     <string name="table_value_gpa_letter_10">D</string>
 
-
-
-
+    <!-- the gpa points in the subject -->
+    <string name="table_value_gpa_points_1">4</string>
+    <string name="table_value_gpa_points_2">3.7</string>
+    <string name="table_value_gpa_points_3">3.3</string>
+    <string name="table_value_gpa_points_4">3</string>
+    <string name="table_value_gpa_points_5">2.7</string>
+    <string name="table_value_gpa_points_6">2.3</string>
+    <string name="table_value_gpa_points_7">2</string>
+    <string name="table_value_gpa_points_8">1.7</string>
+    <string name="table_value_gpa_points_9">1.3</string>
+    <string name="table_value_gpa_points_10">1</string>
 
 
 
@@ -344,6 +352,7 @@
     <!-- word hint in the layout -->
     <string name="hint_number_1">Hint (1)</string>
     <string name="hint_number_2">Hint (2)</string>
+    <string name="hint_number_3">Hint (3)</string>
 
 
     <!-- the hint (1) content about the gpa calculation -->
@@ -357,6 +366,22 @@
         The subject gpa letter is based on your degree in the subject as shown in the table
     </string>
 
+    <!-- the hint (3) part (1) content about the gpa calculation -->
+    <string name="gpa_calculation_hint_3_part_1">
+        The total (semester or cumulative) gpa is calculated by the following steps:
+        \n\n1- Determine each subject points according to the student\'s degree in the subject as shown
+        in the table
+    </string>
+
+    <!-- the hint (3) part (2) content about the gpa calculation -->
+    <string name="gpa_calculation_hint_3_part_2">
+        2- Multiply the subject points from (Step.1) with the subject hours.
+        \n\n3- Sum the results from multiplying each subject points with it hours.
+        \n\n4- Sum all subject hours together.
+        \n\n5- Dividing the result of (Step.3) by the result of (Step.4).
+        \n\n6- From (Step.5) you will get a decimal number, that\'s the total gpa
+        (round it to two decimal numbers).
+    </string>
 
 
 

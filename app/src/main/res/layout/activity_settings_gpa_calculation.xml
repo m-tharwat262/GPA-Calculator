@@ -59,6 +59,39 @@
             android:text="@string/hint_number_2" />
 
 
+        <!-- layout contain the hint (3) details -->
+        <LinearLayout
+            android:id="@+id/activity_setting_gpa_calculation_layout_for_hint_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_setting_gpa_calculation_layout_for_hint_2"
+            android:layout_marginTop="28dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/curved_border_transparent"
+            android:orientation="vertical">
+
+            <!-- the hint (3) part (1) contain -->
+            <TextView
+                style="@style/Settings_hint_content_text"
+                android:text="@string/gpa_calculation_hint_3_part_1" />
+
+            <!-- the hint (3) part (2) contain -->
+            <TextView
+                style="@style/Settings_hint_content_text"
+                android:text="@string/gpa_calculation_hint_3_part_2"/>
+
+        </LinearLayout>
+
+
+        <!-- the word (Hint) label -->
+        <TextView
+            style="@style/Settings_word_hint"
+            android:layout_below="@+id/activity_setting_gpa_calculation_layout_for_hint_2"
+            android:layout_marginTop="16dp"
+            android:text="@string/hint_number_3"/>
+
+
     </RelativeLayout>
 
 
