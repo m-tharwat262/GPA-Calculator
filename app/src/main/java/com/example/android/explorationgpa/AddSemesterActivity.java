@@ -1,12 +1,6 @@
 package com.example.android.explorationgpa;
 
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
-
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -486,7 +487,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private ArrayList<SubjectObject> getArrayListOfSubjectsObjects(int year, int term) {
 
         // to get the resources ids for the subjects name.
-        int[] ids = SemesterInfo.getSubjectsOfSemester(year, term);
+        int[] ids = SemesterInfo.getSubjectsOfSemester(this, year, term);
 
         // initialise the ArrayList of the SubjectObjects.
         ArrayList<SubjectObject> subjectObjects = new ArrayList<>();
@@ -513,7 +514,7 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
     private ArrayList<SubjectObject> getArrayListOfSubjectsObjects(int year, int term, double[] degrees) {
 
         // to get the resources ids for the subjects name.
-        int[] ids = SemesterInfo.getSubjectsOfSemester(year, term);
+        int[] ids = SemesterInfo.getSubjectsOfSemester(this, year, term);
 
         // initialise the ArrayList of the SubjectObjects.
         ArrayList<SubjectObject> subjectObjects = new ArrayList<>();

@@ -1004,7 +1004,7 @@ public class CumulativeGpaActivity extends AppCompatActivity {
     private ArrayList<SubjectObject> getValidSemesterSubjects(int semesterNumber, double[] degrees) {
 
         // get resources ids for the subject names.
-        int [] subjectResourcesIds = SemesterInfo.getSubjectsOfSemester(semesterNumber);
+        int [] subjectResourcesIds = SemesterInfo.getSubjectsOfSemester(this, semesterNumber);
 
         // initialize arrayList of SubjectObject which will contain only subject names that has degree more than zero.
         ArrayList<SubjectObject> subjectObjects = new ArrayList<>();

@@ -1,9 +1,39 @@
 package com.example.android.explorationgpa;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class SemesterInfo {
 
+
+    /**
+     * Check if the app preference Settings set the subject language to English or Arabic
+     *
+     * @param context the context or activity that method use at.
+     *
+     * @return true if the subject language set to be English or false in Arabic case.
+     */
+    private static boolean hasEnglishLanguage(Context context) {
+
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        // get the subject language from the preference settings.
+        String subjectLanguage = sharedPrefs.getString(
+                context.getString(R.string.settings_subject_language_key),
+                context.getString(R.string.settings_subject_language_default));
+
+
+        // if the subject language is English the method will return true.
+        if ( subjectLanguage.equals(context.getString(R.string.settings_subject_language_default)) ) {
+            return true;
+        }
+
+        return false;
+
+    }
 
 
     /**
@@ -25,7 +55,7 @@ public class SemesterInfo {
             return 4;
         } else {
             return 0;
-    }
+        }
 
     }
 
@@ -97,7 +127,10 @@ public class SemesterInfo {
      *
      * @return array with resources id for subjects string for the semester.
      */
-    public static int[] getSubjectsOfSemester(int yearNumber, int termNumber) {
+    public static int[] getSubjectsOfSemester(Context context, int yearNumber, int termNumber) {
+
+        boolean englishLanguage = hasEnglishLanguage(context);
+
 
         int numOfSemester = getNumberOfSemester(yearNumber, termNumber);// determine the semester (1:10)
 
@@ -105,34 +138,74 @@ public class SemesterInfo {
 
             switch (numOfSemester) {
                 case 1:
-                    subjects = getSubjectsForSemester_1();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_1();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_1();
+                    }
                     break;
                 case 2:
-                    subjects = getSubjectsForSemester_2();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_2();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_2();
+                    }
                     break;
                 case 3:
-                    subjects = getSubjectsForSemester_3();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_3();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_3();
+                    }
                     break;
                 case 4:
-                    subjects = getSubjectsForSemester_4();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_4();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_4();
+                    }
                     break;
                 case 5:
-                    subjects = getSubjectsForSemester_5();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_5();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_5();
+                    }
                     break;
                 case 6:
-                    subjects = getSubjectsForSemester_6();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_6();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_6();
+                    }
                     break;
                 case 7:
-                    subjects = getSubjectsForSemester_7();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_7();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_7();
+                    }
                     break;
                 case 8:
-                    subjects = getSubjectsForSemester_8();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_8();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_8();
+                    }
                     break;
                 case 9:
-                    subjects = getSubjectsForSemester_9();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_9();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_9();
+                    }
                     break;
                 case 10:
-                    subjects = getSubjectsForSemester_10();
+                    if (englishLanguage) {
+                        subjects = getEnglishSubjectsForSemester_10();
+                    } else {
+                        subjects = getArabicSubjectsForSemester_10();
+                    }
                     break;
 
             }
@@ -147,40 +220,83 @@ public class SemesterInfo {
      *
      * @return array with resources id for subjects string for the semester.
      */
-    public static int[] getSubjectsOfSemester(int semesterNumber) {
+    public static int[] getSubjectsOfSemester(Context context, int semesterNumber) {
+
+        boolean englishLanguage = hasEnglishLanguage(context);
+
 
         int[] subjects = null;
 
         switch (semesterNumber) {
             case 1:
-                subjects = getSubjectsForSemester_1();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_1();
+                } else {
+                    subjects = getArabicSubjectsForSemester_1();
+                }
                 break;
             case 2:
-                subjects = getSubjectsForSemester_2();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_2();
+                } else {
+                    subjects = getArabicSubjectsForSemester_2();
+                }
                 break;
             case 3:
-                subjects = getSubjectsForSemester_3();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_3();
+                } else {
+                    subjects = getArabicSubjectsForSemester_3();
+                }
                 break;
             case 4:
-                subjects = getSubjectsForSemester_4();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_4();
+                } else {
+                    subjects = getArabicSubjectsForSemester_4();
+                }
                 break;
             case 5:
-                subjects = getSubjectsForSemester_5();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_5();
+                } else {
+                    subjects = getArabicSubjectsForSemester_5();
+                }
                 break;
             case 6:
-                subjects = getSubjectsForSemester_6();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_6();
+                } else {
+                    subjects = getArabicSubjectsForSemester_6();
+                }
                 break;
             case 7:
-                subjects = getSubjectsForSemester_7();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_7();
+                } else {
+                    subjects = getArabicSubjectsForSemester_7();
+                }
                 break;
             case 8:
-                subjects = getSubjectsForSemester_8();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_8();
+                } else {
+                    subjects = getArabicSubjectsForSemester_8();
+                }
                 break;
             case 9:
-                subjects = getSubjectsForSemester_9();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_9();
+                } else {
+                    subjects = getArabicSubjectsForSemester_9();
+                }
                 break;
             case 10:
-                subjects = getSubjectsForSemester_10();
+                if (englishLanguage) {
+                    subjects = getEnglishSubjectsForSemester_10();
+                } else {
+                    subjects = getArabicSubjectsForSemester_10();
+                }
                 break;
 
         }
@@ -396,197 +512,395 @@ public class SemesterInfo {
 
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (1).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (1).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_1() {
+    private static int[] getEnglishSubjectsForSemester_1() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_1_subject_1;
-        subjects[1] = R.string.semester_1_subject_2;
-        subjects[2] = R.string.semester_1_subject_3;
-        subjects[3] = R.string.semester_1_subject_4;
-        subjects[4] = R.string.semester_1_subject_5;
-        subjects[5] = R.string.semester_1_subject_6;
-        subjects[6] = R.string.semester_1_subject_7;
+        subjects[0] = R.string.semester_1_subject_1_english;
+        subjects[1] = R.string.semester_1_subject_2_english;
+        subjects[2] = R.string.semester_1_subject_3_english;
+        subjects[3] = R.string.semester_1_subject_4_english;
+        subjects[4] = R.string.semester_1_subject_5_english;
+        subjects[5] = R.string.semester_1_subject_6_english;
+        subjects[6] = R.string.semester_1_subject_7_english;
 
         return subjects;
     }
 
     /**
-     * helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (2).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (2).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_2() {
+    private static int[] getEnglishSubjectsForSemester_2() {
 
         int[] subjects = new int[6];
-        subjects[0] = R.string.semester_2_subject_1;
-        subjects[1] = R.string.semester_2_subject_2;
-        subjects[2] = R.string.semester_2_subject_3;
-        subjects[3] = R.string.semester_2_subject_4;
-        subjects[4] = R.string.semester_2_subject_5;
-        subjects[5] = R.string.semester_2_subject_6;
+        subjects[0] = R.string.semester_2_subject_1_english;
+        subjects[1] = R.string.semester_2_subject_2_english;
+        subjects[2] = R.string.semester_2_subject_3_english;
+        subjects[3] = R.string.semester_2_subject_4_english;
+        subjects[4] = R.string.semester_2_subject_5_english;
+        subjects[5] = R.string.semester_2_subject_6_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (3).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (3).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_3() {
+    private static int[] getEnglishSubjectsForSemester_3() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_3_subject_1;
-        subjects[1] = R.string.semester_3_subject_2;
-        subjects[2] = R.string.semester_3_subject_3;
-        subjects[3] = R.string.semester_3_subject_4;
-        subjects[4] = R.string.semester_3_subject_5;
-        subjects[5] = R.string.semester_3_subject_6;
-        subjects[6] = R.string.semester_3_subject_7;
+        subjects[0] = R.string.semester_3_subject_1_english;
+        subjects[1] = R.string.semester_3_subject_2_english;
+        subjects[2] = R.string.semester_3_subject_3_english;
+        subjects[3] = R.string.semester_3_subject_4_english;
+        subjects[4] = R.string.semester_3_subject_5_english;
+        subjects[5] = R.string.semester_3_subject_6_english;
+        subjects[6] = R.string.semester_3_subject_7_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (4).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (4).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_4() {
+    private static int[] getEnglishSubjectsForSemester_4() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_4_subject_1;
-        subjects[1] = R.string.semester_4_subject_2;
-        subjects[2] = R.string.semester_4_subject_3;
-        subjects[3] = R.string.semester_4_subject_4;
-        subjects[4] = R.string.semester_4_subject_5;
-        subjects[5] = R.string.semester_4_subject_6;
-        subjects[6] = R.string.semester_4_subject_7;
+        subjects[0] = R.string.semester_4_subject_1_english;
+        subjects[1] = R.string.semester_4_subject_2_english;
+        subjects[2] = R.string.semester_4_subject_3_english;
+        subjects[3] = R.string.semester_4_subject_4_english;
+        subjects[4] = R.string.semester_4_subject_5_english;
+        subjects[5] = R.string.semester_4_subject_6_english;
+        subjects[6] = R.string.semester_4_subject_7_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (5).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (5).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_5() {
+    private static int[] getEnglishSubjectsForSemester_5() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_5_subject_1;
-        subjects[1] = R.string.semester_5_subject_2;
-        subjects[2] = R.string.semester_5_subject_3;
-        subjects[3] = R.string.semester_5_subject_4;
-        subjects[4] = R.string.semester_5_subject_5;
-        subjects[5] = R.string.semester_5_subject_6;
-        subjects[6] = R.string.semester_5_subject_7;
+        subjects[0] = R.string.semester_5_subject_1_english;
+        subjects[1] = R.string.semester_5_subject_2_english;
+        subjects[2] = R.string.semester_5_subject_3_english;
+        subjects[3] = R.string.semester_5_subject_4_english;
+        subjects[4] = R.string.semester_5_subject_5_english;
+        subjects[5] = R.string.semester_5_subject_6_english;
+        subjects[6] = R.string.semester_5_subject_7_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (6).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (6).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_6() {
+    private static int[] getEnglishSubjectsForSemester_6() {
 
         int[] subjects = new int[6];
-        subjects[0] = R.string.semester_6_subject_1;
-        subjects[1] = R.string.semester_6_subject_2;
-        subjects[2] = R.string.semester_6_subject_3;
-        subjects[3] = R.string.semester_6_subject_4;
-        subjects[4] = R.string.semester_6_subject_5;
-        subjects[5] = R.string.semester_6_subject_6;
+        subjects[0] = R.string.semester_6_subject_1_english;
+        subjects[1] = R.string.semester_6_subject_2_english;
+        subjects[2] = R.string.semester_6_subject_3_english;
+        subjects[3] = R.string.semester_6_subject_4_english;
+        subjects[4] = R.string.semester_6_subject_5_english;
+        subjects[5] = R.string.semester_6_subject_6_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (7).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (7).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_7() {
+    private static int[] getEnglishSubjectsForSemester_7() {
 
         int[] subjects = new int[6];
-        subjects[0] = R.string.semester_7_subject_1;
-        subjects[1] = R.string.semester_7_subject_2;
-        subjects[2] = R.string.semester_7_subject_3;
-        subjects[3] = R.string.semester_7_subject_4;
-        subjects[4] = R.string.semester_7_subject_5;
-        subjects[5] = R.string.semester_7_subject_6;
+        subjects[0] = R.string.semester_7_subject_1_english;
+        subjects[1] = R.string.semester_7_subject_2_english;
+        subjects[2] = R.string.semester_7_subject_3_english;
+        subjects[3] = R.string.semester_7_subject_4_english;
+        subjects[4] = R.string.semester_7_subject_5_english;
+        subjects[5] = R.string.semester_7_subject_6_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (8).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (8).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_8() {
+    private static int[] getEnglishSubjectsForSemester_8() {
 
         int[] subjects = new int[6];
-        subjects[0] = R.string.semester_8_subject_1;
-        subjects[1] = R.string.semester_8_subject_2;
-        subjects[2] = R.string.semester_8_subject_3;
-        subjects[3] = R.string.semester_8_subject_4;
-        subjects[4] = R.string.semester_8_subject_5;
-        subjects[5] = R.string.semester_8_subject_6;
+        subjects[0] = R.string.semester_8_subject_1_english;
+        subjects[1] = R.string.semester_8_subject_2_english;
+        subjects[2] = R.string.semester_8_subject_3_english;
+        subjects[3] = R.string.semester_8_subject_4_english;
+        subjects[4] = R.string.semester_8_subject_5_english;
+        subjects[5] = R.string.semester_8_subject_6_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (9).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (9).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_9() {
+    private static int[] getEnglishSubjectsForSemester_9() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_9_subject_1;
-        subjects[1] = R.string.semester_9_subject_2;
-        subjects[2] = R.string.semester_9_subject_3;
-        subjects[3] = R.string.semester_9_subject_4;
-        subjects[4] = R.string.semester_9_subject_5;
-        subjects[5] = R.string.semester_9_subject_6;
-        subjects[6] = R.string.semester_9_subject_7;
+        subjects[0] = R.string.semester_9_subject_1_english;
+        subjects[1] = R.string.semester_9_subject_2_english;
+        subjects[2] = R.string.semester_9_subject_3_english;
+        subjects[3] = R.string.semester_9_subject_4_english;
+        subjects[4] = R.string.semester_9_subject_5_english;
+        subjects[5] = R.string.semester_9_subject_6_english;
+        subjects[6] = R.string.semester_9_subject_7_english;
 
         return subjects;
     }
 
     /**
-     * Helper method in the class to setup the array to contain resources id for the subjects
-     * string for semester (10).
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * English names for semester (10).
      *
      * @return array with resources id for the subjects string.
      */
-    private static int[] getSubjectsForSemester_10() {
+    private static int[] getEnglishSubjectsForSemester_10() {
 
         int[] subjects = new int[7];
-        subjects[0] = R.string.semester_10_subject_1;
-        subjects[1] = R.string.semester_10_subject_2;
-        subjects[2] = R.string.semester_10_subject_3;
-        subjects[3] = R.string.semester_10_subject_4;
-        subjects[4] = R.string.semester_10_subject_5;
-        subjects[5] = R.string.semester_10_subject_6;
-        subjects[6] = R.string.semester_10_subject_7;
+        subjects[0] = R.string.semester_10_subject_1_english;
+        subjects[1] = R.string.semester_10_subject_2_english;
+        subjects[2] = R.string.semester_10_subject_3_english;
+        subjects[3] = R.string.semester_10_subject_4_english;
+        subjects[4] = R.string.semester_10_subject_5_english;
+        subjects[5] = R.string.semester_10_subject_6_english;
+        subjects[6] = R.string.semester_10_subject_7_english;
+
+        return subjects;
+    }
+
+
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (1).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_1() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_1_subject_1_arabic;
+        subjects[1] = R.string.semester_1_subject_2_arabic;
+        subjects[2] = R.string.semester_1_subject_3_arabic;
+        subjects[3] = R.string.semester_1_subject_4_arabic;
+        subjects[4] = R.string.semester_1_subject_5_arabic;
+        subjects[5] = R.string.semester_1_subject_6_arabic;
+        subjects[6] = R.string.semester_1_subject_7_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (2).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_2() {
+
+        int[] subjects = new int[6];
+        subjects[0] = R.string.semester_2_subject_1_arabic;
+        subjects[1] = R.string.semester_2_subject_2_arabic;
+        subjects[2] = R.string.semester_2_subject_3_arabic;
+        subjects[3] = R.string.semester_2_subject_4_arabic;
+        subjects[4] = R.string.semester_2_subject_5_arabic;
+        subjects[5] = R.string.semester_2_subject_6_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (3).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_3() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_3_subject_1_arabic;
+        subjects[1] = R.string.semester_3_subject_2_arabic;
+        subjects[2] = R.string.semester_3_subject_3_arabic;
+        subjects[3] = R.string.semester_3_subject_4_arabic;
+        subjects[4] = R.string.semester_3_subject_5_arabic;
+        subjects[5] = R.string.semester_3_subject_6_arabic;
+        subjects[6] = R.string.semester_3_subject_7_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (4).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_4() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_4_subject_1_arabic;
+        subjects[1] = R.string.semester_4_subject_2_arabic;
+        subjects[2] = R.string.semester_4_subject_3_arabic;
+        subjects[3] = R.string.semester_4_subject_4_arabic;
+        subjects[4] = R.string.semester_4_subject_5_arabic;
+        subjects[5] = R.string.semester_4_subject_6_arabic;
+        subjects[6] = R.string.semester_4_subject_7_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (5).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_5() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_5_subject_1_arabic;
+        subjects[1] = R.string.semester_5_subject_2_arabic;
+        subjects[2] = R.string.semester_5_subject_3_arabic;
+        subjects[3] = R.string.semester_5_subject_4_arabic;
+        subjects[4] = R.string.semester_5_subject_5_arabic;
+        subjects[5] = R.string.semester_5_subject_6_arabic;
+        subjects[6] = R.string.semester_5_subject_7_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (6).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_6() {
+
+        int[] subjects = new int[6];
+        subjects[0] = R.string.semester_6_subject_1_arabic;
+        subjects[1] = R.string.semester_6_subject_2_arabic;
+        subjects[2] = R.string.semester_6_subject_3_arabic;
+        subjects[3] = R.string.semester_6_subject_4_arabic;
+        subjects[4] = R.string.semester_6_subject_5_arabic;
+        subjects[5] = R.string.semester_6_subject_6_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (7).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_7() {
+
+        int[] subjects = new int[6];
+        subjects[0] = R.string.semester_7_subject_1_arabic;
+        subjects[1] = R.string.semester_7_subject_2_arabic;
+        subjects[2] = R.string.semester_7_subject_3_arabic;
+        subjects[3] = R.string.semester_7_subject_4_arabic;
+        subjects[4] = R.string.semester_7_subject_5_arabic;
+        subjects[5] = R.string.semester_7_subject_6_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (8).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_8() {
+
+        int[] subjects = new int[6];
+        subjects[0] = R.string.semester_8_subject_1_arabic;
+        subjects[1] = R.string.semester_8_subject_2_arabic;
+        subjects[2] = R.string.semester_8_subject_3_arabic;
+        subjects[3] = R.string.semester_8_subject_4_arabic;
+        subjects[4] = R.string.semester_8_subject_5_arabic;
+        subjects[5] = R.string.semester_8_subject_6_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (9).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_9() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_9_subject_1_arabic;
+        subjects[1] = R.string.semester_9_subject_2_arabic;
+        subjects[2] = R.string.semester_9_subject_3_arabic;
+        subjects[3] = R.string.semester_9_subject_4_arabic;
+        subjects[4] = R.string.semester_9_subject_5_arabic;
+        subjects[5] = R.string.semester_9_subject_6_arabic;
+        subjects[6] = R.string.semester_9_subject_7_arabic;
+
+        return subjects;
+    }
+
+    /**
+     * Helper method in the class to setup the array to contain string resources id for the subject
+     * Arabic names for semester (10).
+     *
+     * @return array with resources id for the subjects string.
+     */
+    private static int[] getArabicSubjectsForSemester_10() {
+
+        int[] subjects = new int[7];
+        subjects[0] = R.string.semester_10_subject_1_arabic;
+        subjects[1] = R.string.semester_10_subject_2_arabic;
+        subjects[2] = R.string.semester_10_subject_3_arabic;
+        subjects[3] = R.string.semester_10_subject_4_arabic;
+        subjects[4] = R.string.semester_10_subject_5_arabic;
+        subjects[5] = R.string.semester_10_subject_6_arabic;
+        subjects[6] = R.string.semester_10_subject_7_arabic;
 
         return subjects;
     }
