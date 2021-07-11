@@ -393,95 +393,189 @@
 
 
     <!-- subjects name for semester 1 -->
-    <string name="semester_1_subject_1">Mathematics I</string>
-    <string name="semester_1_subject_2">Mechanics I</string>
-    <string name="semester_1_subject_3">Physics I</string>
-    <string name="semester_1_subject_4">General Chemistry</string>
-    <string name="semester_1_subject_5">Introduction to Geology</string>
-    <string name="semester_1_subject_6">Introduction to Computer</string>
-    <string name="semester_1_subject_7">Engineering Drawing &amp; Projection</string>
+    <string name="semester_1_subject_1_english">Mathematics I</string>
+    <string name="semester_1_subject_2_english">Mechanics I</string>
+    <string name="semester_1_subject_3_english">Physics I</string>
+    <string name="semester_1_subject_4_english">General Chemistry</string>
+    <string name="semester_1_subject_5_english">Introduction to Geology</string>
+    <string name="semester_1_subject_6_english">Introduction to Computer</string>
+    <string name="semester_1_subject_7_english">Engineering Drawing &amp; Projection</string>
 
     <!-- subjects name for semester 2 -->
-    <string name="semester_2_subject_1">Mathematics II</string>
-    <string name="semester_2_subject_2">Mechanics II</string>
-    <string name="semester_2_subject_3">Physics II</string>
-    <string name="semester_2_subject_4">Introduction to Production Engineering</string>
-    <string name="semester_2_subject_5">History of Engineering</string>
-    <string name="semester_2_subject_6">Technical English I</string>
+    <string name="semester_2_subject_1_english">Mathematics II</string>
+    <string name="semester_2_subject_2_english">Mechanics II</string>
+    <string name="semester_2_subject_3_english">Physics II</string>
+    <string name="semester_2_subject_4_english">Introduction to Production Engineering</string>
+    <string name="semester_2_subject_5_english">History of Engineering</string>
+    <string name="semester_2_subject_6_english">Technical English I</string>
 
     <!-- subjects name for semester 3 -->
-    <string name="semester_3_subject_1">Mathematics III</string>
-    <string name="semester_3_subject_2">Physics III</string>
-    <string name="semester_3_subject_3">Physical Chemistry</string>
-    <string name="semester_3_subject_4">Strength of Materials</string>
-    <string name="semester_3_subject_5">Sedimentology &amp; Stratigraphy</string>
-    <string name="semester_3_subject_6">Computer Programming</string>
-    <string name="semester_3_subject_7">Technical English II</string>
+    <string name="semester_3_subject_1_english">Mathematics III</string>
+    <string name="semester_3_subject_2_english">Physics III</string>
+    <string name="semester_3_subject_3_english">Physical Chemistry</string>
+    <string name="semester_3_subject_4_english">Strength of Materials</string>
+    <string name="semester_3_subject_5_english">Sedimentology &amp; Stratigraphy</string>
+    <string name="semester_3_subject_6_english">Computer Programming</string>
+    <string name="semester_3_subject_7_english">Technical English II</string>
 
     <!-- subjects name for semester 4 -->
-    <string name="semester_4_subject_1">Organic Chemistry</string>
-    <string name="semester_4_subject_2">Structure Geology</string>
-    <string name="semester_4_subject_3">Plan Surveying &amp; Topography</string>
-    <string name="semester_4_subject_4">Introduction to Material</string>
-    <string name="semester_4_subject_5">Introduction to Petroleum Engineering</string>
-    <string name="semester_4_subject_6">Engineering Drawing &amp; AutoCAD</string>
-    <string name="semester_4_subject_7">Human Rights</string>
+    <string name="semester_4_subject_1_english">Organic Chemistry</string>
+    <string name="semester_4_subject_2_english">Structure Geology</string>
+    <string name="semester_4_subject_3_english">Plan Surveying &amp; Topography</string>
+    <string name="semester_4_subject_4_english">Introduction to Material</string>
+    <string name="semester_4_subject_5_english">Introduction to Petroleum Engineering</string>
+    <string name="semester_4_subject_6_english">Engineering Drawing &amp; AutoCAD</string>
+    <string name="semester_4_subject_7_english">Human Rights</string>
 
     <!-- subjects name for semester 5 -->
-    <string name="semester_5_subject_1">Analytical Chemistry</string>
-    <string name="semester_5_subject_2">Fluid Mechanics</string>
-    <string name="semester_5_subject_3">Reservoir Rock Properties</string>
-    <string name="semester_5_subject_4">Fundamental of Electrical Engineering</string>
-    <string name="semester_5_subject_5">Automatic Control</string>
-    <string name="semester_5_subject_6">Gas Treatment</string>
-    <string name="semester_5_subject_7">Technical English III</string>
+    <string name="semester_5_subject_1_english">Analytical Chemistry</string>
+    <string name="semester_5_subject_2_english">Fluid Mechanics</string>
+    <string name="semester_5_subject_3_english">Reservoir Rock Properties</string>
+    <string name="semester_5_subject_4_english">Fundamental of Electrical Engineering</string>
+    <string name="semester_5_subject_5_english">Automatic Control</string>
+    <string name="semester_5_subject_6_english">Gas Treatment</string>
+    <string name="semester_5_subject_7_english">Technical English III</string>
 
     <!-- subjects name for semester 6 -->
-    <string name="semester_6_subject_1">Drilling Engineering I</string>
-    <string name="semester_6_subject_2">Rock Mechanics</string>
-    <string name="semester_6_subject_3">Thermodynamics</string>
-    <string name="semester_6_subject_4">Reservoir Fluids Properties</string>
-    <string name="semester_6_subject_5">Crude Oil Evaluation</string>
-    <string name="semester_6_subject_6">Economics &amp; Management</string>
+    <string name="semester_6_subject_1_english">Drilling Engineering I</string>
+    <string name="semester_6_subject_2_english">Rock Mechanics</string>
+    <string name="semester_6_subject_3_english">Thermodynamics</string>
+    <string name="semester_6_subject_4_english">Reservoir Fluids Properties</string>
+    <string name="semester_6_subject_5_english">Crude Oil Evaluation</string>
+    <string name="semester_6_subject_6_english">Economics &amp; Management</string>
 
     <!-- subjects name for semester 7 -->
-    <string name="semester_7_subject_1">Exploration Geophysics I</string>
-    <string name="semester_7_subject_2">Horizontal Drilling Technology</string>
-    <string name="semester_7_subject_3">Petroleum Geology</string>
-    <string name="semester_7_subject_4">Well Logging</string>
-    <string name="semester_7_subject_5">Natural Gas Engineering</string>
-    <string name="semester_7_subject_6">Safety &amp; Labors Law</string>
+    <string name="semester_7_subject_1_english">Exploration Geophysics I</string>
+    <string name="semester_7_subject_2_english">Horizontal Drilling Technology</string>
+    <string name="semester_7_subject_3_english">Petroleum Geology</string>
+    <string name="semester_7_subject_4_english">Well Logging</string>
+    <string name="semester_7_subject_5_english">Natural Gas Engineering</string>
+    <string name="semester_7_subject_6_english">Safety &amp; Labors Law</string>
 
     <!-- subjects name for semester 8 -->
-    <string name="semester_8_subject_1">Exploration Geophysics II</string>
-    <string name="semester_8_subject_2">Petroleum Production Engineering I</string>
-    <string name="semester_8_subject_3">Drilling &amp; Production Equipments</string>
-    <string name="semester_8_subject_4">Applied Reservoir Engineering</string>
-    <string name="semester_8_subject_5">Well Completion Engineering</string>
-    <string name="semester_8_subject_6">Environmental Risk Assessment in Petroleum Industry</string>
+    <string name="semester_8_subject_1_english">Exploration Geophysics II</string>
+    <string name="semester_8_subject_2_english">Petroleum Production Engineering I</string>
+    <string name="semester_8_subject_3_english">Drilling &amp; Production Equipments</string>
+    <string name="semester_8_subject_4_english">Applied Reservoir Engineering</string>
+    <string name="semester_8_subject_5_english">Well Completion Engineering</string>
+    <string name="semester_8_subject_6_english">Environmental Risk Assessment in Petroleum Industry</string>
 
     <!-- subjects name for semester 9 -->
-    <string name="semester_9_subject_1">Petroleum Production Engineering II</string>
-    <string name="semester_9_subject_2">Drilling Engineering II</string>
-    <string name="semester_9_subject_3">Well Testing</string>
-    <string name="semester_9_subject_4">Computer Application in Petroleum Engineering</string>
-    <string name="semester_9_subject_5">Enhanced Oil Recovery</string>
-    <string name="semester_9_subject_6">Engineering Esthetes</string>
-    <string name="semester_9_subject_7">Senior Project</string>
+    <string name="semester_9_subject_1_english">Petroleum Production Engineering II</string>
+    <string name="semester_9_subject_2_english">Drilling Engineering II</string>
+    <string name="semester_9_subject_3_english">Well Testing</string>
+    <string name="semester_9_subject_4_english">Computer Application in Petroleum Engineering</string>
+    <string name="semester_9_subject_5_english">Enhanced Oil Recovery</string>
+    <string name="semester_9_subject_6_english">Engineering Esthetes</string>
+    <string name="semester_9_subject_7_english">Senior Project</string>
 
     <!-- subjects name for semester 10 -->
-    <string name="semester_10_subject_1">Well Design &amp; Construction Engineering</string>
-    <string name="semester_10_subject_2">Formation Evaluation</string>
-    <string name="semester_10_subject_3">Transporting &amp; Storage of Oil &amp; Gas</string>
-    <string name="semester_10_subject_4">Reservoir Simulation</string>
-    <string name="semester_10_subject_5">Formation Stimulation</string>
-    <string name="semester_10_subject_6">Management Science &amp; Determination Decision Models</string>
-    <string name="semester_10_subject_7">Senior Project</string>
+    <string name="semester_10_subject_1_english">Well Design &amp; Construction Engineering</string>
+    <string name="semester_10_subject_2_english">Formation Evaluation</string>
+    <string name="semester_10_subject_3_english">Transporting &amp; Storage of Oil &amp; Gas</string>
+    <string name="semester_10_subject_4_english">Reservoir Simulation</string>
+    <string name="semester_10_subject_5_english">Formation Stimulation</string>
+    <string name="semester_10_subject_6_english">Management Science &amp; Determination Decision Models</string>
+    <string name="semester_10_subject_7_english">Senior Project</string>
+
+    <!-- other subjects -->
+    <string name="semester_0_subject_1_english">Corrosion</string>
 
 
 
 
-    <string name="semester_0_subject_1">Corrosion</string>
+
+
+
+
+    <!-- subjects name for semester 1 -->
+    <string name="semester_1_subject_1_arabic">رياضيات I</string>
+    <string name="semester_1_subject_2_arabic">ميكانيكا I</string>
+    <string name="semester_1_subject_3_arabic">فزياء I</string>
+    <string name="semester_1_subject_4_arabic">كيمياء عامه</string>
+    <string name="semester_1_subject_5_arabic">مقدمه جيولوجيا</string>
+    <string name="semester_1_subject_6_arabic">مقدمه حاسب</string>
+    <string name="semester_1_subject_7_arabic">رسم هندسي و اسقاط</string>
+
+    <!-- subjects name for semester 2 -->
+    <string name="semester_2_subject_1_arabic">رياضيات II</string>
+    <string name="semester_2_subject_2_arabic">ميكانيكا II</string>
+    <string name="semester_2_subject_3_arabic">فزياء II</string>
+    <string name="semester_2_subject_4_arabic">مدخل هندسه الانتاج</string>
+    <string name="semester_2_subject_5_arabic">التاريخ الهندسي</string>
+    <string name="semester_2_subject_6_arabic">لغه انجليزيه I</string>
+
+    <!-- subjects name for semester 3 -->
+    <string name="semester_3_subject_1_arabic">رياضيات III</string>
+    <string name="semester_3_subject_2_arabic">فزياء III</string>
+    <string name="semester_3_subject_3_arabic">كيمياء فزيائيه</string>
+    <string name="semester_3_subject_4_arabic">مقاومه مواد</string>
+    <string name="semester_3_subject_5_arabic">علم الرسوبيات والطبقات</string>
+    <string name="semester_3_subject_6_arabic">برمجه حاسب</string>
+    <string name="semester_3_subject_7_arabic">لغه انجليزيه II</string>
+
+    <!-- subjects name for semester 4 -->
+    <string name="semester_4_subject_1_arabic">كيمياء عضويه</string>
+    <string name="semester_4_subject_2_arabic">جيولوجيا تركيبيه</string>
+    <string name="semester_4_subject_3_arabic">مساحه و طبوغرافيا</string>
+    <string name="semester_4_subject_4_arabic">مدحل هندسه علوم المواد</string>
+    <string name="semester_4_subject_5_arabic">مدخل هندسه البترول</string>
+    <string name="semester_4_subject_6_arabic">رسم هندسي و اوتوكاد</string>
+    <string name="semester_4_subject_7_arabic">حقوق انستم</string>
+
+    <!-- subjects name for semester 5 -->
+    <string name="semester_5_subject_1_arabic">كيمياء تحليليه</string>
+    <string name="semester_5_subject_2_arabic">ميكانيكا موائع</string>
+    <string name="semester_5_subject_3_arabic">خواص صخور الخزان</string>
+    <string name="semester_5_subject_4_arabic">هندسه كهربيه</string>
+    <string name="semester_5_subject_5_arabic">تحكم آلي</string>
+    <string name="semester_5_subject_6_arabic">معالجه غاز</string>
+    <string name="semester_5_subject_7_arabic">لغه انجليزيه III</string>
+
+    <!-- subjects name for semester 6 -->
+    <string name="semester_6_subject_1_arabic">هندسه حفر I</string>
+    <string name="semester_6_subject_2_arabic">ميكانيكا صخور</string>
+    <string name="semester_6_subject_3_arabic">ديناميكا حراريه</string>
+    <string name="semester_6_subject_4_arabic">خواص سوائل الخزان</string>
+    <string name="semester_6_subject_5_arabic">تقييم الزيت الخام</string>
+    <string name="semester_6_subject_6_arabic">اقتصاد و اداره</string>
+
+    <!-- subjects name for semester 7 -->
+    <string name="semester_7_subject_1_arabic">استكشاف جيوفزيائي I</string>
+    <string name="semester_7_subject_2_arabic">تقنيه الحفر الافقي</string>
+    <string name="semester_7_subject_3_arabic">جيولوجيا بترول</string>
+    <string name="semester_7_subject_4_arabic">تسجبلات ابار</string>
+    <string name="semester_7_subject_5_arabic">هندسه الغاز الطبيعي</string>
+    <string name="semester_7_subject_6_arabic">امن و سلامه مهنيه</string>
+
+    <!-- subjects name for semester 8 -->
+    <string name="semester_8_subject_1_arabic">استكشاف جيوفزيائي II</string>
+    <string name="semester_8_subject_2_arabic">هندسه انتاج البترول I</string>
+    <string name="semester_8_subject_3_arabic">معدات حفر وانتاج</string>
+    <string name="semester_8_subject_4_arabic">هندسه خزانات تطبيقيه</string>
+    <string name="semester_8_subject_5_arabic">استكمال ابار</string>
+    <string name="semester_8_subject_6_arabic">تقسسم المخاطر البيئيه</string>
+
+    <!-- subjects name for semester 9 -->
+    <string name="semester_9_subject_1_arabic">هندسه انتاج البترول II</string>
+    <string name="semester_9_subject_2_arabic">هندسه حفر II</string>
+    <string name="semester_9_subject_3_arabic">اختبارات ابار</string>
+    <string name="semester_9_subject_4_arabic">تطبيقات حاسب الي</string>
+    <string name="semester_9_subject_5_arabic">تحسين انتاج البترول</string>
+    <string name="semester_9_subject_6_arabic">اخلاقيات مهنه الهندسه</string>
+    <string name="semester_9_subject_7_arabic">مشروع التخرج</string>
+
+    <!-- subjects name for semester 10 -->
+    <string name="semester_10_subject_1_arabic">تصميم ابار البترول و الغاز</string>
+    <string name="semester_10_subject_2_arabic">تقييم طبقات</string>
+    <string name="semester_10_subject_3_arabic">نقل و تخزين الزيت و الغاز الطبيعي</string>
+    <string name="semester_10_subject_4_arabic">نمذجه خزانات</string>
+    <string name="semester_10_subject_5_arabic">تحفيز انتاجيه الابار</string>
+    <string name="semester_10_subject_6_arabic">علم الإداره و اتخاذ القرار</string>
+    <string name="semester_10_subject_7_arabic">مشروع التخرج</string>
+
+    <!-- other subjects -->
+    <string name="semester_0_subject_1_arabic">تآكل</string>
 
 
 
