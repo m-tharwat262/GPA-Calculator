@@ -1,6 +1,8 @@
 package com.example.android.explorationgpa.settings;
 
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.example.android.explorationgpa.R;
 import com.example.android.explorationgpa.SemesterInfo;
@@ -38,6 +41,20 @@ public class SubjectInfoActivity extends AppCompatActivity {
             // inflate the semester item.
             View semesterItem = View.inflate(this,R.layout.settings_semester_item, null);
 
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            String subjectLanguage = preferences.getString(getString(R.string.settings_subject_language_key),
+                    getString(R.string.settings_subject_language_default));
+
+            if ( !(subjectLanguage.equals(getString(R.string.settings_subject_language_default))) ) {
+                LinearLayout mainLinearLayout = semesterItem.findViewById(R.id.settings_semester_item_main_layout);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    mainLinearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                }
+            }
+
+            
 
             // show the semester number in the item.
             TextView semesterNumberTextView = semesterItem.findViewById(R.id.settings_semester_item_semester_number);
@@ -81,7 +98,7 @@ public class SubjectInfoActivity extends AppCompatActivity {
         ArrayList<SubjectInfoObject> subjectInfoObjects = new ArrayList<>();
 
         // get the subject names.
-        int[] allSubjectNamesResourceIds = SemesterInfo.getSubjectsOfSemester(semesterNumber);
+        int[] allSubjectNamesResourceIds = SemesterInfo.getSubjectsOfSemester(this, semesterNumber);
 
         // get the subject hours.
         double[] allSubjectHours = SemesterInfo.getHoursForSemester(semesterNumber);

@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_semester_item_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -29,6 +30,7 @@
             style="@style/subject_info_column_heads"
             android:text="@string/subject_name"
             android:layout_weight="4"
+            android:gravity="center"
             android:textSize="16sp" />
 
 
