@@ -1,12 +1,6 @@
 package com.example.android.explorationgpa;
 
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
-
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import com.example.android.explorationgpa.data.ExplorationContract.CumulativeGpaEntry;
 import com.example.android.explorationgpa.data.ExplorationContract.SemesterGpaEntry;
@@ -268,30 +268,6 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
         });
 
-
-    }
-
-
-    /**
-     * Convert all semester uris() from type String to Uri (ArrayList<String> to ArrayList<Uri>).
-     *
-     * @return ArrayList contain the semester uris as type Uri.
-     */
-    private ArrayList<Uri> convertStringsToUris(ArrayList<String> stringUris) {
-
-        // create the ArrayList that will store the uris inside it.
-        ArrayList<Uri> uris = new ArrayList<>();
-
-        // convert each String Uri in stringUris and put it inside uris ArrayList.
-        for (int i = 0 ; i < stringUris.size() ; i++) {
-
-            Uri stringUri = Uri.parse(stringUris.get(i));
-            uris.add(stringUri);
-
-        }
-
-        // return ArrayList contain the uris.
-        return uris;
 
     }
 
@@ -802,8 +778,10 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
                 // if the adapter has one or more item a vertical line will appear to separate
                 // between semester items and cumulative items.
-                if (itemNumbers > 0) {
-                    View verticalLine = findViewById(R.id.activity_gpa_vertical_line_between_list_views);
+                View verticalLine = findViewById(R.id.activity_gpa_vertical_line_between_list_views);
+                if (itemNumbers == 0) {
+                    verticalLine.setVisibility(View.GONE);
+                } else {
                     verticalLine.setVisibility(View.VISIBLE);
                 }
 
