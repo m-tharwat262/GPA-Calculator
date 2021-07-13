@@ -310,8 +310,9 @@
 
 
 
-    <!-- for subject_item.xml  -->
-    <string name="subject_hundred_degree">/100</string>
+    <!-- for subject_item.xml -->
+    <string name="subject_hundred_degree">/&#160;100</string>
+    <string name="subject_hundred_degree_for_arabic_language" translatable="false">\\&#160;100</string>
 
 
 

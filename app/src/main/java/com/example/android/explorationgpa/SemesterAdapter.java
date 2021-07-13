@@ -2,6 +2,9 @@ package com.example.android.explorationgpa;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -53,13 +57,37 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
         if (listItemView == null) {
 
-            // inflate the layout that contain the item view which we made to display the subject info.
 
+            boolean hasEnglishSubject = getSubjectLanguageFromPreference();
+
+
+            // inflate the layout that contain the item view which we made to display the subject info.
             if (mMode == MODE_ITEMS_FOR_CUMULATIVE_ACTIVITY) {
+
                 // use the item view made for display the semester info for cumulative activity.
-                listItemView = getCumulativeItemView();
+                listItemView = getCumulativeItemView(hasEnglishSubject);
+
             } else {
+
                 listItemView = LayoutInflater.from(mContext).inflate(R.layout.subject_item, parent, false);
+
+                // change in the views to be appropriate to the displaying the Arabic subject names.
+                if (!hasEnglishSubject) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+                        // reverse the direction in the layout.
+                        LinearLayout mainLinearLayout = listItemView.findViewById(R.id.subject_item_main_layout);
+                        mainLinearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+                        // make the symbol (/) appropriate to the Arabic direction (R TO L).
+                        TextView hundredTextView = listItemView.findViewById(R.id.subject_item_hundred_degree);
+                        hundredTextView.setText(R.string.subject_hundred_degree_for_arabic_language);
+
+                    }
+
+                }
+
             }
 
         }
@@ -230,10 +258,19 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
      *
      * @return the subject item well be used in the adapter.
      */
-    private View getCumulativeItemView() {
+    private View getCumulativeItemView(boolean hasEnglishSubject) {
 
         // inflate the subject_item.xml.
         final View view = View.inflate(mContext,R.layout.subject_item, null);
+
+
+        if (!hasEnglishSubject) {
+            LinearLayout mainLinearLayout = view.findViewById(R.id.subject_item_main_layout);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                mainLinearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            }
+        }
+
 
 
         // make the item height equal to the TextView that display the subject name.
@@ -259,6 +296,33 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
 
         // return the subject item.
         return view;
+
+    }
+
+
+    /**
+     * Check the preference settings and know the subject language that used in the app.
+     *
+     * @return a boolean value refer to if the language is English or not.
+     * true : refer to that the subject language is English.
+     * false : refer to that the subject language is not English (is Arabic).
+     */
+    private boolean getSubjectLanguageFromPreference() {
+
+        // initialize the Preference to get the preferences that saved in the settings.
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        // get the subject language from the preference settings.
+        String subjectLanguage = sharedPrefs.getString(
+                mContext.getString(R.string.settings_subject_language_key),
+                mContext.getString(R.string.settings_subject_language_default));
+
+        // if the subject language is English the method will return true.
+        if ( subjectLanguage.equals(mContext.getString(R.string.settings_subject_language_default)) ) {
+            return true;
+        }
+
+        return false;
 
     }
 
