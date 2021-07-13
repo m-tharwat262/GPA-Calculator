@@ -6,8 +6,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
-import androidx.preference.PreferenceManager;
 
 import com.example.android.explorationgpa.R;
 import com.example.android.explorationgpa.SemesterInfo;
@@ -113,14 +112,14 @@ public class SubjectOrderActivity extends AppCompatActivity {
     public int SENIOR_PROJECT_II;
 
     // (others subject).
-    public int CORROSION = R.string.semester_0_subject_1_english;
+    public int CORROSION;
 
 
     private static final String LOG_TAG = SubjectOrderActivity.class.getSimpleName(); // class name.
 
     private LinearLayout mMainLinearLayout; // the main layout of the activity.
 
-    private boolean isEnglishLanguage;
+    private boolean isEnglishLanguage; // the subject language that the app use.
 
 
     @Override
@@ -129,13 +128,16 @@ public class SubjectOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings_subject_order);
 
 
+        // initialize the subject names variable depend on the subject language that the app use.
         setSubjectNames();
 
+
+        // initialize the boolean variable that determine if the subject language tht the app use
+        // is English or not.
         isEnglishLanguage = setSubjectLanguagePreference();
 
-        Log.i(LOG_TAG, "the variable isEnglish has value  :  " + isEnglishLanguage);
 
-
+        // display a hint tell the user how the subject ordered in the layout.
         displayHintView();
 
 
@@ -151,15 +153,19 @@ public class SubjectOrderActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Display a hint tell the user how the subject ordered in the layout.
+     */
     private void displayHintView() {
 
-
+        // initialize the TextViw that will display the hint message.
         TextView hintTextView = findViewById(R.id.activity_setting_subject_order_hint_text_view);
 
+        // create Strings contain the two direction (left & right).
         String left = getString(R.string.word_left);
         String right = getString(R.string.word_right);
 
+        // create the hint message content depend on the subject language that the app use.
         String hintText;
         if (isEnglishLanguage) {
             hintText = getString(R.string.explain_the_subject_order, left, right);
@@ -167,6 +173,7 @@ public class SubjectOrderActivity extends AppCompatActivity {
             hintText = getString(R.string.explain_the_subject_order, right, left);
         }
 
+        // display the hint message on the screen.
         hintTextView.setText(hintText);
 
     }
@@ -473,18 +480,26 @@ public class SubjectOrderActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Check the preference settings and know the subject language that used in the app.
+     *
+     * @return a boolean value refer to if the language is English or not.
+     *          true : refer to that the subject language is English.
+     *          false : refer to that the subject language is not English (is Arabic).
+     */
     private boolean setSubjectLanguagePreference() {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // initialize the Preference to get the preferences that saved in the settings.
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String subjectLanguage = preferences.getString(getString(R.string.settings_subject_language_key),
+        // get the subject language from the preference settings.
+        String subjectLanguage = sharedPrefs.getString(
+                getString(R.string.settings_subject_language_key),
                 getString(R.string.settings_subject_language_default));
 
-
-        if ( (subjectLanguage.equals(getString(R.string.settings_subject_language_default))) ) {
-
+        // if the subject language is English the method will return true.
+        if ( subjectLanguage.equals(getString(R.string.settings_subject_language_default)) ) {
             return true;
-
         }
 
         return false;
@@ -496,10 +511,13 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
 
 
+    /**
+     * Initialize the subject names variable depend on the subject language that the app use.
+     */
     private void setSubjectNames() {
 
 
-        //
+        // get each semester subject names.
         int[] SEMESTER_1 = SemesterInfo.getSubjectsOfSemester(this, 1);
         int[] SEMESTER_2 = SemesterInfo.getSubjectsOfSemester(this, 2);
         int[] SEMESTER_3 = SemesterInfo.getSubjectsOfSemester(this, 3);

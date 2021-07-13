@@ -304,8 +304,8 @@ public class SemesterAdapter extends ArrayAdapter<SubjectObject> {
      * Check the preference settings and know the subject language that used in the app.
      *
      * @return a boolean value refer to if the language is English or not.
-     * true : refer to that the subject language is English.
-     * false : refer to that the subject language is not English (is Arabic).
+     *          true : refer to that the subject language is English.
+     *          false : refer to that the subject language is not English (is Arabic).
      */
     private boolean getSubjectLanguageFromPreference() {
 

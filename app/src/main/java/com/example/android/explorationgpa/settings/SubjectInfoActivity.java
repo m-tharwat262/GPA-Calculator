@@ -42,16 +42,22 @@ public class SubjectInfoActivity extends AppCompatActivity {
             View semesterItem = View.inflate(this,R.layout.settings_semester_item, null);
 
 
+            // initialize the Preference to get the preferences that saved in the settings.
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+            // get the subject language from the preference settings.
             String subjectLanguage = preferences.getString(getString(R.string.settings_subject_language_key),
                     getString(R.string.settings_subject_language_default));
 
+            // change in the views to be appropriate to the displaying the Arabic subject names.
             if ( !(subjectLanguage.equals(getString(R.string.settings_subject_language_default))) ) {
-                LinearLayout mainLinearLayout = semesterItem.findViewById(R.id.settings_semester_item_main_layout);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    // reverse the direction in the layout.
+                    LinearLayout mainLinearLayout = semesterItem.findViewById(R.id.settings_semester_item_main_layout);
                     mainLinearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                 }
+
             }
 
             
