@@ -1,35 +1,142 @@
 package com.example.android.explorationgpa.settings;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import com.example.android.explorationgpa.R;
+import com.example.android.explorationgpa.SemesterInfo;
 
 
 public class SubjectOrderActivity extends AppCompatActivity {
+
+
+    // all subject in semester (1).
+    public int MATHEMATICS_I;
+    public int MECHANICS_I;
+    public int PHYSICS_I;
+    public int GENERAL_CHEMISTRY;
+    public int INTRODUCTION_TO_GEOLOGY;
+    public int INTRODUCTION_TO_COMPUTER;
+    public int ENGINEERING_DRAWING_AND_PROJECTION;
+
+    // all subject in semester (2).
+    public int MATHEMATICS_II;
+    public int MECHANICS_II;
+    public int PHYSICS_II;
+    public int INTRODUCTION_TO_PRODUCTION_ENGINEERING;
+    public int HISTORY_OF_ENGINEERING;
+    public int TECHNICAL_ENGLISH_I;
+
+    // all subject in semester (3).
+    public int MATHEMATICS_III;
+    public int PHYSICS_III;
+    public int PHYSICAL_CHEMISTRY;
+    public int STRENGTH_OF_MATERIALS;
+    public int SEDIMENTOLOGY_AND_STRATIGRAPHY;
+    public int COMPUTER_PROGRAMMING;
+    public int TECHNICAL_ENGLISH_II;
+
+    // all subject in semester (4).
+    public int ORGANIC_CHEMISTRY;
+    public int STRUCTURE_GEOLOGY;
+    public int PLAN_SURVEYING_AND_TOPOGRAPHY;
+    public int INTRODUCTION_TO_MATERIAL;
+    public int INTRODUCTION_TO_PETROLEUM_ENGINEERING;
+    public int ENGINEERING_DRAWING_AND_AUTO_CAD;
+    public int HUMAN_RIGHTS;
+
+    // all subject in semester (5).
+    public int ANALYTICAL_CHEMISTRY;
+    public int FLUID_MECHANICS;
+    public int RESERVOIR_ROCK_PROPERTIES;
+    public int FUNDAMENTAL_OF_ELECTRICAL_ENGINEERING;
+    public int AUTOMATIC_CONTROL;
+    public int GAS_TREATMENT;
+    public int TECHNICAL_ENGLISH_III;
+
+    // all subject in semester (6).
+    public int DRILLING_ENGINEERING_I ;
+    public int ROCK_MECHANICS;
+    public int THERMODYNAMICS ;
+    public int RESERVOIR_FLUIDS_PROPERTIES;
+    public int CRUDE_OIL_EVALUATION;
+    public int ECONOMICS_AND_MANAGEMENT;
+
+    // all subject in semester (7).
+    public int EXPLORATION_GEOPHYSICS_I;
+    public int HORIZONTAL_DRILLING_TECHNOLOGY;
+    public int PETROLEUM_GEOLOGY;
+    public int WELL_LOGGING;
+    public int NATURAL_GAS_ENGINEERING;
+    public int SAFETY_AND_LABORS_LAW;
+
+    // all subject in semester (8).
+    public int EXPLORATION_GEOPHYSICS_II;
+    public int PETROLEUM_PRODUCTION_ENGINEERING_I;
+    public int DRILLING_AND_PRODUCTION_EQUIPMENTS;
+    public int APPLIED_RESERVOIR_ENGINEERING;
+    public int WELL_COMPLETION_ENGINEERING;
+    public int ENVIRONMENTAL_RISK_ASSESSMENT_IN_PETROLEUM_INDUSTRY;
+
+    // all subject in semester (9).
+    public int PETROLEUM_PRODUCTION_ENGINEERING_II;
+    public int DRILLING_ENGINEERING_II;
+    public int WELL_TESTING ;
+    public int COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER;
+    public int ENHANCED_OIL_RECOVERY;
+    public int ENGINEERING_ESTHETES;
+    public int SENIOR_PROJECT_I;
+
+    // all subject in semester (10).
+    public int WELL_DESIGN;
+    public int FORMATION_EVALUATION;
+    public int TRANSPORTING_AND_STORAGE_OF_OIL_AND_GAS;
+    public int RESERVOIR_SIMULATION;
+    public int FORMATION_STIMULATION;
+    public int MANAGEMENT_SCIENCE_AND_DETERMINATION_DECISION_MODELS;
+    public int SENIOR_PROJECT_II;
+
+    // (others subject).
+    public int CORROSION = R.string.semester_0_subject_1_english;
 
 
     private static final String LOG_TAG = SubjectOrderActivity.class.getSimpleName(); // class name.
 
     private LinearLayout mMainLinearLayout; // the main layout of the activity.
 
+    private boolean isEnglishLanguage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_subject_order);
+
+
+        setSubjectNames();
+
+        isEnglishLanguage = setSubjectLanguagePreference();
+
+        Log.i(LOG_TAG, "the variable isEnglish has value  :  " + isEnglishLanguage);
+
+
+        displayHintView();
 
 
         // initialize the main linear layout that we will put inside it
@@ -43,6 +150,26 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
     }
 
+
+
+    private void displayHintView() {
+
+
+        TextView hintTextView = findViewById(R.id.activity_setting_subject_order_hint_text_view);
+
+        String left = getString(R.string.word_left);
+        String right = getString(R.string.word_right);
+
+        String hintText;
+        if (isEnglishLanguage) {
+            hintText = getString(R.string.explain_the_subject_order, left, right);
+        } else {
+            hintText = getString(R.string.explain_the_subject_order, right, left);
+        }
+
+        hintTextView.setText(hintText);
+
+    }
 
 
     /**
@@ -173,6 +300,12 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // add the (right - left) side to the main LinearLayout.
         finalLinearLayout.addView(leftLayout);
         finalLinearLayout.addView(RightTextView);
+
+        if (!isEnglishLanguage) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                finalLinearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            }
+        }
 
 
         // return the main LinearLayout contains the (right - left) side.
@@ -339,6 +472,142 @@ public class SubjectOrderActivity extends AppCompatActivity {
 
     }
 
+
+    private boolean setSubjectLanguagePreference() {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String subjectLanguage = preferences.getString(getString(R.string.settings_subject_language_key),
+                getString(R.string.settings_subject_language_default));
+
+
+        if ( (subjectLanguage.equals(getString(R.string.settings_subject_language_default))) ) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+
+
+
+
+
+    private void setSubjectNames() {
+
+
+        //
+        int[] SEMESTER_1 = SemesterInfo.getSubjectsOfSemester(this, 1);
+        int[] SEMESTER_2 = SemesterInfo.getSubjectsOfSemester(this, 2);
+        int[] SEMESTER_3 = SemesterInfo.getSubjectsOfSemester(this, 3);
+        int[] SEMESTER_4 = SemesterInfo.getSubjectsOfSemester(this, 4);
+        int[] SEMESTER_5 = SemesterInfo.getSubjectsOfSemester(this, 5);
+        int[] SEMESTER_6 = SemesterInfo.getSubjectsOfSemester(this, 6);
+        int[] SEMESTER_7 = SemesterInfo.getSubjectsOfSemester(this, 7);
+        int[] SEMESTER_8 = SemesterInfo.getSubjectsOfSemester(this, 8);
+        int[] SEMESTER_9 = SemesterInfo.getSubjectsOfSemester(this, 9);
+        int[] SEMESTER_10 = SemesterInfo.getSubjectsOfSemester(this, 10);
+
+
+
+        // all subject in semester (1).
+        MATHEMATICS_I = SEMESTER_1[0];
+        MECHANICS_I = SEMESTER_1[1];
+        PHYSICS_I = SEMESTER_1[2];
+        GENERAL_CHEMISTRY = SEMESTER_1[3];
+        INTRODUCTION_TO_GEOLOGY = SEMESTER_1[4];
+        INTRODUCTION_TO_COMPUTER = SEMESTER_1[5];
+        ENGINEERING_DRAWING_AND_PROJECTION = SEMESTER_1[6];
+
+        // all subject in semester (2).
+        MATHEMATICS_II = SEMESTER_2[0];
+        MECHANICS_II = SEMESTER_2[1];
+        PHYSICS_II = SEMESTER_2[2];
+        INTRODUCTION_TO_PRODUCTION_ENGINEERING = SEMESTER_2[3];
+        HISTORY_OF_ENGINEERING = SEMESTER_2[4];
+        TECHNICAL_ENGLISH_I = SEMESTER_2[5];
+
+        // all subject in semester (3).
+        MATHEMATICS_III = SEMESTER_3[0];
+        PHYSICS_III = SEMESTER_3[1];
+        PHYSICAL_CHEMISTRY = SEMESTER_3[2];
+        STRENGTH_OF_MATERIALS = SEMESTER_3[3];
+        SEDIMENTOLOGY_AND_STRATIGRAPHY = SEMESTER_3[4];
+        COMPUTER_PROGRAMMING = SEMESTER_3[5];
+        TECHNICAL_ENGLISH_II = SEMESTER_3[6];
+
+        // all subject in semester (4).
+        ORGANIC_CHEMISTRY = SEMESTER_4[0];
+        STRUCTURE_GEOLOGY = SEMESTER_4[1];
+        PLAN_SURVEYING_AND_TOPOGRAPHY = SEMESTER_4[2];
+        INTRODUCTION_TO_MATERIAL = SEMESTER_4[3];
+        INTRODUCTION_TO_PETROLEUM_ENGINEERING = SEMESTER_4[4];
+        ENGINEERING_DRAWING_AND_AUTO_CAD = SEMESTER_4[5];
+        HUMAN_RIGHTS = SEMESTER_4[6];
+
+        // all subject in semester (5).
+        ANALYTICAL_CHEMISTRY = SEMESTER_5[0];
+        FLUID_MECHANICS = SEMESTER_5[1];
+        RESERVOIR_ROCK_PROPERTIES = SEMESTER_5[2];
+        FUNDAMENTAL_OF_ELECTRICAL_ENGINEERING = SEMESTER_5[3];
+        AUTOMATIC_CONTROL = SEMESTER_5[4];
+        GAS_TREATMENT = SEMESTER_5[5];
+        TECHNICAL_ENGLISH_III = SEMESTER_5[6];
+
+        // all subject in semester (6).
+        DRILLING_ENGINEERING_I = SEMESTER_6[0];
+        ROCK_MECHANICS = SEMESTER_6[1];
+        THERMODYNAMICS = SEMESTER_6[2];
+        RESERVOIR_FLUIDS_PROPERTIES = SEMESTER_6[3];
+        CRUDE_OIL_EVALUATION = SEMESTER_6[4];
+        ECONOMICS_AND_MANAGEMENT = SEMESTER_6[5];
+
+        // all subject in semester (7).
+        EXPLORATION_GEOPHYSICS_I = SEMESTER_7[0];
+        HORIZONTAL_DRILLING_TECHNOLOGY = SEMESTER_7[1];
+        PETROLEUM_GEOLOGY = SEMESTER_7[2];
+        WELL_LOGGING = SEMESTER_7[3];
+        NATURAL_GAS_ENGINEERING = SEMESTER_7[4];
+        SAFETY_AND_LABORS_LAW = SEMESTER_7[5];
+
+        // all subject in semester (8).
+        EXPLORATION_GEOPHYSICS_II = SEMESTER_8[0];
+        PETROLEUM_PRODUCTION_ENGINEERING_I = SEMESTER_8[1];
+        DRILLING_AND_PRODUCTION_EQUIPMENTS = SEMESTER_8[2];
+        APPLIED_RESERVOIR_ENGINEERING = SEMESTER_8[3];
+        WELL_COMPLETION_ENGINEERING = SEMESTER_8[4];
+        ENVIRONMENTAL_RISK_ASSESSMENT_IN_PETROLEUM_INDUSTRY = SEMESTER_8[5];
+
+        // all subject in semester (9).
+        PETROLEUM_PRODUCTION_ENGINEERING_II = SEMESTER_9[0];
+        DRILLING_ENGINEERING_II = SEMESTER_9[1];
+        WELL_TESTING = SEMESTER_9[2];
+        COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER = SEMESTER_9[3];
+        ENHANCED_OIL_RECOVERY = SEMESTER_9[4];
+        ENGINEERING_ESTHETES = SEMESTER_9[5];
+        SENIOR_PROJECT_I = SEMESTER_9[6];
+
+        // all subject in semester (10).
+        WELL_DESIGN = SEMESTER_10[0];
+        FORMATION_EVALUATION = SEMESTER_10[1];
+        TRANSPORTING_AND_STORAGE_OF_OIL_AND_GAS = SEMESTER_10[2];
+        RESERVOIR_SIMULATION = SEMESTER_10[3];
+        FORMATION_STIMULATION = SEMESTER_10[4];
+        MANAGEMENT_SCIENCE_AND_DETERMINATION_DECISION_MODELS = SEMESTER_10[5];
+        SENIOR_PROJECT_II = SEMESTER_10[6];
+
+        // (others subject).
+        if (isEnglishLanguage) {
+            CORROSION = R.string.semester_0_subject_1_english;
+        } else {
+            CORROSION = R.string.semester_0_subject_1_arabic;
+        }
+
+
+    }
 
 
 
@@ -550,9 +819,14 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.MECHANICS_I,
-                SubjectNames.MECHANICS_II);
+                MECHANICS_I,
+                MECHANICS_II);
 
+        if (!isEnglishLanguage) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                linearLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            }
+        }
 
         // add the display linear layout above to the main linear layout in the activity to appear
         // on the screen.
@@ -570,8 +844,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.MATHEMATICS_I,
-                SubjectNames.MATHEMATICS_II);
+                MATHEMATICS_I,
+                MATHEMATICS_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -590,8 +864,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.PHYSICS_I,
-                SubjectNames.PHYSICS_II);
+                PHYSICS_I,
+                PHYSICS_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -613,9 +887,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.MATHEMATICS_I,
-                SubjectNames.MATHEMATICS_II,
-                SubjectNames.MATHEMATICS_III);
+                MATHEMATICS_I,
+                MATHEMATICS_II,
+                MATHEMATICS_III);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -634,9 +908,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.PHYSICS_I,
-                SubjectNames.PHYSICS_II,
-                SubjectNames.PHYSICS_III);
+                PHYSICS_I,
+                PHYSICS_II,
+                PHYSICS_III);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -655,8 +929,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.GENERAL_CHEMISTRY,
-                SubjectNames.PHYSICAL_CHEMISTRY);
+                GENERAL_CHEMISTRY,
+                PHYSICAL_CHEMISTRY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -675,8 +949,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -695,8 +969,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_COMPUTER,
-                SubjectNames.COMPUTER_PROGRAMMING);
+                INTRODUCTION_TO_COMPUTER,
+                COMPUTER_PROGRAMMING);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -715,8 +989,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.TECHNICAL_ENGLISH_I,
-                SubjectNames.TECHNICAL_ENGLISH_II);
+                TECHNICAL_ENGLISH_I,
+                TECHNICAL_ENGLISH_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -738,8 +1012,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.STRUCTURE_GEOLOGY);
+                INTRODUCTION_TO_GEOLOGY,
+                STRUCTURE_GEOLOGY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -758,8 +1032,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.GENERAL_CHEMISTRY,
-                SubjectNames.ORGANIC_CHEMISTRY);
+                GENERAL_CHEMISTRY,
+                ORGANIC_CHEMISTRY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -778,8 +1052,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.ENGINEERING_DRAWING_AND_PROJECTION,
-                SubjectNames.ENGINEERING_DRAWING_AND_AUTO_CAD);
+                ENGINEERING_DRAWING_AND_PROJECTION,
+                ENGINEERING_DRAWING_AND_AUTO_CAD);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -801,11 +1075,11 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -824,8 +1098,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_MATERIAL,
-                SubjectNames.CORROSION);
+                INTRODUCTION_TO_MATERIAL,
+                CORROSION);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -844,9 +1118,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.TECHNICAL_ENGLISH_I,
-                SubjectNames.TECHNICAL_ENGLISH_II,
-                SubjectNames.TECHNICAL_ENGLISH_III);
+                TECHNICAL_ENGLISH_I,
+                TECHNICAL_ENGLISH_II,
+                TECHNICAL_ENGLISH_III);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -868,8 +1142,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_FLUIDS_PROPERTIES);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -888,10 +1162,10 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.DRILLING_ENGINEERING_I);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                DRILLING_ENGINEERING_I);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -910,8 +1184,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.CRUDE_OIL_EVALUATION);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                CRUDE_OIL_EVALUATION);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -933,9 +1207,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_COMPUTER,
-                SubjectNames.COMPUTER_PROGRAMMING,
-                SubjectNames.COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER);
+                INTRODUCTION_TO_COMPUTER,
+                COMPUTER_PROGRAMMING,
+                COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -954,10 +1228,10 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.PETROLEUM_GEOLOGY);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                PETROLEUM_GEOLOGY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -976,9 +1250,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
-                SubjectNames.NATURAL_GAS_ENGINEERING);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_FLUIDS_PROPERTIES,
+                NATURAL_GAS_ENGINEERING);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -997,10 +1271,10 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.EXPLORATION_GEOPHYSICS_I);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                EXPLORATION_GEOPHYSICS_I);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1019,11 +1293,11 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.DRILLING_ENGINEERING_I,
-                SubjectNames.HORIZONTAL_DRILLING_TECHNOLOGY);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                DRILLING_ENGINEERING_I,
+                HORIZONTAL_DRILLING_TECHNOLOGY);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1045,8 +1319,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.DRILLING_AND_PRODUCTION_EQUIPMENTS);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                DRILLING_AND_PRODUCTION_EQUIPMENTS);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1065,8 +1339,8 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_I);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                PETROLEUM_PRODUCTION_ENGINEERING_I);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1085,11 +1359,11 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.EXPLORATION_GEOPHYSICS_I,
-                SubjectNames.EXPLORATION_GEOPHYSICS_II);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                EXPLORATION_GEOPHYSICS_I,
+                EXPLORATION_GEOPHYSICS_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1108,13 +1382,13 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
-                SubjectNames.DRILLING_ENGINEERING_I,
-                SubjectNames.WELL_COMPLETION_ENGINEERING);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES,
+                DRILLING_ENGINEERING_I,
+                WELL_COMPLETION_ENGINEERING);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1133,13 +1407,13 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
-                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
-                SubjectNames.APPLIED_RESERVOIR_ENGINEERING);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES,
+                RESERVOIR_FLUIDS_PROPERTIES,
+                APPLIED_RESERVOIR_ENGINEERING);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1161,9 +1435,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_I,
-                SubjectNames.PETROLEUM_PRODUCTION_ENGINEERING_II);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                PETROLEUM_PRODUCTION_ENGINEERING_I,
+                PETROLEUM_PRODUCTION_ENGINEERING_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1182,13 +1456,13 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
-                SubjectNames.DRILLING_ENGINEERING_I,
-                SubjectNames.WELL_LOGGING);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES,
+                DRILLING_ENGINEERING_I,
+                WELL_LOGGING);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1207,11 +1481,11 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.DRILLING_ENGINEERING_I,
-                SubjectNames.DRILLING_ENGINEERING_II);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                DRILLING_ENGINEERING_I,
+                DRILLING_ENGINEERING_II);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1230,14 +1504,14 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
-                SubjectNames.RESERVOIR_FLUIDS_PROPERTIES,
-                SubjectNames.APPLIED_RESERVOIR_ENGINEERING,
-                SubjectNames.FORMATION_STIMULATION);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES,
+                RESERVOIR_FLUIDS_PROPERTIES,
+                APPLIED_RESERVOIR_ENGINEERING,
+                FORMATION_STIMULATION);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1259,9 +1533,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.DRILLING_AND_PRODUCTION_EQUIPMENTS,
-                SubjectNames.WELL_DESIGN);
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                DRILLING_AND_PRODUCTION_EQUIPMENTS,
+                WELL_DESIGN);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1280,9 +1554,9 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_COMPUTER,
-                SubjectNames.COMPUTER_PROGRAMMING,
-                SubjectNames.RESERVOIR_SIMULATION);
+                INTRODUCTION_TO_COMPUTER,
+                COMPUTER_PROGRAMMING,
+                RESERVOIR_SIMULATION);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1301,14 +1575,14 @@ public class SubjectOrderActivity extends AppCompatActivity {
         // first one : the required subjects must be studied.
         // second one : the subject that finished the part above allow the student to start study it.
         LinearLayout linearLayout = getSubjectsLayout(
-                SubjectNames.INTRODUCTION_TO_GEOLOGY,
-                SubjectNames.SEDIMENTOLOGY_AND_STRATIGRAPHY,
-                SubjectNames.STRUCTURE_GEOLOGY,
-                SubjectNames.INTRODUCTION_TO_PETROLEUM_ENGINEERING,
-                SubjectNames.RESERVOIR_ROCK_PROPERTIES,
-                SubjectNames.CRUDE_OIL_EVALUATION,
-                SubjectNames.WELL_LOGGING,
-                SubjectNames.FORMATION_EVALUATION);
+                INTRODUCTION_TO_GEOLOGY,
+                SEDIMENTOLOGY_AND_STRATIGRAPHY,
+                STRUCTURE_GEOLOGY,
+                INTRODUCTION_TO_PETROLEUM_ENGINEERING,
+                RESERVOIR_ROCK_PROPERTIES,
+                CRUDE_OIL_EVALUATION,
+                WELL_LOGGING,
+                FORMATION_EVALUATION);
 
 
         // add the display linear layout above to the main linear layout in the activity to appear
@@ -1316,119 +1590,6 @@ public class SubjectOrderActivity extends AppCompatActivity {
         mMainLinearLayout.addView(linearLayout);
 
     }
-
-
-
-
-
-
-
-    // inner class contain all subject names (resource ids).
-    private static class SubjectNames {
-
-
-        // all subject in semester (1).
-        public static final int MATHEMATICS_I = R.string.semester_1_subject_1;
-        public static final int MECHANICS_I = R.string.semester_1_subject_2;
-        public static final int PHYSICS_I = R.string.semester_1_subject_3;
-        public static final int GENERAL_CHEMISTRY = R.string.semester_1_subject_4;
-        public static final int INTRODUCTION_TO_GEOLOGY = R.string.semester_1_subject_5;
-        public static final int INTRODUCTION_TO_COMPUTER = R.string.semester_1_subject_6;
-        public static final int ENGINEERING_DRAWING_AND_PROJECTION = R.string.semester_1_subject_7;
-
-
-        // all subject in semester (2).
-        public static final int MATHEMATICS_II = R.string.semester_2_subject_1;
-        public static final int MECHANICS_II = R.string.semester_2_subject_2;
-        public static final int PHYSICS_II = R.string.semester_2_subject_3;
-        public static final int INTRODUCTION_TO_PRODUCTION_ENGINEERING = R.string.semester_2_subject_4;
-        public static final int HISTORY_OF_ENGINEERING = R.string.semester_1_subject_1;
-        public static final int TECHNICAL_ENGLISH_I = R.string.semester_2_subject_6;
-
-
-        // all subject in semester (3).
-        public static final int MATHEMATICS_III = R.string.semester_3_subject_1;
-        public static final int PHYSICS_III = R.string.semester_3_subject_2;
-        public static final int PHYSICAL_CHEMISTRY = R.string.semester_3_subject_3;
-        public static final int STRENGTH_OF_MATERIALS = R.string.semester_3_subject_4;
-        public static final int SEDIMENTOLOGY_AND_STRATIGRAPHY = R.string.semester_3_subject_5;
-        public static final int COMPUTER_PROGRAMMING = R.string.semester_3_subject_6;
-        public static final int TECHNICAL_ENGLISH_II = R.string.semester_3_subject_7;
-
-
-        // all subject in semester (4).
-        public static final int ORGANIC_CHEMISTRY = R.string.semester_4_subject_1;
-        public static final int STRUCTURE_GEOLOGY = R.string.semester_4_subject_2;
-        public static final int PLAN_SURVEYING_AND_TOPOGRAPHY = R.string.semester_4_subject_3;
-        public static final int INTRODUCTION_TO_MATERIAL = R.string.semester_4_subject_4;
-        public static final int INTRODUCTION_TO_PETROLEUM_ENGINEERING = R.string.semester_4_subject_5;
-        public static final int ENGINEERING_DRAWING_AND_AUTO_CAD = R.string.semester_4_subject_6;
-        public static final int HUMAN_RIGHTS = R.string.semester_4_subject_7;
-
-
-        // all subject in semester (5).
-        public static final int ANALYTICAL_CHEMISTRY = R.string.semester_5_subject_1;
-        public static final int FLUID_MECHANICS = R.string.semester_5_subject_2;
-        public static final int RESERVOIR_ROCK_PROPERTIES = R.string.semester_5_subject_3;
-        public static final int FUNDAMENTAL_OF_ELECTRICAL_ENGINEERING = R.string.semester_5_subject_4;
-        public static final int AUTOMATIC_CONTROL = R.string.semester_5_subject_5;
-        public static final int GAS_TREATMENT = R.string.semester_5_subject_6;
-        public static final int TECHNICAL_ENGLISH_III = R.string.semester_5_subject_7;
-
-
-        // all subject in semester (6).
-        public static final int DRILLING_ENGINEERING_I = R.string.semester_6_subject_1;
-        public static final int ROCK_MECHANICS = R.string.semester_6_subject_2;
-        public static final int THERMODYNAMICS = R.string.semester_6_subject_3;
-        public static final int RESERVOIR_FLUIDS_PROPERTIES = R.string.semester_6_subject_4;
-        public static final int CRUDE_OIL_EVALUATION = R.string.semester_6_subject_5;
-        public static final int ECONOMICS_AND_MANAGEMENT = R.string.semester_6_subject_6;
-
-
-        // all subject in semester (7).
-        public static final int EXPLORATION_GEOPHYSICS_I = R.string.semester_7_subject_1;
-        public static final int HORIZONTAL_DRILLING_TECHNOLOGY = R.string.semester_7_subject_2;
-        public static final int PETROLEUM_GEOLOGY = R.string.semester_7_subject_3;
-        public static final int WELL_LOGGING = R.string.semester_7_subject_4;
-        public static final int NATURAL_GAS_ENGINEERING = R.string.semester_7_subject_5;
-        public static final int SAFETY_AND_LABORS_LAW = R.string.semester_7_subject_6;
-
-
-        // all subject in semester (8).
-        public static final int EXPLORATION_GEOPHYSICS_II = R.string.semester_8_subject_1;
-        public static final int PETROLEUM_PRODUCTION_ENGINEERING_I = R.string.semester_8_subject_2;
-        public static final int DRILLING_AND_PRODUCTION_EQUIPMENTS = R.string.semester_8_subject_3;
-        public static final int APPLIED_RESERVOIR_ENGINEERING = R.string.semester_8_subject_4;
-        public static final int WELL_COMPLETION_ENGINEERING = R.string.semester_8_subject_5;
-        public static final int ENVIRONMENTAL_RISK_ASSESSMENT_IN_PETROLEUM_INDUSTRY = R.string.semester_8_subject_6;
-
-
-        // all subject in semester (9).
-        public static final int PETROLEUM_PRODUCTION_ENGINEERING_II = R.string.semester_9_subject_1;
-        public static final int DRILLING_ENGINEERING_II = R.string.semester_9_subject_2;
-        public static final int WELL_TESTING = R.string.semester_9_subject_3;
-        public static final int COMPUTER_APPLICATION_IN_PETROLEUM_ENGINEER = R.string.semester_9_subject_4;
-        public static final int ENHANCED_OIL_RECOVERY = R.string.semester_9_subject_5;
-        public static final int ENGINEERING_ESTHETES = R.string.semester_9_subject_6;
-        public static final int SENIOR_PROJECT_I = R.string.semester_9_subject_7;
-
-
-        // all subject in semester (10).
-        public static final int WELL_DESIGN = R.string.semester_10_subject_1;
-        public static final int FORMATION_EVALUATION = R.string.semester_10_subject_2;
-        public static final int TRANSPORTING_AND_STORAGE_OF_OIL_AND_GAS = R.string.semester_10_subject_3;
-        public static final int RESERVOIR_SIMULATION = R.string.semester_10_subject_4;
-        public static final int FORMATION_STIMULATION = R.string.semester_10_subject_5;
-        public static final int MANAGEMENT_SCIENCE_AND_DETERMINATION_DECISION_MODELS = R.string.semester_10_subject_6;
-        public static final int SENIOR_PROJECT_II = R.string.semester_10_subject_7;
-
-
-        // (others subject).
-        public static final int CORROSION = R.string.semester_0_subject_1;
-
-
-    }
-
 
 
 }

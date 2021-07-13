@@ -24,11 +24,11 @@
             android:layout_margin="16dp"
             android:padding="8dp"
             android:gravity="center"
-            android:text="@string/explain_the_subject_order"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:background="@drawable/curve_border" />
+            android:background="@drawable/curve_border"
+            tools:text="@string/explain_the_subject_order" />
 
 
     </LinearLayout>
