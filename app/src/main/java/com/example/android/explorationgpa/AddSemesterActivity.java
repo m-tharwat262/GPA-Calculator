@@ -108,6 +108,9 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         if (semesterUri == null) {
             // start the first mode for the activity to add a new semester.
             startMode0();
+
+            // recreate the menu again to show save icon and hide both edit and delete icons.
+            invalidateOptionsMenu();
         } else {
             // rename the activity title name to be "Display Semester".
             setTitle(R.string.activity_display_mode);
@@ -912,6 +915,8 @@ public class AddSemesterActivity extends AppCompatActivity implements LoaderMana
         // the mode (3).
         if (cursor.moveToFirst()) {
             startMode3(cursor);
+            // recreate the menu again to show save icon and hide both edit and delete icons.
+            invalidateOptionsMenu();
         }
 
     }

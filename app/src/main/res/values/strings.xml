@@ -608,7 +608,7 @@
 
 
 
-    <!-- For menu_add_semester.xml -->
+    <!-- For menu_database_actions.xml -->
 
     <!-- save icon  button -->
     <string name="action_save">Save</string>
@@ -617,8 +617,7 @@
     <string name="action_delete">Delete</string>
 
     <!-- edit icon button -->
-    <string name="action_edit">Delete</string>
-
+    <string name="action_edit">Edit</string>
 
 
 </resources>
