@@ -1,8 +1,6 @@
 package com.example.android.explorationgpa;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class InfoActivity extends AppCompatActivity {
@@ -74,7 +74,7 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // open the AddSemesterActivity
+                // open the AddSemesterActivity.
                 Intent intent = new Intent(InfoActivity.this, AddSemesterActivity.class);
                 intent = makeContentsOfIntent(intent); // get the intent contain the info which will be send.
                 startActivity(intent);
@@ -133,6 +133,8 @@ public class InfoActivity extends AppCompatActivity {
      * setup the two radio buttons fot terms (1-2) and know which radio buttons the user select.
      */
     private void setupSemesterRadio() {
+
+        mTerm = 1;
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -197,6 +199,30 @@ public class InfoActivity extends AppCompatActivity {
         intent.putExtra("term_number",mTerm); // for number of the term.
 
         return intent;
+    }
+
+
+
+    private void checkSelectedTerm() {
+
+
+
+
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                // find which radio button is selected.
+                if(checkedId == R.id.activity_info_radio_first) {
+                    mTerm = 1;
+                } else if (checkedId == R.id.activity_info_radio_second){
+                    mTerm = 2;
+                }
+            }
+
+        });
+
     }
 
 
