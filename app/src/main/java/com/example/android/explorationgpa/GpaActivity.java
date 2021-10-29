@@ -70,6 +70,9 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setContentView(R.layout.activity_gpa);
 
 
+        checkUpdate();
+
+
 
         // to access to the preference settings.
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -805,6 +808,48 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    private void checkUpdate() {
+
+        long currentSystemTime = System.currentTimeMillis();
+
+        long unixNumberFor30AugustMonth = 1630274400;
+        Log.i(LOG_TAG, "the unix number that comes from the system :  " +
+                (currentSystemTime/1000) + "   " + unixNumberFor30AugustMonth);
+        if ((currentSystemTime/1000)  > unixNumberFor30AugustMonth) {
+
+
+            showForceUpdateDialog();
+
+        }
+
+    }
+
+    public void showForceUpdateDialog(){
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle("Sorry...!");
+        alertDialogBuilder.setMessage("this version of the app no longer available");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        alertDialogBuilder.show();
+    }
 
 
 }

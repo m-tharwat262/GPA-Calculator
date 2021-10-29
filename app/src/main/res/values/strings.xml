@@ -325,7 +325,7 @@
     <string name="semester_total_gpa">Semester Total Gpa =</string>
 
     <!-- Title text for the empty view, which describes the empty semesters image [CHAR LIMIT=50] -->
-    <string name="empty_view_title_text_for_image">It\'s a bit lonely here…</string>
+    <string name="empty_view_title_text_for_image">It\'s empty here…</string>
 
     <!-- Title text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
     <string name="empty_view_title_text_for_add_semester">Get started by adding a semester</string>
@@ -355,6 +355,7 @@
     <!-- for activity_settings_gpa_calculation.xml -->
 
     <!-- word hint in the layout -->
+    <string name="hint_number">Hint</string>
     <string name="hint_number_1">Hint (1)</string>
     <string name="hint_number_2">Hint (2)</string>
     <string name="hint_number_3">Hint (3)</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".settings.SubjectOrderActivity" >
 
 
@@ -16,19 +17,47 @@
         android:orientation="vertical" >
 
 
-        <!-- hint the user about how order subjects in the activity -->
-        <TextView
-            android:id="@+id/activity_setting_subject_order_hint_text_view"
+<!--        &lt;!&ndash; hint the user about how order subjects in the activity &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/activity_setting_subject_order_hint_text_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:padding="8dp"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:background="@drawable/curve_border"-->
+<!--            tools:text="@string/explain_the_subject_order" />-->
+
+
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:background="@drawable/curve_border"
-            tools:text="@string/explain_the_subject_order" />
+            android:layout_margin="16dp">
+
+
+
+            <!-- the hint (1) contain -->
+            <TextView
+                style="@style/Settings_hint_content_text"
+                android:id="@+id/activity_setting_subject_order_hint_text_view"
+                android:layout_marginTop="12dp"
+                android:padding="16dp"
+                android:background="@drawable/curved_border_transparent"
+                android:text="@string/explain_the_subject_order" />
+
+
+            <!-- the word (Hint) label -->
+            <TextView
+                style="@style/Settings_word_hint"
+                android:layout_alignParentTop="true"
+                android:text="@string/hint_number" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
