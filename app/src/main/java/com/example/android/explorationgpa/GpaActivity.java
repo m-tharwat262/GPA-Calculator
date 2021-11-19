@@ -70,7 +70,7 @@ public class GpaActivity extends AppCompatActivity implements LoaderManager.Load
         setContentView(R.layout.activity_gpa);
 
 
-        checkUpdate();
+//        checkUpdate();
 
 
 
