@@ -55,5 +55,5 @@ You can update or edit any semester by updating the subject degree
 
 
 ## Download
-You can download the app from [here.](https://raw.githubusercontent.com/m-tharwat262/PetroleumProduction/master/apk/gpa_calculator_apk.apk)
+You can download the app from [here.](apk/gpa_calculator_apk.apk)
 
