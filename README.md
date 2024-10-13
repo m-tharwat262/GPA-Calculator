@@ -32,7 +32,25 @@ After calculating your GPA in each semester you can select the semesters you wan
 You can update or edit any semester by updating the subject degree
 
 <div style="display: flex; justify-content: center;">
-  <img src="screenshots/edit_semester_data" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/edit_semester_data.png" width="150" style="margin-right: 20px;" />
+</div>
+
+
+## Settings Section
+1. The student can change his name and academic id.
+2. The student can change the subject language that appears in the app between (English & Arabic).
+3. Show how the GPA calculation is done.
+4. Show subject information for each semester (subject hours and success degree).
+5. Show the subject's order (the subject you must study before studying others).
+
+<div style="display: flex; justify-content: center;">
+  <img src="screenshots/how_to_open_settings.png" alt="Open Settings" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/settings_preview.png" alt="Settings Preview" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/change subject language.png" alt="Change Subject Language" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/gpa_calculation.png" alt="GPA Calculation Preview" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/gpa_calculation.png" alt="GPA Calculation Preview2" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/subjects informations.png" alt="Subjects Informations Preview" width="150" style="margin-right: 20px;" />
+  <img src="screenshots/subjects order.png" alt="Subjects Order Preview" width="150" style="margin-right: 20px;" />
 </div>
 
 
